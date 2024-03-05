@@ -2,16 +2,40 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 html,
 body {
-  min-height: 100vh;
+  margin-top: 100px;
+  min-height: calc(100vh - 100px);
 }
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #282c3f;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
 p,
 h1 {
   margin: 0;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
 }
 
 .text-blue {

@@ -7,13 +7,24 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SharedModule } from "src/codeokk/shared/shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { HomepageComponent } from './modules/homepage/homepage.component';
-import { FiltersComponent } from './modules/filters/filters.component';
-import { PostMenuComponent } from './modules/post-menu/post-menu.component';
+import { FiltersComponent } from "./modules/filters/filters.component";
+import { PostMenuComponent } from "./modules/post-menu/post-menu.component";
+import { HomeComponent } from "./modules/home/home.component";
+import { FilteredPostsComponent } from "./modules/filtered-posts/filtered-posts.component";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { ProductDetailsComponent } from './modules/product-details/product-details.component';
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, FiltersComponent, PostMenuComponent],
+  declarations: [
+    AppComponent,
+    FiltersComponent,
+    PostMenuComponent,
+    HomeComponent,
+    FilteredPostsComponent,
+    ProductDetailsComponent,
+  ],
   imports: [
+    MatSlideToggleModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -21,7 +32,6 @@ import { PostMenuComponent } from './modules/post-menu/post-menu.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-
   bootstrap: [AppComponent],
 })
 export class AppModule {}

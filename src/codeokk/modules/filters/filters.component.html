@@ -1,1 +1,133 @@
-<p>filters works!</p>
+<div class="filters">
+  <div class="filter-head">
+    <span class="head-title">FILTERS</span>
+  </div>
+  <div class="filter-categories">
+    <span class="filter-title">Categories</span>
+    <ul class="categories-list">
+      <li>
+        <label for="" class="custom-checkbox">
+          <input type="checkbox" value="T-shirts" />
+          T-shirts
+          <span class="categories-num">(125431)</span>
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+      <li>
+        <label for="" class="custom-checkbox">
+          <input type="checkbox" value="Lounge T-shirts" />
+          Lounge T-shirts
+          <span class="categories-num">(125431)</span>
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="filter-brands">
+    <span class="filter-title">Brand</span>
+    <div
+      class="filter-searchbox"
+      [class.filter-search-expanded]="brandsExpanded"
+    >
+      <input
+        type="text"
+        class="search-inputBox"
+        placeholder="Search for Brands"
+        [class.search-hidden]="!brandsExpanded"
+      />
+      <span
+        class="material-icons-outlined search-icon"
+        (click)="toggleBrandsSearch()"
+      >
+        {{ brandsExpanded ? "clear" : "search" }}
+      </span>
+    </div>
+    <ul class="brands-list">
+      <li>
+        <label for="" class="custom-checkbox">
+          <input type="checkbox" value="Roadster" />
+          Roadster
+          <span class="categories-num">(125431)</span>
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+      <li>
+        <label for="" class="custom-checkbox">
+          <input type="checkbox" value="Friskers" />
+          Friskers
+          <span class="categories-num">(125431)</span>
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+      <li>
+        <label for="" class="custom-checkbox">
+          <input type="checkbox" value="Gucci" />
+          Gucci
+          <span class="categories-num">(125431)</span>
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="filter-colors">
+    <span class="filter-title">Color</span>
+    <div
+      class="filter-searchbox"
+      [class.filter-search-expanded]="colorsExpanded"
+    >
+      <input
+        type="text"
+        class="search-inputBox search-hidden"
+        placeholder="Search for Colors"
+        [class.search-hidden]="!colorsExpanded"
+      />
+      <span
+        class="material-icons-outlined search-icon"
+        (click)="toggleColorsSearch()"
+      >
+        {{ colorsExpanded ? "clear" : "search" }}
+      </span>
+    </div>
+    <ul>
+      <li class="color-item">
+        <label for="" class="custom-checkbox">
+          <span
+            data-colorhex="black"
+            class="colour-label colour-colorDisplay"
+            style="background-color: rgb(54, 69, 79)"
+          ></span>
+          Black
+          <span class="colour-num">(125431)</span>
+          <input type="checkbox" value="Black" />
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+      <li class="color-item">
+        <label for="" class="custom-checkbox">
+          <span
+            data-colorhex="blue"
+            class="colour-label colour-colorDisplay"
+            style="background-color: rgb(0, 116, 217)"
+          ></span>
+          Blue
+          <span class="colour-num">(125431)</span>
+          <input type="checkbox" value="Blue" />
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+      <li class="color-item">
+        <label for="" class="custom-checkbox">
+          <span
+            data-colorhex="green"
+            class="colour-label colour-colorDisplay"
+            style="background-color: rgb(94, 177, 96)"
+          ></span>
+          Green
+          <span class="colour-num">(125431)</span>
+          <input type="checkbox" value="Green" />
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>
