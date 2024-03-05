@@ -1,0 +1,43 @@
+<div class="products-container row-base">
+  <section style="width: 98%">
+    <div class="products">
+      <div class="product" *ngFor="let product of products">
+        <a routerLink="/product-details">
+          <div class="image-container">
+            <img [src]="product.imageUrl" class="product-img" />
+            <span
+              class="material-icons-outlined set-fav-card"
+              title="Add in Wishlist"
+            >
+              favorite_border
+            </span>
+          </div>
+
+          <div class="product-info">
+            <h3 class="brand">{{ product.brand }}</h3>
+            <h4 class="product-name">{{ product.name }}</h4>
+            <h4 class="product-sizes">
+              Sizes:
+              <span *ngFor="let size of product.sizes; index: i" class="size"
+                >{{ size }}<span>, </span>
+              </span>
+            </h4>
+            <h4 class="product-price">
+              <span>
+                <span class="discounted-price"
+                  >Rs. {{ product.discountedPrice }}</span
+                >
+                <span class="product-strike"
+                  >Rs. {{ product.originalPrice }}</span
+                >
+              </span>
+              <span class="discount-percentage"
+                >({{ product.discountPercentage }}% OFF)</span
+              >
+            </h4>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
