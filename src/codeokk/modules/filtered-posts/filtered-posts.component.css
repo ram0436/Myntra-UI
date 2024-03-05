@@ -1,0 +1,19 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.filters-component {
+  flex: 1.5;
+  padding-top: 10px;
+  /* padding-left: 15px;
+  padding-right: 15px; */
+  border-right: 1px solid rgb(230, 230, 230);
+}
+
+.posts-component {
+  flex: 8;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-bottom: 30px;
+}
