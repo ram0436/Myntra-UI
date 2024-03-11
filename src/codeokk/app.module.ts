@@ -11,8 +11,8 @@ import { FiltersComponent } from "./modules/filters/filters.component";
 import { PostMenuComponent } from "./modules/post-menu/post-menu.component";
 import { HomeComponent } from "./modules/home/home.component";
 import { FilteredPostsComponent } from "./modules/filtered-posts/filtered-posts.component";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { ProductDetailsComponent } from './modules/product-details/product-details.component';
+import { ProductDetailsComponent } from "./modules/product-details/product-details.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,13 +24,13 @@ import { ProductDetailsComponent } from './modules/product-details/product-detai
     ProductDetailsComponent,
   ],
   imports: [
-    MatSlideToggleModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
 })

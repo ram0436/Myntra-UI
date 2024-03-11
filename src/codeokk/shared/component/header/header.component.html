@@ -12,334 +12,54 @@
         routerLink="/"
       />
     </div>
+    <!-- Your template -->
     <nav class="navbar">
       <div class="nav-links">
-        <div class="nav-content">
+        <div
+          class="nav-content"
+          *ngFor="let parentCategory of parentCategories | slice : 0 : 3"
+        >
           <div class="nav-link">
-            <span class="main" routerLink="/filtered-posts">Men</span>
+            <span class="main">{{ parentCategory.name }}</span>
             <div class="pane-content">
               <div class="category-container">
                 <div class="odd-column-content">
                   <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
+                    <li
+                      *ngFor="
+                        let category of categoryMap[parentCategory.id];
+                        let lastCategory = last
+                      "
+                    >
+                      <a
+                        [routerLink]="['/filtered-posts']"
+                        [queryParams]="{
+                          menu: parentCategory.name,
+                          categoryId: category.id
+                        }"
+                        class="category-name category-head"
+                        >{{ category.name }}</a
                       >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div class="odd-column-content">
-                  <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="nav-content">
-          <div class="nav-link">
-            <span class="main" routerLink="/filtered-posts">Women</span>
-            <div class="pane-content">
-              <div class="category-container">
-                <div class="odd-column-content">
-                  <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div class="odd-column-content">
-                  <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="nav-content">
-          <div class="nav-link">
-            <span class="main" routerLink="/filtered-posts">Kids</span>
-            <div class="pane-content">
-              <div class="category-container">
-                <div class="odd-column-content">
-                  <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-                <div class="odd-column-content">
-                  <ul class="nav-block">
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Topwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Bottomwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
-                    </li>
-                    <div class="hr-line"></div>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Innerwear</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >T-Shirts</a
-                      >
-                    </li>
-                    <li>
-                      <a routerLink="/filtered-posts" class="category-name"
-                        >Casual Shirts</a
-                      >
+                      <ul class="subcategory-ul">
+                        <li
+                          *ngFor="
+                            let subcategory of subCategoryMap[category.id]
+                          "
+                          class="subcategory-li"
+                        >
+                          <a
+                            [routerLink]="['/filtered-posts']"
+                            [queryParams]="{
+                              menu: parentCategory.name,
+                              categoryId: category.id,
+                              name: subcategory.name
+                            }"
+                            class="category-name"
+                            >{{ subcategory.name }}</a
+                          >
+                        </li>
+                      </ul>
+                      <div *ngIf="!lastCategory" class="hr-line"></div>
                     </li>
                   </ul>
                 </div>
@@ -349,6 +69,7 @@
         </div>
       </div>
     </nav>
+
     <div class="query">
       <input
         type="text"

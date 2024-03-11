@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AirVideo-FE": {
+    "Myntra-FE": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,18 +56,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "AirVideo-FE:build:production"
+              "browserTarget": "Myntra-FE:build:production"
             },
             "development": {
-              "browserTarget": "AirVideo-FE:build:development"
+              "browserTarget": "Myntra-FE:build:development"
             }
+          },
+          "options": {
+            "proxyConfig": "proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "AirVideo-FE:build"
+            "browserTarget": "Myntra-FE:build"
           }
         },
         "test": {
