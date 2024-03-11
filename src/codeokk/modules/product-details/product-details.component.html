@@ -1,35 +1,34 @@
 <div class="product-details-container">
-  <div class="image-container">
+  <div
+    class="image-container"
+    *ngFor="let image of productDetails?.productImageList; let i = index"
+  >
     <div class="img-grid">
       <img
-        src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/25072090/2023/9/30/6be97619-12fc-40c3-a91b-b5d5f13ba8181696013416163StormbornMenBlackPrintedRawEdgeT-shirt1.jpg"
-        alt=""
+        [src]="image || 'assets/no-img.png'"
+        alt="Product Image {{ i + 1 }}"
       />
     </div>
+    <div class="img-grid" *ngIf="productDetails.productImageList.length === 1">
+      <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
+    </div>
+  </div>
+  <div
+    class="image-container"
+    *ngIf="productDetails.productImageList.length === 0"
+  >
     <div class="img-grid">
-      <img
-        src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/25072090/2023/9/30/6be97619-12fc-40c3-a91b-b5d5f13ba8181696013416163StormbornMenBlackPrintedRawEdgeT-shirt1.jpg"
-        alt=""
-      />
+      <img [src]="'assets/no-img.png'" alt="Product Image" />
     </div>
     <div class="img-grid">
-      <img
-        src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/25072090/2023/9/30/6be97619-12fc-40c3-a91b-b5d5f13ba8181696013416163StormbornMenBlackPrintedRawEdgeT-shirt1.jpg"
-        alt=""
-      />
-    </div>
-    <div class="img-grid">
-      <img
-        src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/25072090/2023/9/30/6be97619-12fc-40c3-a91b-b5d5f13ba8181696013416163StormbornMenBlackPrintedRawEdgeT-shirt1.jpg"
-        alt=""
-      />
+      <img [src]="'assets/no-img.png'" alt="Product Image" />
     </div>
   </div>
   <div class="desc-container">
     <div class="price-info">
-      <h1 class="desc-title">Stormborn</h1>
+      <h1 class="desc-title">{{ productDetails?.brand[0].name }}</h1>
       <h1 class="desc-name">
-        Graphic Printed Oversized Drop Shoulder Sleeves Pure Cotton T-shirt
+        {{ productDetails?.name }}
       </h1>
       <div>
         <div class="overall-rating-container">
@@ -42,211 +41,174 @@
         </div>
         <p class="discount-container">
           <span class="price">
-            <strong>₹549</strong>
+            <strong>₹{{ productDetails?.price }}</strong>
           </span>
-          <span class="mrp">MRP <s>₹999</s></span>
-          <span class="discount">(45% OFF)</span>
+          <!-- <span class="mrp">MRP <s>₹999</s></span> -->
+          <span class="discount"
+            >({{ productDetails?.discount[0]?.percent }}% OFF)</span
+          >
         </p>
-
         <p class="selling-price">
           <span class="vatInfo">inclusive of all taxes</span>
         </p>
+        <div class="SelectedSizeSellerInfo-sellerName">
+          Seller:
+          <span class="SelectedSizeSellerInfo-sellerButton">ELCINCO</span>
+        </div>
       </div>
     </div>
     <div>
       <div class="size-buttons-size-container" id="sizeButtonsContainer">
         <div class="size-buttons-size-header">
           <h4 class="size-buttons-select-size">SELECT SIZE</h4>
-          <!-- <span class="size-buttons-size-chart"
-            ><button class="size-buttons-show-size-chart">Size Chart</button
-            ><span class="size-buttons-arrow"></span
-          ></span> -->
         </div>
         <div class="size-buttons-size-buttons">
-          <div class="size-buttons-tipAndBtnContainer">
+          <div
+            class="size-buttons-tipAndBtnContainer"
+            *ngFor="let size of productDetails?.productSize"
+          >
             <div class="size-buttons-buttonContainer">
               <button
                 class="size-buttons-size-button size-buttons-size-button-default"
               >
                 <span class="size-buttons-size-strike-hide"></span>
-                <p class="size-buttons-unified-size">S</p></button
-              ><span
-                class="size-buttons-inventory-left-hidden size-buttons-inventory-left"
-                >Hide</span
-              >
-            </div>
-            <div class="size-buttons-sizeTip">
-              <div class="size-buttons-sizeTipMeta">
-                <div class="size-buttons-bodymeasure">
-                  <span class="size-buttons-measurementType">
-                    Garment Measurement:</span
-                  ><span class="size-buttons-measurementName"
-                    >Chest - 43.3in</span
-                  >
-                </div>
-                <div class="size-buttons-sizeChartInfo">
-                  <div>
-                    Oversized <br />
-                    The model (height 6') is wearing a size M
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="size-buttons-tipAndBtnContainer">
-            <div class="size-buttons-buttonContainer">
-              <button
-                class="size-buttons-size-button size-buttons-size-button-default"
-              >
-                <span class="size-buttons-size-strike-hide"></span>
-                <p class="size-buttons-unified-size">M</p></button
-              ><span
-                class="size-buttons-inventory-left-hidden size-buttons-inventory-left"
-                >Hide</span
-              >
-            </div>
-            <div class="size-buttons-sizeTip">
-              <div class="size-buttons-sizeTipMeta">
-                <div class="size-buttons-bodymeasure">
-                  <span class="size-buttons-measurementType"
-                    >Garment Measurement:</span
-                  ><span class="size-buttons-measurementName"
-                    >Chest - 45.6in</span
-                  >
-                </div>
-                <div class="size-buttons-sizeChartInfo">
-                  <div>
-                    Oversized <br />
-                    The model (height 6') is wearing a size M
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="size-buttons-tipAndBtnContainer">
-            <div class="size-buttons-buttonContainer">
-              <button
-                class="size-buttons-size-button size-buttons-size-button-default"
-              >
-                <span class="size-buttons-size-strike-hide"></span>
-                <p class="size-buttons-unified-size">L</p></button
-              ><span
-                class="size-buttons-inventory-left-hidden size-buttons-inventory-left"
-                >Hide</span
-              >
-            </div>
-            <div class="size-buttons-sizeTip">
-              <div class="size-buttons-sizeTipMeta">
-                <div class="size-buttons-bodymeasure">
-                  <span class="size-buttons-measurementType"
-                    >Garment Measurement:</span
-                  ><span class="size-buttons-measurementName"
-                    >Chest - 48.0in</span
-                  >
-                </div>
-                <div class="size-buttons-sizeChartInfo">
-                  <div>
-                    Oversized <br />
-                    The model (height 6') is wearing a size M
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="size-buttons-tipAndBtnContainer">
-            <div class="size-buttons-buttonContainer">
-              <button
-                class="size-buttons-size-button size-buttons-size-button-default"
-              >
-                <span class="size-buttons-size-strike-hide"></span>
-                <p class="size-buttons-unified-size">XL</p></button
-              ><span
-                class="size-buttons-inventory-left-hidden size-buttons-inventory-left"
-                >Hide</span
-              >
-            </div>
-            <div class="size-buttons-sizeTip">
-              <div class="size-buttons-sizeTipMeta">
-                <div class="size-buttons-bodymeasure">
-                  <span class="size-buttons-measurementType"
-                    >Garment Measurement/:</span
-                  ><span class="size-buttons-measurementName"
-                    >Chest - 50.3in</span
-                  >
-                </div>
-                <div class="size-buttons-sizeChartInfo">
-                  <div>
-                    Oversized <br />
-                    The model (height 6') is wearing a size M
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="size-buttons-tipAndBtnContainer">
-            <div class="size-buttons-buttonContainer">
-              <button
-                class="size-buttons-size-button-selected size-buttons-size-button size-buttons-size-button-default"
-              >
-                <span class="size-buttons-size-strike-hide"></span>
-                <p class="size-buttons-unified-size">XXL</p></button
-              ><span
-                class="size-buttons-inventory-left-hidden size-buttons-inventory-left"
-                >Hide</span
-              >
-            </div>
-            <div class="size-buttons-sizeTip">
-              <div class="size-buttons-sizeTipMeta">
-                <div class="size-buttons-bodymeasure">
-                  <span class="size-buttons-measurementType"
-                    >Garment Measurement:</span
-                  ><span class="size-buttons-measurementName"
-                    >Chest - 52.7in</span
-                  >
-                </div>
-                <div class="size-buttons-sizeChartInfo">
-                  <div>
-                    Oversized <br />
-                    The model (height 6') is wearing a size M
-                  </div>
-                </div>
-              </div>
+                <p class="size-buttons-unified-size">{{ size.size }}</p>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="">
+
+      <div
+        class=""
+        style="padding-bottom: 15px; border-bottom: 1px solid #d4d5d9"
+      >
         <div class="pdp-action-container pdp-fixed">
-          <a
-            href="/checkout/cart"
-            class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
-            ><span>GO TO BAG</span
-            ><span
-              class="myntraweb-sprite pdp-whiteRightArrow sprites-whiteRightArrow"
-            ></span
-          ></a>
+          <a class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
+            ><span class="material-icons-outlined bag-icon"> shopping_bag </span
+            ><span>GO TO BAG</span></a
+          >
           <div
             class="pdp-add-to-wishlist pdp-button pdp-add-to-wishlist pdp-button pdp-flex pdp-center"
+            (click)="addToWishlist(productDetails?.productCode)"
           >
-            <span
-              class="myntraweb-sprite pdp-notWishlistedIcon sprites-notWishlisted pdp-flex pdp-center"
-            ></span
-            ><span class="">WISHLIST</span>
+            <span class="material-icons-outlined fv-icon">
+              favorite_border </span
+            ><span class="">ADD TO WISHLIST</span>
           </div>
         </div>
       </div>
-      <div class="SelectedSizeSellerInfo-sellerInfoContainer">
-        <div class="size-price">
-          <div style="font-size: 16px">
-            <span class="PriceInfo-price" tabindex="0"
-              ><strong>₹ 549</strong></span
-            ><span class="PriceInfo-mrp"><s>₹ 999</s></span
-            ><span class="PriceInfo-discount">(45% OFF)</span>
+      <div class="pdp-productDescriptors">
+        <div class="pdp-productDescriptorsContainer">
+          <div>
+            <h4 class="pdp-product-description-title">
+              Product Details
+              <span
+                class="myntraweb-sprite pdp-productDetailsIcon sprites-productDetailsIcon"
+              ></span>
+            </h4>
+            <div class="pdp-product-description-content">
+              <ul>
+                <li>Black T-shirt for men</li>
+                <li>Graphic&nbsp;printed</li>
+                <li>Regular length</li>
+                <li>Round neck</li>
+                <li>Short, drop shoulder sleeves</li>
+                <li>Knitted cotton fabric</li>
+              </ul>
+            </div>
           </div>
-          <span class="SelectedSizeSellerInfo-deliveryMessage"></span>
-          <div class="SelectedSizeSellerInfo-sellerName">
-            Seller:
-            <span class="SelectedSizeSellerInfo-sellerButton">ELCINCO</span>
+          <div class="pdp-sizeFitDesc">
+            <h4 class="pdp-sizeFitDescTitle pdp-product-description-title">
+              Size &amp; Fit
+            </h4>
+            <p class="pdp-sizeFitDescContent pdp-product-description-content">
+              Oversized <br />
+              The model (height 6') is wearing a size M
+            </p>
+          </div>
+          <div class="pdp-sizeFitDesc">
+            <h4 class="pdp-sizeFitDescTitle pdp-product-description-title">
+              Material &amp; Care
+            </h4>
+            <p class="pdp-sizeFitDescContent pdp-product-description-content">
+              100% Cotton<br />Machine Wash
+            </p>
+          </div>
+          <div class="index-sizeFitDesc">
+            <h4 class="index-sizeFitDescTitle index-product-description-title">
+              Specifications
+            </h4>
+            <div class="index-tableContainer">
+              <div class="index-row">
+                <div class="index-rowKey">Fabric</div>
+                <div class="index-rowValue">Cotton</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Fit</div>
+                <div class="index-rowValue">Oversized</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Length</div>
+                <div class="index-rowValue">Regular</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Main Trend</div>
+                <div class="index-rowValue">Graphic Print Others</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Multipack Set</div>
+                <div class="index-rowValue">Single</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Neck</div>
+                <div class="index-rowValue">Round Neck</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Number of Items</div>
+                <div class="index-rowValue">1</div>
+              </div>
+              <div class="index-row">
+                <div class="index-rowKey">Occasion</div>
+                <div class="index-rowValue">Casual</div>
+              </div>
+            </div>
+            <div>
+              <div class="index-tableContainer">
+                <div class="index-row">
+                  <div class="index-rowKey">Pattern</div>
+                  <div class="index-rowValue">Printed</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Pattern Coverage</div>
+                  <div class="index-rowValue">Placement</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Print or Pattern Type</div>
+                  <div class="index-rowValue">Graphic</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Sleeve Length</div>
+                  <div class="index-rowValue">Short Sleeves</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Sleeve Styling</div>
+                  <div class="index-rowValue">Drop-Shoulder Sleeves</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Sustainable</div>
+                  <div class="index-rowValue">Regular</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Wash Care</div>
+                  <div class="index-rowValue">Machine Wash</div>
+                </div>
+                <div class="index-row">
+                  <div class="index-rowKey">Weave Type</div>
+                  <div class="index-rowValue">Knitted</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -292,6 +254,66 @@
           </div>
           <div class="meta-info">
             <div class="meta-desc">Try &amp; Buy might be available</div>
+          </div>
+        </div>
+      </div>
+      <div class="undefined supplier-desktopCodeSupplier">
+        <div class="supplier-supplier">
+          <span
+            >Product Code:<span class="supplier-styleId">{{
+              productDetails?.productCode
+            }}</span></span
+          >
+        </div>
+        <div class="supplier-supplier">
+          <!-- <span
+            >Seller: <span class="supplier-productSellerName">ELCINCO</span
+            ><span class="supplier-partner-name"> </span
+          ></span> -->
+          <div
+            class="supplier-viewmore-link"
+            style="color: rgb(255, 63, 108)"
+            (click)="toggleModal()"
+          >
+            View Supplier Information
+          </div>
+        </div>
+        <div
+          class="Modal-modalContent d-none"
+          [ngClass]="{ 'd-none': !showModal, 'd-block': showModal }"
+        >
+          <div class="Modal-modalDialog">
+            <div class="details-details">
+              <span
+                class="material-icons-outlined myntraweb-sprite Address-close-button sprites-remove"
+                (click)="toggleModal()"
+                >clear</span
+              >
+              <div>
+                <h3>More Information</h3>
+                <p>Product Code : 25072090</p>
+              </div>
+              <ul>
+                <li>
+                  <h4>Manufacturer Details</h4>
+                  <p>
+                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
+                    Nagar, 1st Street,Tirupur - 641604.
+                  </p>
+                </li>
+                <li>
+                  <h4>Packer Details</h4>
+                  <p>
+                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
+                    Nagar, 1st Street,Tirupur - 641604.
+                  </p>
+                </li>
+                <li>
+                  <h4>Country of Origin</h4>
+                  <p>India</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -438,178 +460,6 @@
                 </li>
               </div>
               <span class="pdp-offers-linkButton">View Plan</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pdp-productDescriptors">
-        <div class="pdp-productDescriptorsContainer">
-          <div>
-            <h4 class="pdp-product-description-title">
-              Product Details
-              <span
-                class="myntraweb-sprite pdp-productDetailsIcon sprites-productDetailsIcon"
-              ></span>
-            </h4>
-            <div class="pdp-product-description-content">
-              <ul>
-                <li>Black T-shirt for men</li>
-                <li>Graphic&nbsp;printed</li>
-                <li>Regular length</li>
-                <li>Round neck</li>
-                <li>Short, drop shoulder sleeves</li>
-                <li>Knitted cotton fabric</li>
-              </ul>
-            </div>
-          </div>
-          <div class="pdp-sizeFitDesc">
-            <h4 class="pdp-sizeFitDescTitle pdp-product-description-title">
-              Size &amp; Fit
-            </h4>
-            <p class="pdp-sizeFitDescContent pdp-product-description-content">
-              Oversized <br />
-              The model (height 6') is wearing a size M
-            </p>
-          </div>
-          <div class="pdp-sizeFitDesc">
-            <h4 class="pdp-sizeFitDescTitle pdp-product-description-title">
-              Material &amp; Care
-            </h4>
-            <p class="pdp-sizeFitDescContent pdp-product-description-content">
-              100% Cotton<br />Machine Wash
-            </p>
-          </div>
-          <div class="index-sizeFitDesc">
-            <h4 class="index-sizeFitDescTitle index-product-description-title">
-              Specifications
-            </h4>
-            <div class="index-tableContainer">
-              <div class="index-row">
-                <div class="index-rowKey">Fabric</div>
-                <div class="index-rowValue">Cotton</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Fit</div>
-                <div class="index-rowValue">Oversized</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Length</div>
-                <div class="index-rowValue">Regular</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Main Trend</div>
-                <div class="index-rowValue">Graphic Print Others</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Multipack Set</div>
-                <div class="index-rowValue">Single</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Neck</div>
-                <div class="index-rowValue">Round Neck</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Number of Items</div>
-                <div class="index-rowValue">1</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Occasion</div>
-                <div class="index-rowValue">Casual</div>
-              </div>
-            </div>
-            <div>
-              <div class="index-tableContainer">
-                <div class="index-row">
-                  <div class="index-rowKey">Pattern</div>
-                  <div class="index-rowValue">Printed</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Pattern Coverage</div>
-                  <div class="index-rowValue">Placement</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Print or Pattern Type</div>
-                  <div class="index-rowValue">Graphic</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sleeve Length</div>
-                  <div class="index-rowValue">Short Sleeves</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sleeve Styling</div>
-                  <div class="index-rowValue">Drop-Shoulder Sleeves</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sustainable</div>
-                  <div class="index-rowValue">Regular</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Wash Care</div>
-                  <div class="index-rowValue">Machine Wash</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Weave Type</div>
-                  <div class="index-rowValue">Knitted</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="undefined supplier-desktopCodeSupplier">
-        <div class="supplier-supplier">
-          <span
-            >Product Code:<span class="supplier-styleId">25072090</span></span
-          >
-        </div>
-        <div class="supplier-supplier">
-          <span
-            >Seller: <span class="supplier-productSellerName">ELCINCO</span
-            ><span class="supplier-partner-name"> </span
-          ></span>
-          <div
-            class="supplier-viewmore-link"
-            style="color: rgb(255, 63, 108)"
-            (click)="toggleModal()"
-          >
-            View Supplier Information
-          </div>
-        </div>
-        <div
-          class="Modal-modalContent"
-          [ngClass]="{ 'd-none': !showModal, 'd-block': showModal }"
-        >
-          <div class="Modal-modalDialog">
-            <div class="details-details">
-              <span
-                class="material-icons-outlined myntraweb-sprite Address-close-button sprites-remove"
-                (click)="toggleModal()"
-                >clear</span
-              >
-              <div>
-                <h3>More Information</h3>
-                <p>Product Code : 25072090</p>
-              </div>
-              <ul>
-                <li>
-                  <h4>Manufacturer Details</h4>
-                  <p>
-                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
-                    Nagar, 1st Street,Tirupur - 641604.
-                  </p>
-                </li>
-                <li>
-                  <h4>Packer Details</h4>
-                  <p>
-                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
-                    Nagar, 1st Street,Tirupur - 641604.
-                  </p>
-                </li>
-                <li>
-                  <h4>Country of Origin</h4>
-                  <p>India</p>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

@@ -2,42 +2,58 @@
   <section style="width: 98%">
     <div class="products">
       <div class="product" *ngFor="let product of products">
-        <a routerLink="/product-details">
+        <a [routerLink]="'/product-details/' + product.productCode">
           <div class="image-container">
-            <img [src]="product.imageUrl" class="product-img" />
+            <img [src]="getImageUrl(product)" class="product-img" />
             <span
               class="material-icons-outlined set-fav-card"
               title="Add in Wishlist"
             >
               favorite_border
             </span>
+            <span
+              class="material-icons set-fav-card"
+              [class.material-icons-outlined]="
+                !favoriteStatus[product?.productCode]
+              "
+              [class.fill]="favoriteStatus[product?.productCode]"
+              [class.active]="favoriteStatus[product?.productCode]"
+              (click)="toggleFavorite($event, product?.productCode)"
+              title="Add in Wishlist"
+            >
+              {{
+                favoriteStatus[product?.productCode]
+                  ? "favorite"
+                  : "favorite_border"
+              }}
+            </span>
           </div>
 
           <div class="product-info">
-            <h3 class="brand">{{ product.brand }}</h3>
+            <h3 class="brand">{{ product.brand[0]?.name }}</h3>
             <h4 class="product-name">{{ product.name }}</h4>
             <h4 class="product-sizes">
               Sizes:
-              <span *ngFor="let size of product.sizes; index: i" class="size"
-                >{{ size }}<span>, </span>
+              <span
+                *ngFor="let size of product.productSize; let i = index"
+                class="size"
+              >
+                {{ size.size
+                }}<span *ngIf="i < product.productSize.length - 1">, </span>
               </span>
             </h4>
             <h4 class="product-price">
               <span>
-                <span class="discounted-price"
-                  >Rs. {{ product.discountedPrice }}</span
-                >
-                <span class="product-strike"
-                  >Rs. {{ product.originalPrice }}</span
-                >
+                <span class="discounted-price">Rs. {{ product.price }}</span>
               </span>
               <span class="discount-percentage"
-                >({{ product.discountPercentage }}% OFF)</span
+                >({{ product.discount[0]?.percent }}% OFF)</span
               >
             </h4>
           </div>
         </a>
       </div>
+      <h3 *ngIf="products.length == 0">No products avaialble</h3>
     </div>
   </section>
 </div>
