@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 html,
 body {
-  margin-top: 100px;
-  min-height: calc(100vh - 100px);
+  margin-top: 70px;
+  min-height: calc(100vh - 70px);
 }
 body {
   margin: 0;

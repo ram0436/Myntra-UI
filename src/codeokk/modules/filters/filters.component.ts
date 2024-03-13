@@ -17,6 +17,13 @@ export class FiltersComponent {
 
   menuId: number = 0;
 
+  discountRanges: number[] = [10, 20, 30];
+
+  selectedCategories: number[] = [];
+  selectedColors: number[] = [];
+  selectedBrands: number[] = [];
+  selectedDiscount: string = "";
+
   brandsExpanded: boolean = false;
   colorsExpanded: boolean = false;
 
@@ -28,8 +35,8 @@ export class FiltersComponent {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      if (params["categoryId"] != undefined)
-        this.menuId = Number(params["categoryId"]);
+      if (params["category"] != undefined)
+        this.menuId = Number(params["category"]);
       this.getSubCategoryByCategoryId(this.menuId);
     });
     this.getAllColors();
@@ -67,7 +74,51 @@ export class FiltersComponent {
     this.brandsExpanded = !this.brandsExpanded;
   }
 
+  toggleBrand(brandId: number) {
+    const index = this.selectedBrands.indexOf(brandId);
+    if (index === -1) {
+      this.selectedBrands.push(brandId);
+    } else {
+      this.selectedBrands.splice(index, 1);
+    }
+    this.applyFilters();
+  }
+
   toggleColorsSearch() {
     this.colorsExpanded = !this.colorsExpanded;
+  }
+
+  toggleColor(colorId: number) {
+    const index = this.selectedColors.indexOf(colorId);
+    if (index === -1) {
+      this.selectedColors.push(colorId);
+    } else {
+      this.selectedColors.splice(index, 1);
+    }
+    this.applyFilters();
+  }
+
+  selectDiscount(range: string) {
+    this.selectedDiscount = range;
+    this.applyFilters();
+  }
+
+  toggleCategory(categoryId: number) {
+    const index = this.selectedCategories.indexOf(categoryId);
+    if (index === -1) {
+      this.selectedCategories.push(categoryId);
+    } else {
+      this.selectedCategories.splice(index, 1);
+    }
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.masterService.setData({
+      categories: this.selectedCategories,
+      colors: this.selectedColors,
+      brands: this.selectedBrands,
+      discount: this.selectedDiscount,
+    });
   }
 }
