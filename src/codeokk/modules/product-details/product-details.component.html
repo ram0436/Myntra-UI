@@ -1,17 +1,21 @@
 <div class="product-details-container">
-  <div
-    class="image-container"
-    *ngFor="let image of productDetails?.productImageList; let i = index"
-  >
-    <div class="img-grid">
-      <img
-        [src]="image || 'assets/no-img.png'"
-        alt="Product Image {{ i + 1 }}"
-      />
-    </div>
-    <div class="img-grid" *ngIf="productDetails.productImageList.length === 1">
-      <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
-    </div>
+  <div class="image-container">
+    <ng-container
+      *ngFor="let image of productDetails?.productImageList; let i = index"
+    >
+      <div class="img-grid">
+        <img
+          [src]="image.imageURL || 'assets/no-img.png'"
+          alt="Product Image {{ i + 1 }}"
+        />
+      </div>
+      <div
+        class="img-grid"
+        *ngIf="productDetails.productImageList.length === 1"
+      >
+        <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
+      </div>
+    </ng-container>
   </div>
   <div
     class="image-container"

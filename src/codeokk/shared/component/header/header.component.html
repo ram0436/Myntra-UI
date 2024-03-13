@@ -1,8 +1,8 @@
 <header class="header">
-  <div class="message">
+  <!-- <div class="message">
     <span class="material-icons-outlined speaker-icon"> volume_up </span>
     <p class="updates">We are currently updating our application</p>
-  </div>
+  </div> -->
   <div class="header-bound">
     <div class="logoContainer">
       <img
@@ -34,8 +34,8 @@
                       <a
                         [routerLink]="['/filtered-posts']"
                         [queryParams]="{
-                          menu: parentCategory.name,
-                          categoryId: category.id
+                          parent: parentCategory.id,
+                          category: category.id
                         }"
                         class="category-name category-head"
                         >{{ category.name }}</a
@@ -50,9 +50,9 @@
                           <a
                             [routerLink]="['/filtered-posts']"
                             [queryParams]="{
-                              menu: parentCategory.name,
-                              categoryId: category.id,
-                              name: subcategory.name
+                              parent: parentCategory.id,
+                              category: category.id,
+                              subCategory: subcategory.id
                             }"
                             class="category-name"
                             >{{ subcategory.name }}</a

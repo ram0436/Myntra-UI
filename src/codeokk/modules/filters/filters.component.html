@@ -37,7 +37,11 @@
     <ul class="brands-list">
       <li *ngFor="let brand of brands">
         <label for="" class="custom-checkbox">
-          <input type="checkbox" [value]="brand.id" />
+          <input
+            type="checkbox"
+            [value]="brand.id"
+            (change)="toggleBrand(brand.id)"
+          />
           {{ brand.name }}
           <span class="categories-num">(125431)</span>
           <div class="checkbox-indicator"></div>
@@ -67,7 +71,12 @@
     <ul>
       <li class="color-item" *ngFor="let color of colors">
         <label for="" class="custom-checkbox">
-          <input type="checkbox" [value]="color.id" class="check" />
+          <input
+            type="checkbox"
+            [value]="color.id"
+            (change)="toggleColor(color.id)"
+            [checked]="selectedColors.includes(color.id)"
+          />
           <span
             class="colour-label colour-colorDisplay"
             [style.background-color]="color.code"
@@ -84,21 +93,39 @@
     <ul class="brands-list">
       <li>
         <label for="" class="custom-checkbox">
-          <input type="radio" value="10" name="10" />
+          <input
+            type="radio"
+            value="10"
+            name="discountRange"
+            (change)="selectDiscount('10')"
+            [checked]="selectedDiscount === '10'"
+          />
           10% and above
           <div class="checkbox-indicator"></div>
         </label>
       </li>
       <li>
         <label for="" class="custom-checkbox">
-          <input type="radio" value="20" name="20" />
+          <input
+            type="radio"
+            value="20"
+            name="discountRange"
+            (change)="selectDiscount('20')"
+            [checked]="selectedDiscount === '20'"
+          />
           20% and above
           <div class="checkbox-indicator"></div>
         </label>
       </li>
       <li>
         <label for="" class="custom-checkbox">
-          <input type="radio" value="30" name="30" />
+          <input
+            type="radio"
+            value="30"
+            name="discountRange"
+            (change)="selectDiscount('30')"
+            [checked]="selectedDiscount === '30'"
+          />
           30% and above
           <div class="checkbox-indicator"></div>
         </label>

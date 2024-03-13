@@ -1,12 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class MasterService {
+  private dataSubject = new Subject<any>();
+
   constructor(private http: HttpClient) {}
 
   private baseUrl = environment.baseUrl;
@@ -37,5 +40,13 @@ export class MasterService {
     return this.http.get(
       `${this.baseUrl}/Master/GetSubCategoryByCategoryId?CategoryId=${categoryId}`
     );
+  }
+
+  setData(data: any) {
+    this.dataSubject.next(data);
+  }
+
+  getData() {
+    return this.dataSubject.asObservable();
   }
 }
