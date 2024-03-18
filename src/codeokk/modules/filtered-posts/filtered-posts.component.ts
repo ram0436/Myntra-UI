@@ -11,6 +11,8 @@ import { MasterService } from "../service/master.service";
 export class FilteredPostsComponent {
   products: any[] = [];
 
+  brands: any[] = [];
+
   menuName: string = "";
 
   parentId: Number = 0;
@@ -95,6 +97,20 @@ export class FilteredPostsComponent {
         }
 
         return true;
+      });
+
+      // const brands = this.products.map((product) => product.brand[0].name);
+
+      // const uniqueBrands = Array.from(new Set(brands));
+
+      const uniqueBrands = Array.from(
+        new Set(
+          this.products.map((product) => JSON.stringify(product.brand[0]))
+        )
+      ).map((brandStr) => JSON.parse(brandStr));
+
+      this.masterService.setBrandsData({
+        brands: uniqueBrands,
       });
     });
   }

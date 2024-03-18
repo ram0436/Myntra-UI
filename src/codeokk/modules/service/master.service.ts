@@ -10,6 +10,8 @@ import { environment } from "src/environments/environment";
 export class MasterService {
   private dataSubject = new Subject<any>();
 
+  private brandsDataSubject = new Subject<any>();
+
   constructor(private http: HttpClient) {}
 
   private baseUrl = environment.baseUrl;
@@ -46,7 +48,15 @@ export class MasterService {
     this.dataSubject.next(data);
   }
 
+  setBrandsData(data: any) {
+    this.brandsDataSubject.next(data);
+  }
+
   getData() {
     return this.dataSubject.asObservable();
+  }
+
+  getBrandsData() {
+    return this.brandsDataSubject.asObservable();
   }
 }

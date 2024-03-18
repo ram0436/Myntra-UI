@@ -177,6 +177,10 @@
   position: relative;
 }
 
+.filter-discount {
+  border-bottom: none;
+}
+
 .colour-item {
   display: block;
   position: relative;

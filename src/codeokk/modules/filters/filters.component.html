@@ -34,7 +34,7 @@
         {{ brandsExpanded ? "clear" : "search" }}
       </span>
     </div>
-    <ul class="brands-list">
+    <ul class="brands-list" *ngIf="brands.length !== 0">
       <li *ngFor="let brand of brands">
         <label for="" class="custom-checkbox">
           <input
@@ -47,6 +47,9 @@
           <div class="checkbox-indicator"></div>
         </label>
       </li>
+    </ul>
+    <ul *ngIf="brands.length === 0">
+      <li>No brands found</li>
     </ul>
   </div>
   <div class="filter-colors">
