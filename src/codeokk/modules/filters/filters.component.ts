@@ -9,9 +9,15 @@ import { MasterService } from "../service/master.service";
   styleUrls: ["./filters.component.css"],
 })
 export class FiltersComponent {
+  products: any[] = [];
   colors: any[] = [];
   sizes: any[] = [];
   brands: any[] = [];
+
+  parentId: Number = 0;
+  subCategoryId: Number = 0;
+  categoryId: Number = 0;
+  subMenuName: string = "";
 
   categories: any = [];
 
@@ -35,13 +41,23 @@ export class FiltersComponent {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
+      this.parentId = params["parent"];
+      if (params["category"] != undefined)
+        this.categoryId = Number(params["category"]);
+      if (params["subCategory"] != undefined)
+        this.subCategoryId = Number(params["subCategory"]);
+      else this.subCategoryId = 0;
+      this.getBrands();
       if (params["category"] != undefined)
         this.menuId = Number(params["category"]);
       this.getSubCategoryByCategoryId(this.menuId);
     });
     this.getAllColors();
     this.getAllProductSizes();
-    this.getAllBrands();
+    // this.masterService.getBrandsData().subscribe((brands: any[]) => {
+    //   this.brands = brands;
+    //   console.log(this.brands);
+    // });
   }
 
   getAllColors() {
@@ -119,6 +135,41 @@ export class FiltersComponent {
       colors: this.selectedColors,
       brands: this.selectedBrands,
       discount: this.selectedDiscount,
+    });
+  }
+
+  getBrands() {
+    this.productService.getAllProducts().subscribe((res) => {
+      this.products = res.filter((product) => {
+        const categoryId = Number(this.categoryId);
+        const subCategoryId = Number(this.subCategoryId);
+        const parentId = Number(this.parentId);
+
+        if (categoryId !== 0 && product.category[0].id !== categoryId) {
+          return false;
+        }
+
+        if (
+          subCategoryId !== 0 &&
+          product.subCategory[0].id !== subCategoryId
+        ) {
+          return false;
+        }
+
+        if (parentId !== 0 && product.parentCategory[0].id !== parentId) {
+          return false;
+        }
+
+        return true;
+      });
+
+      const uniqueBrands = Array.from(
+        new Set(
+          this.products.map((product) => JSON.stringify(product.brand[0]))
+        )
+      ).map((brandStr) => JSON.parse(brandStr));
+
+      this.brands = uniqueBrands;
     });
   }
 }
