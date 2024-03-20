@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { MasterService } from "src/codeokk/modules/service/master.service";
 
 @Component({
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   categoryMap: { [key: number]: any[] } = {};
   subCategoryMap: { [key: number]: any[] } = {};
 
-  constructor(private masterService: MasterService) {}
+  constructor(private masterService: MasterService, private router: Router) {}
 
   ngOnInit() {
     this.getAllParentCategories();

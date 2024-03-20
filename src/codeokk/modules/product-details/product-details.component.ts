@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-product-details",
@@ -16,14 +17,14 @@ export class ProductDetailsComponent {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
     var productCode;
     this.route.paramMap.subscribe((params) => {
       productCode = params.get("id");
-      console.log(productCode);
     });
     if (productCode != null) {
       this.getPostDetails(productCode);
@@ -33,7 +34,6 @@ export class ProductDetailsComponent {
   getPostDetails(code: any) {
     this.productService.getProductByProductCode(code).subscribe((res: any) => {
       this.productDetails = res;
-      console.log(this.productDetails);
       // this.isLoading = false;
     });
   }
@@ -70,16 +70,18 @@ export class ProductDetailsComponent {
     };
 
     this.userService.addWishList(wishlistItem).subscribe(
-      (response: any) => {},
+      (response: any) => {
+        this.showNotification("Successfully Added to Wishlist");
+      },
       (error: any) => {}
     );
   }
 
-  // showNotification(message: string): void {
-  //   this.snackBar.open(message, "Close", {
-  //     duration: 5000,
-  //     horizontalPosition: "end",
-  //     verticalPosition: "top",
-  //   });
-  // }
+  showNotification(message: string): void {
+    this.snackBar.open(message, "Close", {
+      duration: 5000,
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
+  }
 }

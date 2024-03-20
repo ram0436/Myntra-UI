@@ -11,7 +11,7 @@
       </div>
       <div
         class="img-grid"
-        *ngIf="productDetails.productImageList.length === 1"
+        *ngIf="productDetails?.productImageList.length === 1"
       >
         <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
       </div>
@@ -19,7 +19,7 @@
   </div>
   <div
     class="image-container"
-    *ngIf="productDetails.productImageList.length === 0"
+    *ngIf="productDetails?.productImageList.length === 0"
   >
     <div class="img-grid">
       <img [src]="'assets/no-img.png'" alt="Product Image" />
@@ -34,6 +34,17 @@
       <h1 class="desc-name">
         {{ productDetails?.name }}
       </h1>
+      <!-- <mat-form-field>
+        <mat-label>Message</mat-label>
+        <textarea
+          matInput
+          placeholder="Message"
+          type="text"
+          name="message"
+          rows="3"
+        ></textarea>
+        <mat-icon matSuffix>receipt</mat-icon>
+      </mat-form-field> -->
       <div>
         <div class="overall-rating-container">
           <div class="overall-rating">
