@@ -56,11 +56,9 @@ export class PostCardsComponent {
       createdOn: new Date().toISOString(),
     };
 
-    console.log(wishlistItem);
 
     this.userService.addWishList(wishlistItem).subscribe(
       (response: any) => {
-        console.log(response);
       },
       (error: any) => {}
     );

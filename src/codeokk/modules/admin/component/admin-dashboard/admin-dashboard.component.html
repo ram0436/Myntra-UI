@@ -1,0 +1,190 @@
+<div class="adds-container mt-all-120">
+  <div class="d-flex">
+    <div class="sections">
+      <div
+        class="section"
+        [class.active]="selectedSection === 'categories'"
+        (click)="toggleSection('categories')"
+      >
+        Manage Categories
+      </div>
+      <div
+        class="section"
+        [class.active]="selectedSection === 'brands'"
+        (click)="toggleSection('brands')"
+      >
+        Manage Brands
+      </div>
+      <div
+        class="section"
+        [class.active]="selectedSection === 'colors'"
+        (click)="toggleSection('colors')"
+      >
+        Manage Colors
+      </div>
+      <div class="section">Manage Product</div>
+    </div>
+    <div class="section-content">
+      <div class="manage-categories" *ngIf="showCategories">
+        <div class="heading">
+          <h2>Manage Categories</h2>
+        </div>
+        <mat-card-content>
+          <form class="form">
+            <p>Parent Category</p>
+            <mat-form-field>
+              <mat-label>Add Parent Category</mat-label>
+              <input
+                matInput
+                placeholder="Add Parent Category"
+                type="text"
+                name="parentCategory"
+                [(ngModel)]="parentCategory"
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="send-feedback"
+              (click)="addParentCategory()"
+            >
+              Add Parent Category
+            </button>
+            <p>Category</p>
+            <mat-form-field>
+              <mat-label>Add Category</mat-label>
+              <input
+                matInput
+                placeholder="Add Category"
+                type="text"
+                name="category"
+                [(ngModel)]="category"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Add Parent Category ID</mat-label>
+              <input
+                matInput
+                placeholder="Add Parent Category ID"
+                type="number"
+                name="parentCategoryId"
+                [(ngModel)]="parentCategoryId"
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="send-feedback"
+              (click)="addCategory()"
+            >
+              Add Category
+            </button>
+            <p>Sub Category</p>
+            <mat-form-field>
+              <mat-label>Add Sub Category</mat-label>
+              <input
+                matInput
+                placeholder="Add Sub Category"
+                type="text"
+                name="subcategory"
+                [(ngModel)]="subcategory"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Add Category ID</mat-label>
+              <input
+                matInput
+                placeholder="Add Category ID"
+                type="number"
+                name="categoryId"
+                [(ngModel)]="categoryId"
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              class="send-feedback"
+              (click)="addSubCategory()"
+            >
+              Add Sub Category
+            </button>
+          </form>
+        </mat-card-content>
+      </div>
+
+      <div class="manage-brands" *ngIf="showBrands">
+        <div class="heading">
+          <h2>Manage Brands</h2>
+        </div>
+        <mat-card-content>
+          <form class="form">
+            <p>Brand</p>
+            <mat-form-field>
+              <mat-label>Add Brand</mat-label>
+              <input
+                matInput
+                placeholder="Add Brand Name"
+                type="text"
+                name="brand"
+                [(ngModel)]="brandName"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Add Brand Category ID</mat-label>
+              <input
+                matInput
+                placeholder="Add Brand Category ID"
+                type="number"
+                name="brandCategoryId"
+                [(ngModel)]="brandCategoryId"
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              class="send-feedback"
+              (click)="addBrand()"
+            >
+              Add Brand
+            </button>
+          </form>
+        </mat-card-content>
+      </div>
+      <div class="manage-colors" *ngIf="showColors">
+        <div class="heading">
+          <h2>Manage Colors</h2>
+        </div>
+        <mat-card-content>
+          <form class="form">
+            <p>Color</p>
+            <mat-form-field>
+              <mat-label>Add Color</mat-label>
+              <input
+                matInput
+                placeholder="Add Color Name"
+                type="text"
+                name="color"
+                [(ngModel)]="colorName"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Add Color Code</mat-label>
+              <input
+                matInput
+                placeholder="Add Color Code"
+                type="text"
+                name="colorCode"
+                [(ngModel)]="colorCode"
+              />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              class="send-feedback"
+              (click)="addColor()"
+            >
+              Add Color
+            </button>
+          </form>
+        </mat-card-content>
+      </div>
+    </div>
+  </div>
+</div>

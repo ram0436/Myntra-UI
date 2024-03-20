@@ -8,6 +8,11 @@ const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "filtered-posts", component: FilteredPostsComponent },
   { path: "product-details/:id", component: ProductDetailsComponent },
+  {
+    path: "admin",
+    loadChildren: () =>
+      import("./modules/admin/admin.module").then((m) => m.AdminModule),
+  },
 ];
 
 @NgModule({
