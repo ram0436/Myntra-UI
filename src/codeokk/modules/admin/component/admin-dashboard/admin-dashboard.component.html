@@ -22,7 +22,13 @@
       >
         Manage Colors
       </div>
-      <div class="section">Manage Product</div>
+      <div
+        class="section"
+        [class.active]="selectedSection === 'product'"
+        (click)="toggleSection('product')"
+      >
+        Manage Product
+      </div>
     </div>
     <div class="section-content">
       <div class="manage-categories" *ngIf="showCategories">
@@ -61,15 +67,20 @@
               />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Add Parent Category ID</mat-label>
-              <input
-                matInput
-                placeholder="Add Parent Category ID"
-                type="number"
-                name="parentCategoryId"
+              <mat-label>Select Parent Category</mat-label>
+              <mat-select
                 [(ngModel)]="parentCategoryId"
-              />
+                name="parentCategoryId"
+              >
+                <mat-option
+                  *ngFor="let parentCategory of parentCategories"
+                  [value]="parentCategory.id"
+                >
+                  {{ parentCategory.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
+
             <button
               mat-raised-button
               class="send-feedback"
@@ -89,14 +100,15 @@
               />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Add Category ID</mat-label>
-              <input
-                matInput
-                placeholder="Add Category ID"
-                type="number"
-                name="categoryId"
-                [(ngModel)]="categoryId"
-              />
+              <mat-label>Select Category</mat-label>
+              <mat-select [(ngModel)]="categoryId" name="categoryId">
+                <mat-option
+                  *ngFor="let category of categories"
+                  [value]="category.id"
+                >
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <button
               mat-raised-button
@@ -127,14 +139,15 @@
               />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Add Brand Category ID</mat-label>
-              <input
-                matInput
-                placeholder="Add Brand Category ID"
-                type="number"
-                name="brandCategoryId"
-                [(ngModel)]="brandCategoryId"
-              />
+              <mat-label>Select Sub Category</mat-label>
+              <mat-select [(ngModel)]="brandCategoryId" name="brandCategoryId">
+                <mat-option
+                  *ngFor="let subCategory of subCategories"
+                  [value]="subCategory.id"
+                >
+                  {{ subCategory.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
             <button
               mat-raised-button
@@ -181,6 +194,206 @@
               (click)="addColor()"
             >
               Add Color
+            </button>
+          </form>
+        </mat-card-content>
+      </div>
+      <div class="manage-product" *ngIf="showProduct">
+        <div class="heading">
+          <h2>Manage Product</h2>
+        </div>
+        <mat-card-content>
+          <form class="form">
+            <mat-form-field>
+              <mat-label>Product Name</mat-label>
+              <input
+                matInput
+                placeholder="Enter Name"
+                name="productName"
+                [(ngModel)]="productName"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Product Description</mat-label>
+              <textarea
+                matInput
+                placeholder="Enter Description"
+                name="textareaInput"
+                [(ngModel)]="productDescription"
+                rows="3"
+              ></textarea>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Parent Category</mat-label>
+              <mat-select
+                [(ngModel)]="productParentCategoryId"
+                name="productParentCategoryId"
+              >
+                <mat-option
+                  *ngFor="let parentCategory of parentCategories"
+                  [value]="parentCategory.id"
+                >
+                  {{ parentCategory.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Category</mat-label>
+              <mat-select
+                [(ngModel)]="productCategoryId"
+                name="productCategoryId"
+              >
+                <mat-option
+                  *ngFor="let category of categories"
+                  [value]="category.id"
+                >
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Sub Category</mat-label>
+              <mat-select
+                [(ngModel)]="productSubCategoryId"
+                name="productSubCategoryId"
+              >
+                <mat-option
+                  *ngFor="let subCategory of subCategories"
+                  [value]="subCategory.id"
+                >
+                  {{ subCategory.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Color</mat-label>
+              <mat-select [(ngModel)]="productColorId" name="colorId">
+                <mat-option *ngFor="let color of colors" [value]="color.id">
+                  {{ color.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Brand</mat-label>
+              <mat-select [(ngModel)]="productBrandId" name="brandId">
+                <mat-option *ngFor="let brand of brands" [value]="brand.id">
+                  {{ brand.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Product Size</mat-label>
+              <mat-select [(ngModel)]="productSizeId" name="productSizeId">
+                <mat-option *ngFor="let size of sizes" [value]="size.id">
+                  {{ size.size }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-chip-list">
+              <mat-label>Enter Tags</mat-label>
+              <mat-chip-grid #chipGrid aria-label="tag selection">
+                <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
+                  {{ tag.name }}
+                  <button
+                    matChipRemove
+                    [attr.aria-label]="'remove ' + tag.name"
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              </mat-chip-grid>
+              <input
+                placeholder="Press enter after writing the tag.."
+                #fruitInput
+                [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Enter Price</mat-label>
+              <input
+                matInput
+                placeholder="Rs."
+                name="productPrice"
+                (input)="allowOnlyNumbers($event)"
+                [(ngModel)]="productPrice"
+                class="price-field"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Product Code</mat-label>
+              <input
+                matInput
+                placeholder="Enter Product Code"
+                name="productCode"
+                [(ngModel)]="productCode"
+              />
+            </mat-form-field>
+            <div class="uplod-sectin h-550">
+              <h3>Upload Project Images/Screenshots</h3>
+              <div class="progs" *ngIf="imageProgress">
+                <h5>Upload Progress</h5>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+              <div class="cards">
+                <ul class="upld">
+                  <li
+                    class="upload-card"
+                    *ngFor="let item of cardsCount; let i = index"
+                  >
+                    <div
+                      class="upload-card-brd"
+                      (click)="selectFile()"
+                      id="{{ i }}"
+                      *ngIf="item == ''"
+                    >
+                      <input
+                        type="file"
+                        id="fileUpload"
+                        name="fileUpload"
+                        (change)="selectImage($event)"
+                        style="display: none"
+                        multiple
+                      />
+                      <div>
+                        <button class="camera">
+                          <img
+                            src="../../../../../assets/camera.svg"
+                            alt="camera"
+                          />
+                        </button>
+                        <span class="add-photo">Add photo</span>
+                      </div>
+                    </div>
+                    <div class="upload-card-brd" *ngIf="item != ''">
+                      <div class="preview">
+                        <button
+                          class="delete-button"
+                          (click)="deleteBackgroundImage(i)"
+                        >
+                          <span class="delete-icon">&#10006;</span>
+                        </button>
+                        <div
+                          class="first-image"
+                          *ngIf="i === 0 && firstImageUploaded"
+                        >
+                          <div class="cover-tag">Cover Photo</div>
+                        </div>
+                        <img [src]="item" height="100px" width="100px" alt="" />
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <button
+              mat-raised-button
+              color="primary"
+              class="send-feedback"
+              (click)="postProduct()"
+            >
+              Add Product
             </button>
           </form>
         </mat-card-content>

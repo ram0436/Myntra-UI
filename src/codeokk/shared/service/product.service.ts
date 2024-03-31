@@ -24,4 +24,12 @@ export class ProductService {
       `${this.BaseURL}Product/GetProductByProductCode?productCode=` + code
     );
   }
+
+  uploadProjectCodeImages(formData: any) {
+    return this.http.post(`${this.BaseURL}/Product/UploadImages`, formData);
+  }
+
+  saveProjectCodePost(payLoad: any) {
+    return this.http.post(`${this.BaseURL}/Product`, payLoad);
+  }
 }
