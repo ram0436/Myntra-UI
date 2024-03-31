@@ -14,6 +14,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatOptionModule } from "@angular/material/core";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatSelectModule } from "@angular/material/select";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [AdminDashboardComponent],
@@ -39,6 +40,7 @@ import { MatSelectModule } from "@angular/material/select";
     MatFormFieldModule,
     MatChipsModule,
     MatSelectModule,
+    MatProgressBarModule,
   ],
 })
 export class AdminModule {}

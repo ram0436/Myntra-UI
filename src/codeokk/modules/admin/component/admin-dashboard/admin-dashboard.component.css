@@ -92,3 +92,123 @@ mat-form-field {
   background-color: #ff3e6c !important;
   color: #fff !important;
 }
+
+.uplod-sectin h3 {
+  font-weight: 600 !important;
+}
+
+.uplod-sectin {
+  padding: 10px 5px;
+  border: 1px solid #222;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.progs {
+  margin-top: 10px;
+  width: 92%;
+  margin-left: 15px;
+}
+
+.progs h5 {
+  font-size: 14px;
+}
+
+.upld {
+  margin: 0px !important;
+  padding: 0px !important;
+  margin-left: 15px !important;
+}
+
+.cards {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.upload-card-brd {
+  border: 1px solid;
+  cursor: pointer;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.upload-card {
+  border: 2px solid var(--blackOpaque);
+  box-sizing: border-box;
+  display: inline-block;
+  height: 104px;
+  vertical-align: top;
+  margin: 0 6px 6px 0;
+  width: 104px;
+}
+
+.camera {
+  margin: 20px;
+  margin-left: 35px;
+  border: none;
+  background-color: #ffff;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0;
+  width: 30px;
+}
+
+.add-photo {
+  text-align: center;
+  width: 100% !important;
+  display: block;
+}
+
+.preview {
+  position: relative;
+}
+
+.delete-btn {
+  width: 40px;
+  height: 37px;
+  padding: 8px;
+  margin: 0;
+}
+
+.delete-button {
+  top: 0px;
+  right: 0px;
+  background: red;
+  border: red;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  float: right;
+  position: absolute;
+  margin: 4px;
+}
+
+.delete-icon {
+  color: white;
+  font-size: 12px;
+}
+
+.first-image {
+  position: relative;
+}
+
+.cover-tag {
+  position: absolute;
+  top: 78px;
+  width: 89%;
+  background-color: #ff3e6c;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 6px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

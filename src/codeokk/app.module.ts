@@ -66,6 +66,7 @@ import { AdminModule } from "./modules/admin/admin.module";
     MatCheckboxModule,
     MatTabsModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   bootstrap: [AppComponent],
 })
