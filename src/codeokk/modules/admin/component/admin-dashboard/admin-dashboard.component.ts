@@ -34,6 +34,8 @@ export class AdminDashboardComponent {
   subcategory: string = "";
   categoryId: number = 0;
 
+  brandSubCategories: any[] = [];
+
   brandName: string = "";
   brandCategoryId: number = 0;
   colorName: string = "";
@@ -69,7 +71,6 @@ export class AdminDashboardComponent {
 
   ngOnInit() {
     this.getAllParentCategories();
-    this.getAllBrands();
     this.getAllColors();
     this.getAllProductSizes();
     for (var i = 0; i < this.cardsCount.length; i++) {
@@ -130,8 +131,6 @@ export class AdminDashboardComponent {
       this.showNotification("Category ID is required");
     } else if (!payload.subCategoryId) {
       this.showNotification("Subcategory ID is required");
-    } else if (!payload.brandId) {
-      this.showNotification("Brand ID is required");
     } else if (!payload.price) {
       this.showNotification("Price is required");
     } else if (!payload.colorId) {
@@ -154,11 +153,11 @@ export class AdminDashboardComponent {
     });
   }
 
-  getAllBrands() {
-    this.masterService.getAllBrands().subscribe((res: any) => {
-      this.brands = res;
-    });
-  }
+  // getAllBrands() {
+  //   this.masterService.getAllBrands().subscribe((res: any) => {
+  //     this.brands = res;
+  //   });
+  // }
 
   getAllProductSizes() {
     this.masterService.getAllProductSize().subscribe((res: any) => {
@@ -173,6 +172,30 @@ export class AdminDashboardComponent {
         this.getCategoryByParentCategoryId(parentCategory.id);
       });
     });
+  }
+
+  onParentCategoryChange(parentCategoryId: number) {
+    this.masterService
+      .getCategoryByParentCategoryId(parentCategoryId)
+      .subscribe((data: any) => {
+        this.categories = data;
+      });
+  }
+
+  onCategoryChange(CategoryId: number) {
+    this.masterService
+      .getSubCategoryByCategoryId(CategoryId)
+      .subscribe((data: any) => {
+        this.subCategories = data;
+      });
+  }
+
+  onSubCategoryChange(subCategoryId: number) {
+    this.masterService
+      .getBrandBySubCategoryId(subCategoryId)
+      .subscribe((data: any) => {
+        this.brands = data;
+      });
   }
 
   allowOnlyNumbers(event: Event): void {
@@ -272,7 +295,6 @@ export class AdminDashboardComponent {
     this.masterService
       .getCategoryByParentCategoryId(parentCategoryId)
       .subscribe((data: any) => {
-        this.categories = this.categories.concat(data);
         data.forEach((category: any) => {
           this.getSubCategoryByCategoryId(category.id);
         });
@@ -283,12 +305,16 @@ export class AdminDashboardComponent {
     this.masterService
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
-        this.subCategories = this.subCategories.concat(data);
+        this.brandSubCategories = this.brandSubCategories.concat(data);
 
-        this.subCategories = Array.from(
-          new Set(this.subCategories.map((subCategory) => subCategory.name))
+        this.brandSubCategories = Array.from(
+          new Set(
+            this.brandSubCategories.map((subCategory) => subCategory.name)
+          )
         ).map((name) =>
-          this.subCategories.find((subCategory) => subCategory.name === name)
+          this.brandSubCategories.find(
+            (subCategory) => subCategory.name === name
+          )
         );
       });
   }

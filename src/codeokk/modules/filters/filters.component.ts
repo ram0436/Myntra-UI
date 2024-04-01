@@ -47,7 +47,8 @@ export class FiltersComponent {
       if (params["subCategory"] != undefined)
         this.subCategoryId = Number(params["subCategory"]);
       else this.subCategoryId = 0;
-      this.getBrands();
+      this.getBrand(this.subCategoryId);
+      // this.getBrands();
       if (params["category"] != undefined)
         this.menuId = Number(params["category"]);
       this.getSubCategoryByCategoryId(this.menuId);
@@ -66,17 +67,19 @@ export class FiltersComponent {
     });
   }
 
-  getAllBrands() {
-    this.masterService.getAllBrands().subscribe((res: any) => {
-      this.brands = res;
-    });
-  }
-
   getSubCategoryByCategoryId(categoryId: number) {
     this.masterService
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
         this.categories = data;
+      });
+  }
+
+  getBrand(subCategoryId: any) {
+    this.masterService
+      .getBrandBySubCategoryId(subCategoryId)
+      .subscribe((data: any) => {
+        this.brands = data;
       });
   }
 
@@ -138,38 +141,38 @@ export class FiltersComponent {
     });
   }
 
-  getBrands() {
-    this.productService.getAllProducts().subscribe((res) => {
-      this.products = res.filter((product) => {
-        const categoryId = Number(this.categoryId);
-        const subCategoryId = Number(this.subCategoryId);
-        const parentId = Number(this.parentId);
+  // getBrands() {
+  //   this.productService.getAllProducts().subscribe((res) => {
+  //     this.products = res.filter((product) => {
+  //       const categoryId = Number(this.categoryId);
+  //       const subCategoryId = Number(this.subCategoryId);
+  //       const parentId = Number(this.parentId);
 
-        if (categoryId !== 0 && product.category[0].id !== categoryId) {
-          return false;
-        }
+  //       if (categoryId !== 0 && product.category[0].id !== categoryId) {
+  //         return false;
+  //       }
 
-        if (
-          subCategoryId !== 0 &&
-          product.subCategory[0].id !== subCategoryId
-        ) {
-          return false;
-        }
+  //       if (
+  //         subCategoryId !== 0 &&
+  //         product.subCategory[0].id !== subCategoryId
+  //       ) {
+  //         return false;
+  //       }
 
-        if (parentId !== 0 && product.parentCategory[0].id !== parentId) {
-          return false;
-        }
+  //       if (parentId !== 0 && product.parentCategory[0].id !== parentId) {
+  //         return false;
+  //       }
 
-        return true;
-      });
+  //       return true;
+  //     });
 
-      const uniqueBrands = Array.from(
-        new Set(
-          this.products.map((product) => JSON.stringify(product.brand[0]))
-        )
-      ).map((brandStr) => JSON.parse(brandStr));
+  //     const uniqueBrands = Array.from(
+  //       new Set(
+  //         this.products.map((product) => JSON.stringify(product.brand[0]))
+  //       )
+  //     ).map((brandStr) => JSON.parse(brandStr));
 
-      this.brands = uniqueBrands;
-    });
-  }
+  //     this.brands = uniqueBrands;
+  //   });
+  // }
 }
