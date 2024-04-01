@@ -26,7 +26,7 @@ export class ProductService {
   }
 
   uploadProjectCodeImages(formData: any) {
-    return this.http.post(`${this.BaseURL}/Product/UploadImages`, formData);
+    return this.http.post(`${this.BaseURL}Product/UploadImages`, formData);
   }
 
   saveProjectCodePost(payLoad: any) {

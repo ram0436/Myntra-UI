@@ -46,6 +46,8 @@ export class FilteredPostsComponent {
         const categoryId = Number(this.categoryId);
         const subCategoryId = Number(this.subCategoryId);
         const parentId = Number(this.parentId);
+        const brandIds = filters.brands;
+
         if (
           (filters.categories.length === 0 ||
             filters.categories.includes(product.subCategory[0].id)) &&
@@ -54,9 +56,7 @@ export class FilteredPostsComponent {
               filters.colors.includes(color.id)
             )) &&
           (filters.brands.length === 0 ||
-            product.brand.some((brand: any) =>
-              filters.brands.includes(brand.id)
-            )) &&
+            product.brand.some((brand: any) => brandIds.includes(brand.id))) &&
           (filters.discount === 0 ||
             product.discount.some(
               (discount: any) => discount.percent >= filters.discount

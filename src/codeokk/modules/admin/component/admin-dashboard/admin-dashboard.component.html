@@ -142,7 +142,7 @@
               <mat-label>Select Sub Category</mat-label>
               <mat-select [(ngModel)]="brandCategoryId" name="brandCategoryId">
                 <mat-option
-                  *ngFor="let subCategory of subCategories"
+                  *ngFor="let subCategory of brandSubCategories"
                   [value]="subCategory.id"
                 >
                   {{ subCategory.name }}
@@ -228,6 +228,7 @@
               <mat-select
                 [(ngModel)]="productParentCategoryId"
                 name="productParentCategoryId"
+                (selectionChange)="onParentCategoryChange($event.value)"
               >
                 <mat-option
                   *ngFor="let parentCategory of parentCategories"
@@ -242,6 +243,7 @@
               <mat-select
                 [(ngModel)]="productCategoryId"
                 name="productCategoryId"
+                (ngModelChange)="onCategoryChange($event)"
               >
                 <mat-option
                   *ngFor="let category of categories"
@@ -256,6 +258,7 @@
               <mat-select
                 [(ngModel)]="productSubCategoryId"
                 name="productSubCategoryId"
+                (ngModelChange)="onSubCategoryChange($event)"
               >
                 <mat-option
                   *ngFor="let subCategory of subCategories"
@@ -266,18 +269,18 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <mat-label>Select Color</mat-label>
-              <mat-select [(ngModel)]="productColorId" name="colorId">
-                <mat-option *ngFor="let color of colors" [value]="color.id">
-                  {{ color.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
               <mat-label>Select Brand</mat-label>
               <mat-select [(ngModel)]="productBrandId" name="brandId">
                 <mat-option *ngFor="let brand of brands" [value]="brand.id">
                   {{ brand.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Select Color</mat-label>
+              <mat-select [(ngModel)]="productColorId" name="colorId">
+                <mat-option *ngFor="let color of colors" [value]="color.id">
+                  {{ color.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

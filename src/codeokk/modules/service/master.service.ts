@@ -28,8 +28,10 @@ export class MasterService {
     return this.http.get(`${this.baseUrl}/Master/GetAllProductSize`);
   }
 
-  getAllBrands() {
-    return this.http.get(`${this.baseUrl}/Master/GetAllBrand`);
+  getBrandBySubCategoryId(subCategoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetBrandBySubCategoryId?subCategoryId=${subCategoryId}`
+    );
   }
 
   getCategoryByParentCategoryId(parentCategoryId: number) {
