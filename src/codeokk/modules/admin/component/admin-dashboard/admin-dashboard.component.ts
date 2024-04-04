@@ -31,6 +31,7 @@ export class AdminDashboardComponent {
   parentCategory: string = "";
   category: string = "";
   parentCategoryId: number = 0;
+  subParentCategoryId: number = 0;
   subcategory: string = "";
   categoryId: number = 0;
 
@@ -172,6 +173,14 @@ export class AdminDashboardComponent {
         this.getCategoryByParentCategoryId(parentCategory.id);
       });
     });
+  }
+
+  onSubParentCategoryChange(parentCategoryId: number) {
+    this.masterService
+      .getCategoryByParentCategoryId(parentCategoryId)
+      .subscribe((data: any) => {
+        this.categories = data;
+      });
   }
 
   onParentCategoryChange(parentCategoryId: number) {

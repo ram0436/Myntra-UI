@@ -35,7 +35,6 @@ export class ProductDetailsComponent {
     this.productService.getProductByProductCode(code).subscribe((res: any) => {
       this.productDetails = res;
       // this.isLoading = false;
-      console.log(res);
     });
   }
 

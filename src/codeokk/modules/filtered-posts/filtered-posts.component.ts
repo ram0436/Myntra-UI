@@ -10,6 +10,7 @@ import { MasterService } from "../service/master.service";
 })
 export class FilteredPostsComponent {
   products: any[] = [];
+  originalProducts: any[] = [];
 
   brands: any[] = [];
 
@@ -36,46 +37,97 @@ export class FilteredPostsComponent {
       this.getProducts();
     });
     this.masterService.getData().subscribe((filters: any) => {
+      console.log(filters);
       this.filterProducts(filters);
     });
   }
 
-  filterProducts(filters: any) {
-    this.productService.getAllProducts().subscribe((res) => {
-      this.products = res.filter((product) => {
-        const categoryId = Number(this.categoryId);
-        const subCategoryId = Number(this.subCategoryId);
-        const parentId = Number(this.parentId);
-        const brandIds = filters.brands;
+  matchProductIds(product: any): boolean {
+    const categoryId = Number(this.categoryId);
+    const subCategoryId = Number(this.subCategoryId);
+    const parentId = Number(this.parentId);
 
-        if (
-          (filters.categories.length === 0 ||
-            filters.categories.includes(product.subCategory[0].id)) &&
-          (filters.colors.length === 0 ||
-            product.color.some((color: any) =>
-              filters.colors.includes(color.id)
-            )) &&
-          (filters.brands.length === 0 ||
-            product.brand.some((brand: any) => brandIds.includes(brand.id))) &&
-          (filters.discount === 0 ||
-            product.discount.some(
-              (discount: any) => discount.percent >= filters.discount
-            )) &&
-          (categoryId === 0 || product.category[0].id === categoryId) &&
-          (subCategoryId === 0 ||
-            product.subCategory[0].id === subCategoryId) &&
-          (parentId === 0 || product.parentCategory[0].id === parentId)
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-    });
+    return (
+      (categoryId === 0 || product.category[0].id === categoryId) &&
+      (subCategoryId === 0 || product.subCategory[0].id === subCategoryId) &&
+      (parentId === 0 || product.parentCategory[0].id === parentId)
+    );
+  }
+
+  filterProducts(filters: any) {
+    let filteredProducts = [...this.originalProducts];
+
+    filteredProducts = filteredProducts.filter((product) =>
+      this.matchProductIds(product)
+    );
+
+    // Filter by category
+    if (filters.categories.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        filters.categories.includes(product.subCategory[0].id)
+      );
+    }
+
+    // Filter by brand
+    if (filters.brands.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.brand.some((b: any) => filters.brands.includes(b.id))
+      );
+    }
+
+    // Filter by color
+    if (filters.colors.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.color.some((c: any) => filters.colors.includes(c.id))
+      );
+    }
+
+    // Filter by discount
+    if (filters.discount) {
+      const discountThreshold = parseInt(filters.discount);
+      filteredProducts = filteredProducts.filter((product) =>
+        product.discount.some((d: any) => d.percent >= discountThreshold)
+      );
+    }
+
+    this.products = filteredProducts;
+
+    // this.productService.getAllProducts().subscribe((res) => {
+    //   this.products = res.filter((product) => {
+    //     const categoryId = Number(this.categoryId);
+    //     const subCategoryId = Number(this.subCategoryId);
+    //     const parentId = Number(this.parentId);
+    //     const brandIds = filters.brands;
+
+    //     if (
+    //       (filters.categories.length === 0 ||
+    //         filters.categories.includes(product.subCategory[0].id)) &&
+    //       (filters.colors.length === 0 ||
+    //         product.color.some((color: any) =>
+    //           filters.colors.includes(color.id)
+    //         )) &&
+    //       (filters.brands.length === 0 ||
+    //         product.brand.some((brand: any) => brandIds.includes(brand.id))) &&
+    //       (filters.discount === 0 ||
+    //         product.discount.some(
+    //           (discount: any) => discount.percent >= filters.discount
+    //         )) &&
+    //       (categoryId === 0 || product.category[0].id === categoryId) &&
+    //       (subCategoryId === 0 ||
+    //         product.subCategory[0].id === subCategoryId) &&
+    //       (parentId === 0 || product.parentCategory[0].id === parentId)
+    //     ) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   });
+    // });
   }
 
   getProducts() {
     this.productService.getAllProducts().subscribe((res) => {
+      this.originalProducts = [...res];
       this.products = res.filter((product) => {
         const categoryId = Number(this.categoryId);
         const subCategoryId = Number(this.subCategoryId);
@@ -98,10 +150,6 @@ export class FilteredPostsComponent {
 
         return true;
       });
-
-      // const brands = this.products.map((product) => product.brand[0].name);
-
-      // const uniqueBrands = Array.from(new Set(brands));
 
       const uniqueBrands = Array.from(
         new Set(
