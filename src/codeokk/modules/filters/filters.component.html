@@ -7,7 +7,11 @@
     <ul class="categories-list">
       <li *ngFor="let category of categories">
         <label for="" class="custom-checkbox">
-          <input type="checkbox" [value]="category.id" />
+          <input
+            type="checkbox"
+            [value]="category.id"
+            (change)="toggleCategory(category.id)"
+          />
           {{ category.name }}
           <span class="categories-num">(125431)</span>
           <div class="checkbox-indicator"></div>
