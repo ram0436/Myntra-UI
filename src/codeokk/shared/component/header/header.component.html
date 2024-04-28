@@ -24,11 +24,15 @@
             <div class="pane-content">
               <div class="category-container">
                 <div class="odd-column-content">
-                  <ul class="nav-block">
+                  <ul
+                    class="nav-block"
+                    [ngClass]="calculateColumns(parentCategory.id)"
+                  >
                     <li
                       *ngFor="
                         let category of categoryMap[parentCategory.id];
-                        let lastCategory = last
+                        let lastCategory = last;
+                        let firstCategory = first
                       "
                     >
                       <a
@@ -38,6 +42,7 @@
                           category: category.id
                         }"
                         class="category-name category-head"
+                        [ngStyle]="{ 'margin-top.px': firstCategory ? 0 : 10 }"
                         >{{ category.name }}</a
                       >
                       <ul class="subcategory-ul">
