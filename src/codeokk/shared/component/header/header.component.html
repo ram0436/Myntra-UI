@@ -23,7 +23,52 @@
             <span class="main">{{ parentCategory.name }}</span>
             <div class="pane-content">
               <div class="category-container">
-                <div class="odd-column-content">
+                <div class="nav-blocks-container">
+                  <ng-container
+                    *ngFor="
+                      let column of calculateColumns(parentCategory.id);
+                      let i = index
+                    "
+                  >
+                    <div
+                      class="nav-block"
+                      [ngClass]="{ 'even-bg': i % 2 === 1 }"
+                    >
+                      <ng-container *ngFor="let item of column">
+                        <a
+                          [routerLink]="['/filtered-posts']"
+                          [queryParams]="{
+                            parent: parentCategory.id,
+                            category: item.category.id
+                          }"
+                          class="category-name category-head"
+                        >
+                          {{ item.category.name }}
+                        </a>
+                        <ul class="subcategory-ul">
+                          <li
+                            *ngFor="let subcategory of item.subcategories"
+                            class="subcategory-li"
+                          >
+                            <a
+                              [routerLink]="['/filtered-posts']"
+                              [queryParams]="{
+                                parent: parentCategory.id,
+                                category: item.category.id,
+                                subCategory: subcategory.id
+                              }"
+                              class="category-name"
+                            >
+                              {{ subcategory.name }}
+                            </a>
+                          </li>
+                        </ul>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <!-- <div class="odd-column-content">
                   <ul
                     class="nav-block"
                     [ngClass]="calculateColumns(parentCategory.id)"
@@ -42,7 +87,6 @@
                           category: category.id
                         }"
                         class="category-name category-head"
-                        [ngStyle]="{ 'margin-top.px': firstCategory ? 0 : 10 }"
                         >{{ category.name }}</a
                       >
                       <ul class="subcategory-ul">
@@ -67,7 +111,7 @@
                       <div *ngIf="!lastCategory" class="hr-line"></div>
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
