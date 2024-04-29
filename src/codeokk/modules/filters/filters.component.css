@@ -196,9 +196,10 @@
 .colour-colorDisplay {
   width: 15px;
   height: 15px;
+  display: none;
   border-radius: 50%;
-  display: inline-block;
-  margin-right: 8px;
+  /* display: inline-block; */
+  /* margin-right: 8px; */
 }
 
 .colour-num {
