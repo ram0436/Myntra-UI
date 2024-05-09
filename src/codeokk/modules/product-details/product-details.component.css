@@ -208,6 +208,12 @@ s {
   color: #ff3f6c !important;
 }
 
+.selected-size-btn {
+  border: 1px solid #ff3f6c !important;
+  background-color: #fff;
+  color: #ff3f6c !important;
+}
+
 .size-buttons-size-button:hover + .size-buttons-sizeTip {
   visibility: visible;
 }
@@ -216,6 +222,15 @@ s {
   border: 1px solid #ff3f6c;
   background-color: #fff;
   color: #ff3f6c !important;
+}
+
+.added-to-wishlist {
+  background-color: #414141 !important;
+  color: #fff !important;
+}
+
+.added-to-wishlist .fv-icon {
+  color: #f16565;
 }
 
 .size-buttons-size-chart {

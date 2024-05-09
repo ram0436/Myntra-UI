@@ -85,6 +85,8 @@
             <div class="size-buttons-buttonContainer">
               <button
                 class="size-buttons-size-button size-buttons-size-button-default"
+                [ngClass]="{ 'selected-size-btn': selectedSize === size.id }"
+                (click)="selectSize(size.id)"
               >
                 <span class="size-buttons-size-strike-hide"></span>
                 <p class="size-buttons-unified-size">{{ size.size }}</p>
@@ -99,16 +101,30 @@
         style="padding-bottom: 15px; border-bottom: 1px solid #d4d5d9"
       >
         <div class="pdp-action-container pdp-fixed">
-          <a class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
+          <a
+            class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
+            (click)="addToBag(productDetails?.productCode)"
             ><span class="material-icons-outlined bag-icon"> shopping_bag </span
-            ><span>GO TO BAG</span></a
+            ><span>ADD TO BAG</span></a
           >
           <div
             class="pdp-add-to-wishlist pdp-button pdp-add-to-wishlist pdp-button pdp-flex pdp-center"
-            (click)="addToWishlist(productDetails?.productCode)"
+            [class.added-to-wishlist]="
+              favoriteStatus[productDetails?.productCode]
+            "
+            (click)="toggleFavorite($event, productDetails?.productCode)"
           >
-            <span class="material-icons-outlined fv-icon">
-              favorite_border </span
+            <span
+              class="material-icons fv-icon"
+              [class.added-to-wishlist-icon]="
+                favoriteStatus[productDetails?.productCode]
+              "
+            >
+              {{
+                favoriteStatus[productDetails?.productCode]
+                  ? "favorite"
+                  : "favorite_border"
+              }}</span
             ><span class="">ADD TO WISHLIST</span>
           </div>
         </div>

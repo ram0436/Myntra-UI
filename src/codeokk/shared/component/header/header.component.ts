@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MasterService } from "src/codeokk/modules/service/master.service";
+import { UserService } from "src/codeokk/modules/user/service/user.service";
 
 @Component({
   selector: "app-header",
@@ -13,11 +14,24 @@ export class HeaderComponent implements OnInit {
   subCategoryMap: { [key: number]: any[] } = {};
   categoryBlocks: { [key: number]: any[][] } = {};
   columns: number = 1;
+  cartItemCount: number = 0;
 
-  constructor(private masterService: MasterService, private router: Router) {}
+  constructor(
+    private masterService: MasterService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.getAllParentCategories();
+    this.userService.getCartItemByUserId(1).subscribe(
+      (response: any) => {
+        this.cartItemCount = response.length;
+      },
+      (error: any) => {
+        // console.error("API Error:", error);
+      }
+    );
   }
 
   getAllParentCategories() {
@@ -26,7 +40,6 @@ export class HeaderComponent implements OnInit {
       this.parentCategories.forEach((parentCategory) => {
         this.getCategoryByParentCategoryId(parentCategory.id);
       });
-      console.log(this.parentCategories);
     });
   }
 
@@ -38,7 +51,6 @@ export class HeaderComponent implements OnInit {
         data.forEach((category: any) => {
           this.getSubCategoryByCategoryId(category.id);
         });
-        console.log(this.categoryMap);
       });
   }
 
@@ -47,7 +59,6 @@ export class HeaderComponent implements OnInit {
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
         this.subCategoryMap[categoryId] = data;
-        console.log(this.subCategoryMap);
       });
   }
 
@@ -99,8 +110,6 @@ export class HeaderComponent implements OnInit {
       }
       totalCount += categoryCount;
     });
-
-    console.log(columns);
 
     return columns;
   }

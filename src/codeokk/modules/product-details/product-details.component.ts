@@ -13,6 +13,7 @@ export class ProductDetailsComponent {
   showModal: boolean = false;
   productDetails: any;
   favoriteStatus: { [key: string]: boolean } = {};
+  selectedSize: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,35 @@ export class ProductDetailsComponent {
     }
   }
 
+  selectSize(sizeId: number) {
+    this.selectedSize = sizeId;
+  }
+
+  addToBag(productId: string) {
+    if (this.selectedSize !== null) {
+      const cartItem = {
+        id: 0,
+        productCode: productId,
+        createdBy: 1,
+        productSizeId: this.selectedSize,
+        // createdBy: localStorage.getItem("id"),
+        createdOn: new Date().toISOString(),
+        modifiedBy: 1,
+        modifiedOn: new Date().toISOString(),
+        userId: 1,
+      };
+
+      this.userService.addToCart(cartItem).subscribe(
+        (response: any) => {
+          this.showNotification("Successfully Added to Cart");
+        },
+        (error: any) => {}
+      );
+    } else {
+      this.showNotification("Please Select A Size First");
+    }
+  }
+
   getPostDetails(code: any) {
     this.productService.getProductByProductCode(code).subscribe((res: any) => {
       this.productDetails = res;
@@ -46,7 +76,6 @@ export class ProductDetailsComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    // if (localStorage.getItem("id") != null) {
     this.favoriteStatus[productId] = this.favoriteStatus[productId] || false;
 
     this.favoriteStatus[productId] = !this.favoriteStatus[productId];
@@ -55,9 +84,6 @@ export class ProductDetailsComponent {
       this.addToWishlist(productId);
     } else {
     }
-    // } else {
-    //   this.openLoginModal();
-    // }
   }
 
   addToWishlist(productId: string) {

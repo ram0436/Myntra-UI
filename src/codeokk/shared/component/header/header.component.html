@@ -167,15 +167,15 @@
           </div>
         </div>
       </div>
-      <div class="wishlist">
+      <div class="wishlist" routerLink="user/wishlist">
         <span class="material-icons-outlined icon-wishlist">
           favorite_border
         </span>
         <div class="user-title">Wishlist</div>
       </div>
-      <div class="cart">
+      <div class="cart" routerLink="user/cart">
         <span class="material-icons-outlined icon-bag"> shopping_bag </span>
-        <span class="badge grey">0</span>
+        <span class="badge grey">{{ cartItemCount }}</span>
         <div class="user-title">Bag</div>
       </div>
     </div>

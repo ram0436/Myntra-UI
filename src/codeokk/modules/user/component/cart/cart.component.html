@@ -1,0 +1,158 @@
+<div class="cart">
+  <div class="cart-container">
+    <div class="cart-flex">
+      <div class="avail-items">
+        <div class="top">
+          <div class="delivery-options">
+            <div class="options-desc">Check delivery time and services</div>
+            <button class="pincode-btn">Enter Pincode</button>
+          </div>
+          <div class="avail-offers">
+            <div class="offers-head">
+              <span class="material-icons">stars</span>
+              <p class="offers-title">Available Offers</p>
+            </div>
+            <div class="offers-body">
+              <li *ngFor="let offer of offers; let i = index">
+                {{ offer }}
+              </li>
+              <p class="show-more" (click)="toggleShowMore()">
+                <span class="show-text">{{
+                  showMore ? "Show Less" : "Show More"
+                }}</span>
+                <span class="material-icons">{{
+                  showMore ? "expand_less" : "expand_more"
+                }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="cart-items-container">
+          <div class="cart-items">
+            <div *ngFor="let product of cartProducts">
+              <a
+                [routerLink]="'/product-details/' + product.productCode"
+                class="cart-item"
+              >
+                <span class="material-icons close-icon"> close </span>
+                <div class="cart-item-image">
+                  <img [src]="getImageUrl(product)" alt="Product Image" />
+                </div>
+                <div class="cart-item-details">
+                  <div class="item-brand">{{ product.brand[0]?.name }}</div>
+                  <div class="cart-desc">
+                    {{ product.description }}
+                  </div>
+                  <div class="size-and-qty">
+                    <div class="size-container">
+                      <span class="size"
+                        >Size: {{ getProductSize(product) }}</span
+                      >
+                    </div>
+                    <div class="qty-container">
+                      <div class="qty">Qty: 1</div>
+                    </div>
+                  </div>
+                  <div class="item-price">
+                    <span class="final-price">₹{{ product.price }}</span>
+                    <span class="discount"
+                      >({{ product.discount[0]?.percent }}% OFF)</span
+                    >
+                  </div>
+                  <div class="item-return">
+                    <span class="material-icons return-icon">
+                      assignment_return
+                    </span>
+                    <div class="return-text">
+                      <span class="return-days">14 Days</span> Return Available
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="price-details">
+        <div class="coupons">
+          <span class="coupons-head">Coupons</span>
+          <div class="coupons-body">
+            <div class="apply-coupons">
+              <span class="material-icons coupons-icon"> sell </span>
+              <span class="apply-text">Apply Coupons</span>
+            </div>
+            <button class="coupon-btn">Apply</button>
+          </div>
+        </div>
+        <div class="price-container">
+          <div class="price-header">PRICE DETAILS (1 Item)</div>
+          <div class="price-orderSummary">
+            <div class="priceDetail">
+              <span class=" ">Total MRP</span
+              ><span class="priceDetail-base-value"
+                ><span></span><span> <span class="">₹</span>1,099</span></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span class=" ">Discount on MRP</span
+              ><span class="priceDetail-base-value priceDetail-base-discount"
+                ><span>-</span><span> <span class="">₹</span>671</span></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span>Coupon Discount</span
+              ><span class="priceDetail-base-value priceDetail-base-action"
+                >Apply Coupon</span
+              >
+            </div>
+            <div class="priceDetail">
+              <span class=" "
+                >Platform Fee<span class="priceDetail-base-knowMore"
+                  >Know More</span
+                ></span
+              ><span class="priceDetail-base-value"
+                ><span class="priceDetail-base-discount">FREE</span></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span
+                >Shipping Fee
+                <div class="priceDetail-base-infoTextContainer">
+                  <button font-weight="bold" role="button" class="css-1pl9bms">
+                    <div class="css-xjhrni">Know More</div>
+                  </button>
+                </div></span
+              ><span class="priceDetail-base-value"
+                ><span
+                  class="priceDetail-base-striked priceDetail-base-spaceRight"
+                  ><span>₹79</span></span
+                ><span class="priceDetail-base-discount">FREE</span></span
+              >
+            </div>
+            <div class="priceDetail-total">
+              <span class=" ">Total Amount</span
+              ><span class="priceDetail-base-value"
+                ><span></span
+                ><span>
+                  <span class="priceDetail-base-redesignRupeeTotalIcon">₹</span
+                  >428</span
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            width="100%"
+            letterspacing="1px"
+            font-weight="bold"
+            role="button"
+            class="css-ibwr57"
+          >
+            <div class="css-xjhrni">PLACE ORDER</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
