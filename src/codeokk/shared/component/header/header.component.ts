@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit {
       this.parentCategories.forEach((parentCategory) => {
         this.getCategoryByParentCategoryId(parentCategory.id);
       });
-      console.log(this.parentCategories);
     });
   }
 
@@ -38,7 +37,6 @@ export class HeaderComponent implements OnInit {
         data.forEach((category: any) => {
           this.getSubCategoryByCategoryId(category.id);
         });
-        console.log(this.categoryMap);
       });
   }
 
@@ -47,7 +45,6 @@ export class HeaderComponent implements OnInit {
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
         this.subCategoryMap[categoryId] = data;
-        console.log(this.subCategoryMap);
       });
   }
 
@@ -99,8 +96,6 @@ export class HeaderComponent implements OnInit {
       }
       totalCount += categoryCount;
     });
-
-    console.log(columns);
 
     return columns;
   }

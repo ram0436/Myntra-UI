@@ -208,6 +208,12 @@ s {
   color: #ff3f6c !important;
 }
 
+.selected-size-btn {
+  border: 1px solid #ff3f6c !important;
+  background-color: #fff;
+  color: #ff3f6c !important;
+}
+
 .size-buttons-size-button:hover + .size-buttons-sizeTip {
   visibility: visible;
 }

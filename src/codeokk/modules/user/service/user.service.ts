@@ -17,6 +17,10 @@ export class UserService {
     return this.httpClient.post(`${this.baseUrl}User/AddWishList`, payload);
   }
 
+  addToCart(payload: any) {
+    return this.httpClient.post(`${this.baseUrl}User/AddToCart`, payload);
+  }
+
   getWishListByUserId(userId: any) {
     return this.httpClient.get(
       `${this.baseUrl}User/GetWishListByUserId?userId=${userId}`

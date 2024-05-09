@@ -13,6 +13,7 @@ export class ProductDetailsComponent {
   showModal: boolean = false;
   productDetails: any;
   favoriteStatus: { [key: string]: boolean } = {};
+  selectedSize: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,35 @@ export class ProductDetailsComponent {
     });
     if (productCode != null) {
       this.getPostDetails(productCode);
+    }
+  }
+
+  selectSize(sizeId: number) {
+    this.selectedSize = sizeId;
+  }
+
+  addToBag(productId: string) {
+    if (this.selectedSize !== null) {
+      const cartItem = {
+        id: 0,
+        productCode: productId,
+        createdBy: 1,
+        productSizeId: this.selectedSize,
+        // createdBy: localStorage.getItem("id"),
+        createdOn: new Date().toISOString(),
+        modifiedBy: 1,
+        modifiedOn: new Date().toISOString(),
+        userId: 1,
+      };
+
+      this.userService.addToCart(cartItem).subscribe(
+        (response: any) => {
+          this.showNotification("Successfully Added to Cart");
+        },
+        (error: any) => {}
+      );
+    } else {
+      this.showNotification("Please Select A Size First");
     }
   }
 
