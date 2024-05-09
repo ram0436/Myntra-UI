@@ -40,18 +40,15 @@ export class PostCardsComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    // if (localStorage.getItem("id") != null) {
-    this.favoriteStatus[productId] = this.favoriteStatus[productId] || false;
-
+    // Toggle favorite status
     this.favoriteStatus[productId] = !this.favoriteStatus[productId];
 
+    // Call addToWishlist method
     if (this.favoriteStatus[productId]) {
       this.addToWishlist(productId);
     } else {
+      // You can implement removal from wishlist if needed
     }
-    // } else {
-    //   this.openLoginModal();
-    // }
   }
 
   addToWishlist(productId: string) {

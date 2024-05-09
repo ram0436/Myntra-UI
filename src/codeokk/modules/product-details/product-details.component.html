@@ -105,14 +105,26 @@
             class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
             (click)="addToBag(productDetails?.productCode)"
             ><span class="material-icons-outlined bag-icon"> shopping_bag </span
-            ><span>GO TO BAG</span></a
+            ><span>ADD TO BAG</span></a
           >
           <div
             class="pdp-add-to-wishlist pdp-button pdp-add-to-wishlist pdp-button pdp-flex pdp-center"
-            (click)="addToWishlist(productDetails?.productCode)"
+            [class.added-to-wishlist]="
+              favoriteStatus[productDetails?.productCode]
+            "
+            (click)="toggleFavorite($event, productDetails?.productCode)"
           >
-            <span class="material-icons-outlined fv-icon">
-              favorite_border </span
+            <span
+              class="material-icons fv-icon"
+              [class.added-to-wishlist-icon]="
+                favoriteStatus[productDetails?.productCode]
+              "
+            >
+              {{
+                favoriteStatus[productDetails?.productCode]
+                  ? "favorite"
+                  : "favorite_border"
+              }}</span
             ><span class="">ADD TO WISHLIST</span>
           </div>
         </div>

@@ -95,6 +95,16 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
+  padding-bottom: 8px;
+}
+
+.favorite-added {
+  background-color: #414141;
+  color: #fff !important;
+}
+
+.favorite-added-bg {
+  color: #f16565;
 }
 
 .bag-actions {
@@ -108,7 +118,7 @@
   flex-wrap: nowrap;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
-  border-top: 1px solid #cbcbcb;
+  border-top: 1px solid #e6e6e6;
 }
 
 .product:hover .product-actions {
@@ -138,7 +148,7 @@
 }
 
 .wishlist-icon {
-  margin-top: -3px;
+  margin-top: 1px;
   font-weight: 400;
   font-size: 23px;
 }

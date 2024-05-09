@@ -224,6 +224,15 @@ s {
   color: #ff3f6c !important;
 }
 
+.added-to-wishlist {
+  background-color: #414141 !important;
+  color: #fff !important;
+}
+
+.added-to-wishlist .fv-icon {
+  color: #f16565;
+}
+
 .size-buttons-size-chart {
   margin-left: 30px;
 }

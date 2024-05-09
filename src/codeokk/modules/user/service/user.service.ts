@@ -26,4 +26,10 @@ export class UserService {
       `${this.baseUrl}User/GetWishListByUserId?userId=${userId}`
     );
   }
+
+  getCartItemByUserId(userId: any) {
+    return this.httpClient.get(
+      `${this.baseUrl}User/GetCartItemByUserId?userId=${userId}`
+    );
+  }
 }

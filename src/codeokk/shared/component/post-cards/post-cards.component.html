@@ -43,12 +43,18 @@
               style="width: 100%; text-align: center"
               (click)="toggleFavorite($event, product?.productCode)"
               title="Add in Wishlist"
+              [class.favorite-added]="favoriteStatus[product.productCode]"
             >
               <span
-                class="material-icons-outlined wishlist-icon"
+                class="material-icons wishlist-icon"
                 title="Add in Wishlist"
+                [class.favorite-added-bg]="favoriteStatus[product.productCode]"
               >
-                favorite_border
+                {{
+                  favoriteStatus[product.productCode]
+                    ? "favorite"
+                    : "favorite_border"
+                }}
               </span>
               wishlist
             </span>

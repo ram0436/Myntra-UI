@@ -76,7 +76,6 @@ export class ProductDetailsComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    // if (localStorage.getItem("id") != null) {
     this.favoriteStatus[productId] = this.favoriteStatus[productId] || false;
 
     this.favoriteStatus[productId] = !this.favoriteStatus[productId];
@@ -85,9 +84,6 @@ export class ProductDetailsComponent {
       this.addToWishlist(productId);
     } else {
     }
-    // } else {
-    //   this.openLoginModal();
-    // }
   }
 
   addToWishlist(productId: string) {
