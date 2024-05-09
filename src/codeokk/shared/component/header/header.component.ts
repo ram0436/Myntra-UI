@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { MasterService } from "src/codeokk/modules/service/master.service";
+import { LoginComponent } from "src/codeokk/modules/user/component/login/login.component";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
 
 @Component({
@@ -15,23 +17,80 @@ export class HeaderComponent implements OnInit {
   categoryBlocks: { [key: number]: any[][] } = {};
   columns: number = 1;
   cartItemCount: number = 0;
+  dialogRef: MatDialogRef<any> | null = null;
+  isUserLogedIn: boolean = false;
 
   constructor(
     private masterService: MasterService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.getAllParentCategories();
-    this.userService.getCartItemByUserId(1).subscribe(
-      (response: any) => {
-        this.cartItemCount = response.length;
-      },
-      (error: any) => {
-        // console.error("API Error:", error);
-      }
-    );
+    if (localStorage.getItem("id") != null) {
+      this.userService
+        .getCartItemByUserId(Number(localStorage.getItem("id")))
+        .subscribe(
+          (response: any) => {
+            this.cartItemCount = response.length;
+          },
+          (error: any) => {
+            // console.error("API Error:", error);
+          }
+        );
+      if (localStorage.getItem("authToken") != null) this.isUserLogedIn = true;
+    } else {
+      this.cartItemCount = 0;
+    }
+  }
+
+  navigateToWishlist() {
+    if (this.isUserLogedIn) {
+      this.router.navigate(["user/wishlist"]);
+    } else {
+      this.openLoginModal();
+    }
+  }
+
+  navigateToDashboard() {
+    if (this.isUserLogedIn) {
+      this.router.navigate(["/admin/dashboard"]);
+    } else {
+      this.openLoginModal();
+    }
+  }
+
+  navigateToCart() {
+    if (this.isUserLogedIn) {
+      this.router.navigate(["user/cart"]);
+    } else {
+      this.openLoginModal();
+    }
+  }
+
+  logout() {
+    if (localStorage.getItem("authToken") != null) {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("role");
+      localStorage.removeItem("id");
+      localStorage.removeItem("userId");
+      this.isUserLogedIn = false;
+      this.router.navigate(["/"]);
+    }
+  }
+
+  openLoginModal() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+
+    this.dialogRef = this.dialog.open(LoginComponent, { width: "450px" });
+
+    this.dialogRef.afterClosed().subscribe((result) => {
+      if (localStorage.getItem("authToken") != null) this.isUserLogedIn = true;
+    });
   }
 
   getAllParentCategories() {

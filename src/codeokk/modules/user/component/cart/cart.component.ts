@@ -27,15 +27,17 @@ export class CartComponent {
   }
 
   ngOnInit() {
-    this.userService.getCartItemByUserId(1).subscribe(
-      (response: any) => {
-        response.forEach((item: any) => {
-          const productCode = item.productCode;
-          this.handleDashboardData(productCode);
-        });
-      },
-      (error: any) => {}
-    );
+    this.userService
+      .getCartItemByUserId(Number(localStorage.getItem("id")))
+      .subscribe(
+        (response: any) => {
+          response.forEach((item: any) => {
+            const productCode = item.productCode;
+            this.handleDashboardData(productCode);
+          });
+        },
+        (error: any) => {}
+      );
   }
 
   handleDashboardData(productCode: string) {

@@ -81,9 +81,9 @@ export class AdminDashboardComponent {
 
   postProduct() {
     const payload = {
-      createdBy: 1,
+      createdBy: Number(localStorage.getItem("id")),
       createdOn: new Date().toISOString(),
-      modifiedBy: 1,
+      modifiedBy: Number(localStorage.getItem("id")),
       modifiedOn: new Date().toISOString(),
       name: this.productName,
       description: this.productDescription,
@@ -330,9 +330,9 @@ export class AdminDashboardComponent {
 
   addParentCategory() {
     const payload = {
-      createdBy: 1,
+      createdBy: Number(localStorage.getItem("id")),
       createdOn: new Date().toISOString(),
-      modifiedBy: 1,
+      modifiedBy: Number(localStorage.getItem("id")),
       modifiedOn: new Date().toISOString(),
       name: this.parentCategory,
     };
@@ -344,9 +344,9 @@ export class AdminDashboardComponent {
 
   addCategory() {
     const payload = {
-      createdBy: 1,
+      createdBy: Number(localStorage.getItem("id")),
       createdOn: new Date().toISOString(),
-      modifiedBy: 1,
+      modifiedBy: Number(localStorage.getItem("id")),
       modifiedOn: new Date().toISOString(),
       name: this.category,
       parentCategoryId: this.parentCategoryId,

@@ -3,6 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { LoginComponent } from "../user/component/login/login.component";
 
 @Component({
   selector: "app-product-details",
@@ -14,12 +16,15 @@ export class ProductDetailsComponent {
   productDetails: any;
   favoriteStatus: { [key: string]: boolean } = {};
   selectedSize: number | null = null;
+  dialogRef: MatDialogRef<any> | null = null;
+  isUserLogedIn: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -37,28 +42,44 @@ export class ProductDetailsComponent {
   }
 
   addToBag(productId: string) {
-    if (this.selectedSize !== null) {
-      const cartItem = {
-        id: 0,
-        productCode: productId,
-        createdBy: 1,
-        productSizeId: this.selectedSize,
-        // createdBy: localStorage.getItem("id"),
-        createdOn: new Date().toISOString(),
-        modifiedBy: 1,
-        modifiedOn: new Date().toISOString(),
-        userId: 1,
-      };
+    if (localStorage.getItem("id") != null) {
+      if (this.selectedSize !== null) {
+        const cartItem = {
+          id: 0,
+          productCode: productId,
+          createdBy: Number(localStorage.getItem("id")),
+          productSizeId: this.selectedSize,
+          // createdBy: localStorage.getItem("id"),
+          createdOn: new Date().toISOString(),
+          modifiedBy: Number(localStorage.getItem("id")),
+          modifiedOn: new Date().toISOString(),
+          userId: Number(localStorage.getItem("id")),
+        };
 
-      this.userService.addToCart(cartItem).subscribe(
-        (response: any) => {
-          this.showNotification("Successfully Added to Cart");
-        },
-        (error: any) => {}
-      );
+        this.userService.addToCart(cartItem).subscribe(
+          (response: any) => {
+            this.showNotification("Successfully Added to Cart");
+          },
+          (error: any) => {}
+        );
+      } else {
+        this.showNotification("Please Select A Size First");
+      }
     } else {
-      this.showNotification("Please Select A Size First");
+      this.openLoginModal();
     }
+  }
+
+  openLoginModal() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+
+    this.dialogRef = this.dialog.open(LoginComponent, { width: "450px" });
+
+    this.dialogRef.afterClosed().subscribe((result) => {
+      if (localStorage.getItem("authToken") != null) this.isUserLogedIn = true;
+    });
   }
 
   getPostDetails(code: any) {
@@ -76,13 +97,17 @@ export class ProductDetailsComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    this.favoriteStatus[productId] = this.favoriteStatus[productId] || false;
+    if (localStorage.getItem("id") != null) {
+      this.favoriteStatus[productId] = this.favoriteStatus[productId] || false;
 
-    this.favoriteStatus[productId] = !this.favoriteStatus[productId];
+      this.favoriteStatus[productId] = !this.favoriteStatus[productId];
 
-    if (this.favoriteStatus[productId]) {
-      this.addToWishlist(productId);
+      if (this.favoriteStatus[productId]) {
+        this.addToWishlist(productId);
+      } else {
+      }
     } else {
+      this.openLoginModal();
     }
   }
 
@@ -90,7 +115,7 @@ export class ProductDetailsComponent {
     const wishlistItem = {
       id: 0,
       productCode: productId,
-      createdBy: 1,
+      createdBy: Number(localStorage.getItem("id")),
       // createdBy: localStorage.getItem("id"),
       createdOn: new Date().toISOString(),
     };

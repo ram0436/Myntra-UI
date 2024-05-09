@@ -30,6 +30,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AdminModule } from "./modules/admin/admin.module";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AdminModule } from "./modules/admin/admin.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     SharedModule,
     FormsModule,
