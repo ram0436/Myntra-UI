@@ -23,7 +23,7 @@
 .logoContainer {
   float: left;
   height: inherit;
-  margin-left: 1.5%;
+  margin-left: 3%;
 }
 
 .logo {
@@ -32,8 +32,8 @@
   padding: 0;
   margin: 0;
   cursor: pointer;
-  width: 100px;
-  height: 80px;
+  width: 45px;
+  height: 42px;
   background-position: -462px 0;
 }
 
@@ -42,7 +42,7 @@
   float: left;
   line-height: 80px;
   height: 80px;
-  margin: 0 8px 0 1%;
+  margin: 0 8px 0 4%;
 }
 
 .nav-links {
@@ -297,7 +297,7 @@ a.submit {
   display: flex;
   align-items: center;
   gap: 20px;
-  width: 12%;
+  width: 13.5%;
   margin-left: auto;
   color: #000;
   height: 80px;
@@ -412,6 +412,7 @@ a.submit {
   font-size: 14px;
   color: #ff3f6c;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .link-btn:hover {

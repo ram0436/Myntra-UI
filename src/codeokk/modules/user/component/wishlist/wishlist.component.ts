@@ -18,18 +18,20 @@ export class WishlistComponent {
   ) {}
 
   ngOnInit() {
-    this.userService.getWishListByUserId(1).subscribe(
-      (response: any) => {
-        this.wishlistCount = response.length;
-        response.forEach((item: any) => {
-          const productCode = item.productCode;
-          this.handleDashboardData(productCode);
-        });
-      },
-      (error: any) => {
-        // console.error("API Error:", error);
-      }
-    );
+    this.userService
+      .getWishListByUserId(Number(localStorage.getItem("id")))
+      .subscribe(
+        (response: any) => {
+          this.wishlistCount = response.length;
+          response.forEach((item: any) => {
+            const productCode = item.productCode;
+            this.handleDashboardData(productCode);
+          });
+        },
+        (error: any) => {
+          // console.error("API Error:", error);
+        }
+      );
   }
 
   handleDashboardData(productCode: string) {

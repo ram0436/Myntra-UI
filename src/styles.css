@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 html,
 body {
-  margin-top: 70px;
   min-height: calc(100vh - 70px);
 }
 body {
@@ -38,5 +37,11 @@ h1 {
   display: block;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

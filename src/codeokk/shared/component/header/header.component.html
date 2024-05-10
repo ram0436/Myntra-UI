@@ -6,7 +6,7 @@
   <div class="header-bound">
     <div class="logoContainer">
       <img
-        src="../../../../assets/logo.png"
+        src="https://cfdblob.blob.core.windows.net/logo/CDK_Logo.png"
         alt=""
         class="logo"
         routerLink="/"
@@ -145,11 +145,16 @@
                 </div>
               </div>
               <div>
-                <div class="get-user-in-links .get-in-links">
-                  <a href="" class="link-btn">Login / Signup</a>
+                <div
+                  class="get-user-in-links .get-in-links"
+                  *ngIf="!isUserLogedIn"
+                >
+                  <a class="link-btn" (click)="openLoginModal()"
+                    >Login / Signup</a
+                  >
                 </div>
                 <div class="get-in-links">
-                  <div class="info" routerLink="/admin/dashboard">
+                  <div class="info" (click)="navigateToDashboard()">
                     <div class="info-section">Dashboard</div>
                   </div>
                   <div class="info">
@@ -161,19 +166,22 @@
                   <div class="info">
                     <div class="info-section">Contact Us</div>
                   </div>
+                  <div class="info" (click)="logout()" *ngIf="isUserLogedIn">
+                    <div class="info-section">Logout</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="wishlist" routerLink="user/wishlist">
+      <div class="wishlist" (click)="navigateToWishlist()">
         <span class="material-icons-outlined icon-wishlist">
           favorite_border
         </span>
         <div class="user-title">Wishlist</div>
       </div>
-      <div class="cart" routerLink="user/cart">
+      <div class="cart" (click)="navigateToCart()">
         <span class="material-icons-outlined icon-bag"> shopping_bag </span>
         <span class="badge grey">{{ cartItemCount }}</span>
         <div class="user-title">Bag</div>
