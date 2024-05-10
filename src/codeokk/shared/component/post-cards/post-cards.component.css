@@ -273,3 +273,83 @@ h4 {
   font-size: 12px;
   margin-left: 5px;
 }
+
+.pagination-btns {
+  border-top: 1px solid #e6e6e6;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  padding-top: 20px;
+}
+
+.pagination-btns .pgn-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: fff;
+  color: #222;
+  border-radius: 4px;
+  position: relative;
+  border: 1px solid #e6e6e6;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pgn-btn:hover {
+  border: 1px solid #222 !important;
+}
+
+.prev-btn {
+  padding: 10px 24px 10px 14px;
+}
+
+.next-btn {
+  padding: 10px 14px 10px 24px;
+}
+
+.page-nos {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.page-no {
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.page-no:hover {
+  border: 1px solid #e6e6e6;
+}
+
+.disabled {
+  font-weight: 400 !important;
+  cursor: auto !important;
+}
+
+.disabled:hover {
+  border: 1px solid #e6e6e6;
+}
+
+.active-page {
+  background: #222;
+  color: #fff;
+}
+
+/* .pgn-icon-next {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+
+.pgn-icon-prev {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+} */

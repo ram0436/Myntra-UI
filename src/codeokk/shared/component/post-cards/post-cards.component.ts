@@ -18,6 +18,10 @@ export class PostCardsComponent {
   isUserLogedIn: boolean = false;
   dialogRef: MatDialogRef<any> | null = null;
 
+  // Pagination properties
+  currentPage: number = 1;
+  productsPerPage: number = 24;
+
   constructor(
     private router: Router,
     private productService: ProductService,
@@ -27,10 +31,63 @@ export class PostCardsComponent {
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
+    this.route.queryParams.subscribe((params) => {
+      const routeName = this.router.url.split("?")[0];
+      this.productsPerPage = routeName === "/filtered-posts" ? 25 : 24;
+    });
+
     this.route.url.subscribe((urlSegments) => {
       this.wishlistRoute =
         urlSegments.length > 0 && urlSegments[0].path === "wishlist";
     });
+  }
+
+  // Function to get the index of the first product on the current page
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.productsPerPage;
+  }
+
+  // Function to get the index of the last product on the current page
+  get endIndex(): number {
+    return Math.min(
+      this.startIndex + this.productsPerPage,
+      this.products.length
+    );
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // Generate an array of page numbers
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.products.length / this.productsPerPage);
+  }
+
+  // Function to get the products to display on the current page
+  get currentPageProducts(): any[] {
+    return this.products.slice(this.startIndex, this.endIndex);
+  }
+
+  // Function to navigate to the previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Function to navigate to the next page
+  nextPage() {
+    const totalPages = Math.ceil(this.products.length / this.productsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+    }
   }
 
   getImageUrl(product: any): string {

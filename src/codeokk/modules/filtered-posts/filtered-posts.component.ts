@@ -37,7 +37,6 @@ export class FilteredPostsComponent {
       this.getProducts();
     });
     this.masterService.getData().subscribe((filters: any) => {
-      console.log(filters);
       this.filterProducts(filters);
     });
   }
@@ -83,10 +82,9 @@ export class FilteredPostsComponent {
     }
 
     // Filter by discount
-    if (filters.discount) {
-      const discountThreshold = parseInt(filters.discount);
+    if (filters.discount.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.discount.some((d: any) => d.percent >= discountThreshold)
+        product.discount.some((d: any) => filters.discount.includes(d.id))
       );
     }
 

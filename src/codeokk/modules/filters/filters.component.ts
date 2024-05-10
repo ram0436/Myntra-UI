@@ -11,6 +11,7 @@ import { MasterService } from "../service/master.service";
 export class FiltersComponent {
   products: any[] = [];
   colors: any[] = [];
+  discounts: any[] = [];
   sizes: any[] = [];
   brands: any[] = [];
 
@@ -28,10 +29,13 @@ export class FiltersComponent {
   selectedCategories: number[] = [];
   selectedColors: number[] = [];
   selectedBrands: number[] = [];
-  selectedDiscount: string = "";
+  selectedDiscount: number[] = [];
 
   brandsExpanded: boolean = false;
   colorsExpanded: boolean = false;
+
+  brandSearchText: string = "";
+  colorSearchText: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -54,11 +58,30 @@ export class FiltersComponent {
       this.getSubCategoryByCategoryId(this.menuId);
     });
     this.getAllColors();
+    this.getAllDiscount();
     this.getAllProductSizes();
     // this.masterService.getBrandsData().subscribe((brands: any[]) => {
     //   this.brands = brands;
     //   console.log(this.brands);
     // });
+  }
+
+  get filteredBrands() {
+    return this.brands.filter((brand) =>
+      brand.name.toLowerCase().includes(this.brandSearchText.toLowerCase())
+    );
+  }
+
+  get filteredColors() {
+    return this.colors.filter((color) =>
+      color.name.toLowerCase().includes(this.colorSearchText.toLowerCase())
+    );
+  }
+
+  getAllDiscount() {
+    this.masterService.getAllDiscount().subscribe((res: any) => {
+      this.discounts = res;
+    });
   }
 
   getAllColors() {
@@ -117,10 +140,20 @@ export class FiltersComponent {
     this.applyFilters();
   }
 
-  selectDiscount(range: string) {
-    this.selectedDiscount = range;
+  toggleDiscount(discountId: number) {
+    const index = this.selectedDiscount.indexOf(discountId);
+    if (index === -1) {
+      this.selectedDiscount.push(discountId);
+    } else {
+      this.selectedDiscount.splice(index, 1);
+    }
     this.applyFilters();
   }
+
+  // selectDiscount(range: string) {
+  //   this.selectedDiscount = range;
+  //   this.applyFilters();
+  // }
 
   toggleCategory(categoryId: number) {
     const index = this.selectedCategories.indexOf(categoryId);

@@ -25,8 +25,10 @@ export class AdminDashboardComponent {
 
   products: any[] = [];
   colors: any[] = [];
+  discounts: any[] = [];
   sizes: any[] = [];
   brands: any[] = [];
+  selectedDiscountId: number | null = null;
 
   parentCategory: string = "";
   category: string = "";
@@ -73,13 +75,27 @@ export class AdminDashboardComponent {
   ngOnInit() {
     this.getAllParentCategories();
     this.getAllColors();
+    this.getAllDicounts();
     this.getAllProductSizes();
     for (var i = 0; i < this.cardsCount.length; i++) {
       this.cardsCount[i] = "";
     }
   }
 
+  getAllDicounts() {
+    this.masterService.getAllDiscount().subscribe((res: any) => {
+      this.discounts = res;
+    });
+  }
+
   postProduct() {
+    let discountId: number | null = this.selectedDiscountId;
+
+    // If no discount is selected, set it to 0 or handle as needed
+    if (discountId === null) {
+      discountId = 0; // or any other default value
+    }
+
     const payload = {
       createdBy: Number(localStorage.getItem("id")),
       createdOn: new Date().toISOString(),
@@ -95,7 +111,7 @@ export class AdminDashboardComponent {
       price: this.productPrice,
       colorId: this.productColorId,
       productSizeId: this.productSizeId,
-      discountId: 0,
+      discountId: discountId,
       tagList: this.tags,
     };
 

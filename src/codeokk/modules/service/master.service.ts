@@ -24,6 +24,10 @@ export class MasterService {
     return this.http.get(`${this.baseUrl}/Master/GetAllColor`);
   }
 
+  getAllDiscount() {
+    return this.http.get(`${this.baseUrl}/Master/GetAllDiscount`);
+  }
+
   getAllProductSize() {
     return this.http.get(`${this.baseUrl}/Master/GetAllProductSize`);
   }

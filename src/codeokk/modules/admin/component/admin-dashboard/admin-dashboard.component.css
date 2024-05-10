@@ -33,6 +33,10 @@
   cursor: pointer;
 }
 
+.section {
+  cursor: pointer;
+}
+
 .section.active {
   color: #ff3e6c;
 }

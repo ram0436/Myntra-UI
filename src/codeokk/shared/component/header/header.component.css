@@ -234,9 +234,8 @@
   float: left;
   line-height: 0;
   position: relative;
-  min-width: 270px;
-  max-width: 400px;
-  width: auto;
+  min-width: 470px;
+  max-width: 470px;
 }
 
 .query > input.searchbar,

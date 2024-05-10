@@ -28,7 +28,9 @@
         type="text"
         class="search-inputBox"
         placeholder="Search for Brands"
+        [(ngModel)]="brandSearchText"
         [class.search-hidden]="!brandsExpanded"
+        (input)="applyFilters()"
       />
       <span
         class="material-icons-outlined search-icon"
@@ -37,8 +39,8 @@
         {{ brandsExpanded ? "clear" : "search" }}
       </span>
     </div>
-    <ul class="brands-list" *ngIf="brands.length !== 0">
-      <li *ngFor="let brand of brands">
+    <ul class="brands-list" *ngIf="filteredBrands.length !== 0">
+      <li *ngFor="let brand of filteredBrands">
         <label for="" class="custom-checkbox">
           <input
             type="checkbox"
@@ -50,7 +52,7 @@
         </label>
       </li>
     </ul>
-    <ul *ngIf="brands.length === 0">
+    <ul *ngIf="filteredBrands.length === 0 && brandSearchText.length > 0">
       <li>No brands found</li>
     </ul>
   </div>
@@ -64,7 +66,9 @@
         type="text"
         class="search-inputBox search-hidden"
         placeholder="Search for Colors"
+        [(ngModel)]="colorSearchText"
         [class.search-hidden]="!colorsExpanded"
+        (input)="applyFilters()"
       />
       <span
         class="material-icons-outlined search-icon"
@@ -73,8 +77,8 @@
         {{ colorsExpanded ? "clear" : "search" }}
       </span>
     </div>
-    <ul>
-      <li class="color-item" *ngFor="let color of colors">
+    <ul *ngIf="filteredColors.length !== 0">
+      <li class="color-item" *ngFor="let color of filteredColors">
         <label for="" class="custom-checkbox">
           <input
             type="checkbox"
@@ -91,10 +95,28 @@
         </label>
       </li>
     </ul>
+    <ul *ngIf="filteredColors.length === 0 && colorSearchText.length > 0">
+      <li>No colors found</li>
+    </ul>
   </div>
   <div class="filter-discount">
     <span class="filter-title">Discount Range</span>
     <ul class="brands-list">
+      <li class="color-item" *ngFor="let discount of discounts">
+        <label for="" class="custom-checkbox">
+          <input
+            type="checkbox"
+            [value]="discount.id"
+            (change)="toggleDiscount(discount.id)"
+            [checked]="selectedDiscount.includes(discount.id)"
+          />
+          <span class="colour-label colour-colorDisplay"></span>
+          {{ discount.percent }}
+          <div class="checkbox-indicator"></div>
+        </label>
+      </li>
+    </ul>
+    <!-- <ul class="brands-list">
       <li>
         <label for="" class="custom-checkbox">
           <input
@@ -108,32 +130,6 @@
           <div class="checkbox-indicator"></div>
         </label>
       </li>
-      <li>
-        <label for="" class="custom-checkbox">
-          <input
-            type="radio"
-            value="20"
-            name="discountRange"
-            (change)="selectDiscount('20')"
-            [checked]="selectedDiscount === '20'"
-          />
-          20% and above
-          <div class="checkbox-indicator"></div>
-        </label>
-      </li>
-      <li>
-        <label for="" class="custom-checkbox">
-          <input
-            type="radio"
-            value="30"
-            name="discountRange"
-            (change)="selectDiscount('30')"
-            [checked]="selectedDiscount === '30'"
-          />
-          30% and above
-          <div class="checkbox-indicator"></div>
-        </label>
-      </li>
-    </ul>
+    </ul> -->
   </div>
 </div>
