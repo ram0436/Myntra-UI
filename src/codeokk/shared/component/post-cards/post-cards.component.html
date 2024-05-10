@@ -1,7 +1,7 @@
 <div class="products-container row-base">
   <section style="width: 98%">
     <div class="products">
-      <div class="product" *ngFor="let product of products">
+      <div class="product" *ngFor="let product of currentPageProducts">
         <a [routerLink]="'/product-details/' + product.productCode">
           <div class="image-container">
             <img [src]="getImageUrl(product)" class="product-img" />
@@ -25,7 +25,7 @@
                 <span class="discounted-price">Rs. {{ product.price }}</span>
               </span>
               <span class="discount-percentage"
-                >({{ product.discount[0]?.percent }}% OFF)</span
+                >({{ product.discount[0]?.percent }})</span
               >
             </h4>
           </div>
@@ -62,6 +62,35 @@
         </a>
       </div>
       <h3 *ngIf="products.length == 0">No products avaialble</h3>
+    </div>
+    <div class="pagination-btns" *ngIf="products.length !== 0">
+      <div
+        class="prev-btn pgn-btn"
+        (click)="previousPage()"
+        [class.disabled]="currentPage === 1"
+      >
+        <span class="material-icons pgn-icon-prev"> navigate_before </span>
+        <span class="btn-text">Previous</span>
+      </div>
+      <div class="page-nos">
+        <button
+          class="page-no"
+          *ngFor="let page of pageNumbers"
+          [class.active-page]="page === currentPage"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+
+      <div
+        class="next-btn pgn-btn"
+        (click)="nextPage()"
+        [class.disabled]="currentPage === totalPages"
+      >
+        <span class="btn-text pgn-icon-next">Next</span>
+        <span class="material-icons"> navigate_next </span>
+      </div>
     </div>
   </section>
 </div>

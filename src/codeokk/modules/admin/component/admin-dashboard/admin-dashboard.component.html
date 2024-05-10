@@ -340,6 +340,20 @@
               />
             </mat-form-field>
             <mat-form-field>
+              <mat-label>Select Discount</mat-label>
+              <mat-select
+                [(ngModel)]="selectedDiscountId"
+                name="selectedDiscountId"
+              >
+                <mat-option
+                  *ngFor="let discount of discounts"
+                  [value]="discount.id"
+                >
+                  {{ discount.percent }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
               <mat-label>Product Code</mat-label>
               <input
                 matInput

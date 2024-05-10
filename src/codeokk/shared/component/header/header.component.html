@@ -67,51 +67,6 @@
                     </div>
                   </ng-container>
                 </div>
-
-                <!-- <div class="odd-column-content">
-                  <ul
-                    class="nav-block"
-                    [ngClass]="calculateColumns(parentCategory.id)"
-                  >
-                    <li
-                      *ngFor="
-                        let category of categoryMap[parentCategory.id];
-                        let lastCategory = last;
-                        let firstCategory = first
-                      "
-                    >
-                      <a
-                        [routerLink]="['/filtered-posts']"
-                        [queryParams]="{
-                          parent: parentCategory.id,
-                          category: category.id
-                        }"
-                        class="category-name category-head"
-                        >{{ category.name }}</a
-                      >
-                      <ul class="subcategory-ul">
-                        <li
-                          *ngFor="
-                            let subcategory of subCategoryMap[category.id]
-                          "
-                          class="subcategory-li"
-                        >
-                          <a
-                            [routerLink]="['/filtered-posts']"
-                            [queryParams]="{
-                              parent: parentCategory.id,
-                              category: category.id,
-                              subCategory: subcategory.id
-                            }"
-                            class="category-name"
-                            >{{ subcategory.name }}</a
-                          >
-                        </li>
-                      </ul>
-                      <div *ngIf="!lastCategory" class="hr-line"></div>
-                    </li>
-                  </ul>
-                </div> -->
               </div>
             </div>
           </div>
