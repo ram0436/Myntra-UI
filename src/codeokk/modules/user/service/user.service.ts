@@ -11,7 +11,43 @@ export class UserService {
 
   private baseUrl = environment.baseUrl;
 
+  private selectedCount: number = 0;
+  private totalMRP: number = 0;
+  private totalDiscount: number = 0;
+  private totalAmount: number = 0;
+
   constructor(private httpClient: HttpClient) {}
+
+  setPriceDetails(
+    selectedCount: number,
+    totalMRP: number,
+    totalDiscount: number,
+    totalAmount: number
+  ) {
+    this.selectedCount = selectedCount;
+    this.totalMRP = totalMRP;
+    this.totalDiscount = totalDiscount;
+    this.totalAmount = totalAmount;
+  }
+
+  getPriceDetails() {
+    return {
+      selectedCount: this.selectedCount,
+      totalMRP: this.totalMRP,
+      totalDiscount: this.totalDiscount,
+      totalAmount: this.totalAmount,
+    };
+  }
+
+  getAddress(pinCode: any) {
+    return this.httpClient.get(
+      "https://api.postalpincode.in/pincode/" + pinCode
+    );
+  }
+
+  saveAddress(payload: any) {
+    return this.httpClient.post(`${this.baseUrl}User/SaveAddress`, payload);
+  }
 
   setData(data: any) {
     this.dataSubject.next(data);
@@ -23,6 +59,18 @@ export class UserService {
 
   addToCart(payload: any) {
     return this.httpClient.post(`${this.baseUrl}User/AddToCart`, payload);
+  }
+
+  removeItemFromCart(cartId: any, userId: any) {
+    return this.httpClient.delete(
+      `${this.baseUrl}User/RemoveCartById?cartId=${cartId}&loggedInUserId=${userId}`
+    );
+  }
+
+  removeItemFromWishlist(cartId: any, userId: any) {
+    return this.httpClient.delete(
+      `${this.baseUrl}User/RemoveWishlisttById?cartId=${cartId}&loggedInUserId=${userId}`
+    );
   }
 
   getWishListByUserId(userId: any) {

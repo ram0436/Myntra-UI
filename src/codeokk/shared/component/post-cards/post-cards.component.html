@@ -1,12 +1,22 @@
 <div class="products-container row-base">
   <section style="width: 98%">
+    <!-- <div class="total-items" *ngIf="this.wishlistRoute">
+      <span class="text-bold">My Wishlist</span> {{ wishlistCount }} Items
+    </div> -->
     <div class="products">
       <div class="product" *ngFor="let product of currentPageProducts">
         <a [routerLink]="'/product-details/' + product.productCode">
           <div class="image-container">
             <img [src]="getImageUrl(product)" class="product-img" />
           </div>
-
+          <span
+            class="close-icon material-icons"
+            (click)="removeItemFromWishlist($event, product?.cartId)"
+            *ngIf="this.wishlistRoute"
+          >
+            close
+          </span>
+          <!-- *ngIf="this.wishlistRoute" -->
           <div class="product-info">
             <h3 class="brand">{{ product.brand[0]?.name }}</h3>
             <h4 class="product-name">{{ product.name }}</h4>
@@ -37,6 +47,7 @@
               Add To Bag
             </span>
           </div>
+
           <div class="product-actions" *ngIf="!this.wishlistRoute">
             <span
               class="product-wishlistFlex product-actionsButton product-wishlist"

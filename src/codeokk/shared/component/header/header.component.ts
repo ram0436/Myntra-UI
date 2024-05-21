@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.getAllParentCategories();
+
     if (localStorage.getItem("id") != null) {
       this.userService
         .getCartItemByUserId(Number(localStorage.getItem("id")))
