@@ -3,7 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./component/login/login.component";
 import { SignupComponent } from "./component/signup/signup.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -18,6 +18,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { SharedModule } from "src/codeokk/shared/shared.module";
 import { WishlistComponent } from "./component/wishlist/wishlist.component";
 import { CartComponent } from "./component/cart/cart.component";
+import { AddressComponent } from "./component/address/address.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CartComponent } from "./component/cart/cart.component";
     AccountComponent,
     WishlistComponent,
     CartComponent,
+    AddressComponent,
   ],
   imports: [
     SharedModule,
@@ -52,6 +54,7 @@ import { CartComponent } from "./component/cart/cart.component";
     MatFormFieldModule,
     MatChipsModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
 })
 export class UserModule {}

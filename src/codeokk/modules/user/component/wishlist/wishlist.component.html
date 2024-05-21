@@ -2,5 +2,8 @@
   <div class="total-items">
     <span class="text-bold">My Wishlist</span> {{ wishlistCount }} Items
   </div>
-  <app-post-cards [products]="savedProducts"></app-post-cards>
+  <app-post-cards
+    [products]="savedProducts"
+    (itemRemovedFromWishlist)="updateWishlistCount()"
+  ></app-post-cards>
 </div>

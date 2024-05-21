@@ -1,4 +1,11 @@
-import { Component, HostListener, Input, Renderer2 } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  Renderer2,
+} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "../../service/product.service";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
@@ -13,6 +20,7 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 })
 export class PostCardsComponent {
   @Input() products: any;
+  @Output() itemRemovedFromWishlist = new EventEmitter<void>();
   favoriteStatus: { [key: string]: boolean } = {};
   wishlistRoute: boolean = false;
   isUserLogedIn: boolean = false;
@@ -21,6 +29,7 @@ export class PostCardsComponent {
   // Pagination properties
   currentPage: number = 1;
   productsPerPage: number = 24;
+  wishlistCount: number = 0;
 
   constructor(
     private router: Router,
@@ -41,6 +50,13 @@ export class PostCardsComponent {
         urlSegments.length > 0 && urlSegments[0].path === "wishlist";
     });
   }
+
+  // ngOnInit() {
+  //   if (this.wishlistRoute) {
+  //     this.wishlistCount = this.products.length;
+  //     console.log(this.wishlistCount);
+  //   }
+  // }
 
   // Function to get the index of the first product on the current page
   get startIndex(): number {
@@ -98,6 +114,23 @@ export class PostCardsComponent {
     }
   }
 
+  removeItemFromWishlist(event: Event, cartId: any) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.userService
+      .removeItemFromWishlist(cartId, Number(localStorage.getItem("id")))
+      .subscribe(
+        (response: any) => {
+          this.products = this.products.filter(
+            (product: any) => product.cartId !== cartId
+          );
+          this.itemRemovedFromWishlist.emit();
+        },
+        (error) => {}
+      );
+  }
+
   toggleFavorite(event: Event, productId: string) {
     event.preventDefault();
     event.stopPropagation();
@@ -134,11 +167,12 @@ export class PostCardsComponent {
       id: 0,
       productCode: productId,
       createdBy: Number(localStorage.getItem("id")),
+      userId: Number(localStorage.getItem("id")),
+      modifiedBy: Number(localStorage.getItem("id")),
       // createdBy: localStorage.getItem("id"),
       createdOn: new Date().toISOString(),
+      modifiedOn: new Date().toISOString(),
     };
-
-    console.log(wishlistItem);
 
     this.userService.addWishList(wishlistItem).subscribe(
       (response: any) => {

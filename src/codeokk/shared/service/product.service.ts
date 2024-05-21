@@ -11,6 +11,16 @@ export class ProductService {
   constructor(private http: HttpClient) {}
   private BaseURL = environment.baseUrl;
 
+  private _bagCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  get bagCount() {
+    return this._bagCount.asObservable();
+  }
+
+  updateBagCount(count: number) {
+    this._bagCount.next(count);
+  }
+
   getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.BaseURL}Product/GetAllProduct`);
   }

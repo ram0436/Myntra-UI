@@ -1,0 +1,292 @@
+.cart {
+  /* padding-top: 54px; */
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 50px;
+}
+
+.cart-container {
+  width: 70%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.cart-flex {
+  display: flex;
+  gap: 10px;
+}
+
+.address {
+  margin-left: auto;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-right: 1px solid #eaeaec;
+}
+
+.price-details {
+  width: 35%;
+  padding-top: 50px;
+  padding-left: 15px;
+}
+
+.price-details .coupons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid #eaeaec;
+  padding: 15px 0;
+}
+
+.price-details .coupons .coupons-head {
+  font-size: 12px;
+  font-weight: 700;
+  color: #535766;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.price-details .coupons .coupons-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-details .coupons .coupons-body .apply-coupons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price-details .coupons .coupons-body .apply-coupons .coupons-icon {
+  margin-top: 2px;
+  color: #ff3f6c;
+}
+
+.price-details .coupons .coupons-body .apply-coupons .apply-text {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.price-details .coupons .coupons-body .coupon-btn {
+  padding: 4px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 63, 108);
+  border-color: rgb(255, 63, 108);
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.price-container {
+  margin-bottom: 16px;
+}
+
+.price-header {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 24px 0 16px;
+  color: #535766;
+}
+
+.price-orderSummary {
+  font-size: 13px !important;
+}
+
+.priceDetail {
+  margin-bottom: 12px;
+  line-height: 16px;
+}
+
+.priceDetail-base-value {
+  float: right;
+}
+
+.priceDetail-base-discount {
+  color: #03a685;
+}
+
+.priceDetail-base-action {
+  font-size: 14px;
+  color: #ff3f6c;
+  cursor: pointer;
+}
+
+.priceDetail-base-knowMore {
+  margin-left: 8px;
+  color: #ff3f6c;
+  font-weight: 700;
+}
+
+.priceDetail-base-infoTextContainer {
+  display: inline-block;
+}
+
+.css-1pl9bms {
+  font-size: 14px;
+  margin-left: 8px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: transparent;
+  color: rgb(255, 63, 108);
+  padding: 0px;
+  cursor: pointer;
+}
+
+.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}
+
+.priceDetail-base-spaceRight {
+  padding-right: 4px;
+}
+
+.priceDetail-base-striked {
+  text-decoration: line-through;
+}
+
+.priceDetail-total {
+  font-weight: 700;
+  font-size: 15px;
+  padding-top: 16px;
+  border-top: 1px solid #eaeaec;
+  color: #3e4152;
+  line-height: 16px;
+}
+
+.priceDetail-base-redesignRupeeTotalIcon {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.css-ibwr57 {
+  font-size: 14px;
+  padding: 10px 16px;
+  width: 100%;
+  letter-spacing: 1px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: rgb(255, 63, 108);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}
+
+.address .address-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 15px;
+  border-radius: 4px;
+  border: 1px solid #eaeaec;
+}
+
+.address .address-details .contact-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.address .address-details .contact-details span {
+  margin-top: -1px;
+}
+
+.address .address-details .contact-details p {
+  margin-bottom: 0px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.contact-title,
+.address-title {
+  margin-bottom: 0px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.address-title {
+  margin-top: 20px;
+}
+
+.inputs-box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.input-field {
+  padding: 15px 12px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.add-btn {
+  margin-top: 20px;
+}
+
+.css-cilza6 {
+  font-size: 14px;
+  padding: 10px 16px;
+  width: 100%;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: rgb(255, 63, 108);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}
+
+.mat-mdc-text-field-wrapper {
+  background: transparent !important;
+  border: 1px solid #222 !important;
+}
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(
+    .mdc-text-field--textarea
+  )
+  .mat-mdc-form-field-infix {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper {
+  padding-left: 15px !important;
+  font-size: 14px !important;
+}

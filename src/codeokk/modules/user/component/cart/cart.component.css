@@ -123,6 +123,96 @@
   cursor: pointer;
 }
 
+.bulk-action {
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 26px;
+  padding: 0 12px 0 10px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #282c3f;
+}
+
+.pos-absolute {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.bulkActionStrip-iconDiv,
+.bulk-selectionIcon {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  width: 32px;
+  justify-content: center;
+}
+
+.bulk-activeIcon {
+  fill: #ff3f6c;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #696b79;
+}
+
+.cart-items-icon {
+  opacity: 0.5;
+}
+
+.bulk-inactiveIcon {
+  fill: #fff;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #696b79;
+}
+
+.bulk-message {
+  margin-left: 4px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bulk-itemSelected {
+  margin-right: 3px;
+  text-transform: uppercase;
+}
+
+.bulk-desktopButton {
+  border-top: 0;
+  margin-left: auto;
+}
+
+.bulk-desktopActionButton {
+  width: auto;
+  margin: 0;
+}
+
+.inlinebuttonV2-base-action {
+  display: inline-block;
+  text-align: center;
+}
+
+.bulk-desktopBulkRemove {
+  color: #535766;
+  padding: 6px 24px 6px 0;
+  height: 32px;
+}
+
+.inlinebuttonV2-base-actionButton {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #696b79;
+  padding: 0;
+  height: 20px;
+  font-size: 12px;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .avail-items .cart-items-container .cart-item .cart-item-image {
   height: 148px;
   width: 130px;
@@ -174,6 +264,7 @@
   display: inline-block;
   white-space: nowrap;
   padding: 2px 8px;
+  padding-right: 25px;
   background: #f5f5f6;
   color: #282c3f;
   font-weight: 700;
@@ -182,6 +273,7 @@
   border-radius: 2px;
   line-height: 16px;
   font-size: 14px;
+  position: relative;
 }
 
 .item-price {
@@ -386,4 +478,163 @@
   -webkit-box-pack: center;
   justify-content: center;
   display: flex;
+}
+
+.more {
+  font-size: 18px;
+  position: absolute;
+  top: 1px;
+  right: 5px;
+}
+
+.Modal-modalContent {
+  z-index: 112;
+  overflow: auto;
+  text-align: center;
+  padding: 4px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.Modal-modalContent:after {
+  vertical-align: middle;
+  display: inline-block;
+  height: 100%;
+  margin-left: -0.05em;
+  content: "";
+}
+
+.dialog-base-header {
+  margin: 16px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.Modal-modalContent,
+.Modal-modalOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Modal-modalDialog {
+  position: relative;
+  outline: 0;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  max-width: auto;
+  cursor: default;
+  border-radius: 4px;
+}
+
+div.details-details {
+  color: #282c3f;
+  overflow: auto;
+  scrollbar-width: 0px;
+  background-color: #fff;
+  text-align: left;
+  width: 312px;
+  max-height: 500px;
+  padding: 24px;
+  border-radius: 6px;
+}
+
+.details-details h3 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.details-details p {
+  font-size: 16px;
+  margin: 4px 8px 0 0;
+}
+
+.details-details ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.details-details li {
+  margin-top: 16px;
+}
+
+.details-details h4,
+.details-details p {
+  font-size: 16px;
+  margin: 4px 8px 0 0;
+}
+
+.dialogs-base-header {
+  padding: 19px 0 18px 8px;
+  font-weight: 700;
+  font-size: 16px;
+  border-bottom: 1px solid #f5f5f6;
+  margin: 16px;
+}
+
+.dialogs-base-qtyList {
+  max-height: 200px;
+  padding: 16px 0 0 8px;
+}
+
+.dialogs-base-item {
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  padding: 14px 16px;
+  border: 1px solid #535766;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 12px;
+  margin-bottom: 16px;
+}
+
+.dialogs-base-display {
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 14px;
+  line-height: normal;
+  text-align: center;
+}
+
+.dialogs-base-selected {
+  font-weight: 700;
+  color: #ff3f6c;
+  border-color: #ff3f6c !important;
+}
+
+.css-cilza6 {
+  font-size: 14px;
+  padding: 10px 16px;
+  width: 100%;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: rgb(255, 63, 108);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}
+
+.sprites-remove {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  cursor: pointer;
 }

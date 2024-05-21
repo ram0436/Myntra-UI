@@ -324,8 +324,40 @@ h4 {
   outline: none;
 }
 
+.total-items {
+  margin: 18px 18px 22px 18px;
+  font-size: 18px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
 .page-no:hover {
   border: 1px solid #e6e6e6;
+}
+
+.product {
+  position: relative;
+}
+
+.product:hover .close-icon {
+  display: flex;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 17px;
+  border-radius: 50%;
+  background-color: #222;
+  color: #fff;
 }
 
 .disabled {

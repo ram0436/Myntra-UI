@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
@@ -12,6 +12,8 @@ import { LoginComponent } from "../user/component/login/login.component";
   styleUrls: ["./product-details.component.css"],
 })
 export class ProductDetailsComponent {
+  @Output() itemAddedToCart = new EventEmitter<void>();
+
   showModal: boolean = false;
   productDetails: any;
   favoriteStatus: { [key: string]: boolean } = {};
@@ -59,6 +61,9 @@ export class ProductDetailsComponent {
         this.userService.addToCart(cartItem).subscribe(
           (response: any) => {
             this.showNotification("Successfully Added to Cart");
+            this.productService.bagCount.subscribe((count) => {
+              this.productService.updateBagCount(count + 1);
+            });
           },
           (error: any) => {}
         );
@@ -116,8 +121,11 @@ export class ProductDetailsComponent {
       id: 0,
       productCode: productId,
       createdBy: Number(localStorage.getItem("id")),
+      userId: Number(localStorage.getItem("id")),
+      modifiedBy: Number(localStorage.getItem("id")),
       // createdBy: localStorage.getItem("id"),
       createdOn: new Date().toISOString(),
+      modifiedOn: new Date().toISOString(),
     };
 
     this.userService.addWishList(wishlistItem).subscribe(
