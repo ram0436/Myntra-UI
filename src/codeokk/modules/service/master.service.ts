@@ -38,6 +38,36 @@ export class MasterService {
     );
   }
 
+  getBrandByCategoryId(categoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetBrandByCategoryId?categoryId=${categoryId}`
+    );
+  }
+
+  getAllColorBySubCategoryId(subCategoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetAllColorBySubCategoryId?subCategoryId=${subCategoryId}`
+    );
+  }
+
+  getAllDiscountBySubCategoryId(subCategoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetAllDiscountBySubCategoryId?subCategoryId=${subCategoryId}`
+    );
+  }
+
+  getAllColorByCategoryId(categoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetAllColorByCategoryId?categoryId=${categoryId}`
+    );
+  }
+
+  getAllDiscountByCategoryId(categoryId: number) {
+    return this.http.get(
+      `${this.baseUrl}/Master/GetAllDiscountByCategoryId?categoryId=${categoryId}`
+    );
+  }
+
   getCategoryByParentCategoryId(parentCategoryId: number) {
     return this.http.get(
       `${this.baseUrl}/Master/GetCategoryByParentCategoryId?parentCategoryId=${parentCategoryId}`
