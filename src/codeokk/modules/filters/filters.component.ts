@@ -37,6 +37,10 @@ export class FiltersComponent {
   brandSearchText: string = "";
   colorSearchText: string = "";
 
+  showAllBrands: boolean = false;
+  showAllColors: boolean = false;
+  showAllDiscounts: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -56,9 +60,19 @@ export class FiltersComponent {
       if (params["category"] != undefined)
         this.menuId = Number(params["category"]);
       this.getSubCategoryByCategoryId(this.menuId);
+      if (this.subCategoryId === 0) {
+        this.getBrandByCategoryId(this.categoryId);
+        this.getColorByCategoryId(this.categoryId);
+        this.getDiscountByCategoryId(this.categoryId);
+        // this.getSubCategoryByCategoryId(this.categoryId);
+      } else if (this.subCategoryId !== 0) {
+        this.getBrand(this.subCategoryId);
+        this.getColorBySubCategoryId(this.subCategoryId);
+        this.getDiscountBySubCategoryId(this.subCategoryId);
+      }
     });
-    this.getAllColors();
-    this.getAllDiscount();
+    // this.getAllColors();
+    // this.getAllDiscount();
     this.getAllProductSizes();
     // this.masterService.getBrandsData().subscribe((brands: any[]) => {
     //   this.brands = brands;
@@ -90,7 +104,7 @@ export class FiltersComponent {
     });
   }
 
-  getSubCategoryByCategoryId(categoryId: number) {
+  getSubCategoryByCategoryId(categoryId: any) {
     this.masterService
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
@@ -98,9 +112,49 @@ export class FiltersComponent {
       });
   }
 
+  getDiscountByCategoryId(categoryId: any) {
+    this.masterService
+      .getAllDiscountByCategoryId(categoryId)
+      .subscribe((data: any) => {
+        this.discounts = data;
+      });
+  }
+
+  getColorByCategoryId(categoryId: any) {
+    this.masterService
+      .getAllColorByCategoryId(categoryId)
+      .subscribe((data: any) => {
+        this.colors = data;
+      });
+  }
+
+  getDiscountBySubCategoryId(categoryId: any) {
+    this.masterService
+      .getAllDiscountByCategoryId(categoryId)
+      .subscribe((data: any) => {
+        this.discounts = data;
+      });
+  }
+
+  getColorBySubCategoryId(subCategoryId: any) {
+    this.masterService
+      .getAllColorBySubCategoryId(subCategoryId)
+      .subscribe((data: any) => {
+        this.colors = data;
+      });
+  }
+
   getBrand(subCategoryId: any) {
     this.masterService
       .getBrandBySubCategoryId(subCategoryId)
+      .subscribe((data: any) => {
+        this.brands = data;
+      });
+  }
+
+  getBrandByCategoryId(categoryId: any) {
+    this.masterService
+      .getBrandByCategoryId(categoryId)
       .subscribe((data: any) => {
         this.brands = data;
       });
@@ -172,6 +226,18 @@ export class FiltersComponent {
       brands: this.selectedBrands,
       discount: this.selectedDiscount,
     });
+  }
+
+  toggleShowAllBrands() {
+    this.showAllBrands = !this.showAllBrands;
+  }
+
+  toggleShowAllColors() {
+    this.showAllColors = !this.showAllColors;
+  }
+
+  toggleShowAllDiscounts() {
+    this.showAllDiscounts = !this.showAllDiscounts;
   }
 
   // getBrands() {
