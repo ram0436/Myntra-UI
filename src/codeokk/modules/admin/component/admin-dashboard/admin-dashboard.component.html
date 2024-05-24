@@ -153,7 +153,7 @@
                 [(ngModel)]="brandName"
               />
             </mat-form-field>
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-label>Select Sub Category</mat-label>
               <mat-select [(ngModel)]="brandCategoryId" name="brandCategoryId">
                 <mat-option
@@ -163,7 +163,7 @@
                   {{ subCategory.name }}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
             <button
               mat-raised-button
               color="primary"
@@ -273,8 +273,8 @@
               <mat-select
                 [(ngModel)]="productSubCategoryId"
                 name="productSubCategoryId"
-                (ngModelChange)="onSubCategoryChange($event)"
               >
+                <!-- (ngModelChange)="onSubCategoryChange($event)" -->
                 <mat-option
                   *ngFor="let subCategory of subCategories"
                   [value]="subCategory.id"
