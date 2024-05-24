@@ -170,11 +170,11 @@ export class AdminDashboardComponent {
     });
   }
 
-  // getAllBrands() {
-  //   this.masterService.getAllBrands().subscribe((res: any) => {
-  //     this.brands = res;
-  //   });
-  // }
+  getAllBrands() {
+    // this.masterService.getAllBrands().subscribe((res: any) => {
+    //   this.brands = res;
+    // });
+  }
 
   getAllProductSizes() {
     this.masterService.getAllProductSize().subscribe((res: any) => {
@@ -322,6 +322,7 @@ export class AdminDashboardComponent {
       .subscribe((data: any) => {
         data.forEach((category: any) => {
           this.getSubCategoryByCategoryId(category.id);
+          this.getBrandsByCategoryId(category.id);
         });
       });
   }
@@ -330,6 +331,9 @@ export class AdminDashboardComponent {
     this.masterService
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
+        data.forEach((subCategory: any) => {
+          this.getBrandsBySubCategoryId(subCategory.id);
+        });
         this.brandSubCategories = this.brandSubCategories.concat(data);
 
         this.brandSubCategories = Array.from(
@@ -342,6 +346,39 @@ export class AdminDashboardComponent {
           )
         );
       });
+  }
+
+  getBrandsByCategoryId(categoryId: number) {
+    this.masterService
+      .getBrandByCategoryId(categoryId)
+      .subscribe((data: any) => {
+        this.brands = this.brands.concat(data);
+        this.removeDuplicateBrands();
+      });
+  }
+
+  getBrandsBySubCategoryId(subCategoryId: number) {
+    this.masterService
+      .getBrandBySubCategoryId(subCategoryId)
+      .subscribe((data: any) => {
+        this.brands = this.brands.concat(data);
+        this.removeDuplicateBrands();
+      });
+  }
+
+  removeDuplicateBrands() {
+    const uniqueBrandNames: Set<string> = new Set();
+    const uniqueBrands: { id: number; name: string; subCategoryId: number }[] =
+      [];
+
+    this.brands.forEach((brand) => {
+      if (!uniqueBrandNames.has(brand.name)) {
+        uniqueBrandNames.add(brand.name);
+        uniqueBrands.push(brand);
+      }
+    });
+
+    this.brands = uniqueBrands;
   }
 
   addParentCategory() {
@@ -389,7 +426,7 @@ export class AdminDashboardComponent {
     const payload = {
       id: 0,
       name: this.brandName,
-      subCategoryId: this.brandCategoryId,
+      subCategoryId: 0,
     };
 
     this.masterService.addBrand(payload).subscribe((response) => {
