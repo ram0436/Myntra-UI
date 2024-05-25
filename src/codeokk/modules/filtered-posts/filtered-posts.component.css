@@ -1,6 +1,20 @@
+.breadcrumb {
+  margin: 95px 10px 20px 25px;
+}
+
+.filter-head {
+  position: relative;
+  padding-top: 0;
+}
+
+.head-title {
+  font-weight: 700;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
+  border-top: 1px solid rgb(230, 230, 230);
 }
 
 .filters-component {

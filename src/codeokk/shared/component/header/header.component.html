@@ -93,11 +93,15 @@
         <div class="user-actions">
           <div class="user-action-arrow">
             <div class="user-actions-content">
-              <div class="content-info">
+              <div class="content-info" *ngIf="!isUserLogedIn">
                 <div class="info-title">Welcome</div>
                 <div class="info-email">
                   To access account and manage actions
                 </div>
+              </div>
+              <div class="content-info" *ngIf="isUserLogedIn">
+                <div class="info-title">Hello {{ userName }}</div>
+                <div class="info-email">{{ userMobile }}</div>
               </div>
               <div>
                 <div
@@ -110,7 +114,7 @@
                 </div>
                 <div class="get-in-links">
                   <div class="info" (click)="navigateToDashboard()">
-                    <div class="info-section">Dashboard</div>
+                    <div class="info-section">Admin Dashboard</div>
                   </div>
                   <div class="info">
                     <div class="info-section">Orders</div>
@@ -139,7 +143,7 @@
       <div class="cart" (click)="navigateToCart()">
         <span class="material-icons-outlined icon-bag"> shopping_bag </span>
         <span class="badge grey">{{ cartItemCount }}</span>
-        <div class="user-title">Bag</div>
+        <div class="user-title">Cart</div>
       </div>
     </div>
   </div>

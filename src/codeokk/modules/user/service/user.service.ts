@@ -8,6 +8,7 @@ import { environment } from "src/environments/environment";
 })
 export class UserService {
   private dataSubject = new Subject<any>();
+  private userData: any = [];
 
   private baseUrl = environment.baseUrl;
 
@@ -15,6 +16,13 @@ export class UserService {
   private totalMRP: number = 0;
   private totalDiscount: number = 0;
   private totalAmount: number = 0;
+
+  private userName: string = "";
+  private mobileNo: string = "";
+
+  private userDataKey = "userData";
+
+  private priceDetailsKey = "priceDetails";
 
   constructor(private httpClient: HttpClient) {}
 
@@ -37,6 +45,41 @@ export class UserService {
       totalDiscount: this.totalDiscount,
       totalAmount: this.totalAmount,
     };
+  }
+
+  // setPriceDetails(
+  //   selectedCount: number,
+  //   totalMRP: number,
+  //   totalDiscount: number,
+  //   totalAmount: number
+  // ) {
+  //   const priceDetails = {
+  //     selectedCount,
+  //     totalMRP,
+  //     totalDiscount,
+  //     totalAmount,
+  //   };
+  //   localStorage.setItem(this.priceDetailsKey, JSON.stringify(priceDetails));
+  // }
+
+  // getPriceDetails() {
+  //   const priceDetailsString = localStorage.getItem(this.priceDetailsKey);
+  //   if (priceDetailsString) {
+  //     return JSON.parse(priceDetailsString);
+  //   }
+  //   return null;
+  // }
+
+  setUserData(data: { name: string; mobile: string }) {
+    localStorage.setItem(this.userDataKey, JSON.stringify(data));
+  }
+
+  getUserData() {
+    const userDataString = localStorage.getItem(this.userDataKey);
+    if (userDataString) {
+      return JSON.parse(userDataString);
+    }
+    return null;
   }
 
   getAddress(pinCode: any) {

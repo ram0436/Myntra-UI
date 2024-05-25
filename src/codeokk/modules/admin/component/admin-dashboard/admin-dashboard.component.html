@@ -283,14 +283,56 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-label>Select Brand</mat-label>
               <mat-select [(ngModel)]="productBrandId" name="brandId">
                 <mat-option *ngFor="let brand of brands" [value]="brand.id">
                   {{ brand.name }}
                 </mat-option>
               </mat-select>
+            </mat-form-field> -->
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Select Brand"
+                [formControl]="brandCtrl"
+                [matAutocomplete]="auto"
+              />
+              <mat-autocomplete
+                #auto="matAutocomplete"
+                (optionSelected)="onBrandSelected($event)"
+              >
+                <mat-option
+                  *ngFor="let brand of filteredBrands | async"
+                  [value]="brand"
+                >
+                  {{ brand.name }}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
+            <!-- <mat-form-field appearance="fill" class="form-field-w-100">
+              <mat-label>Select Brand</mat-label>
+              <input
+                type="text"
+                placeholder="Search brand"
+                aria-label="Search brand"
+                matInput
+                [formControl]="brandCtrl"
+                [matAutocomplete]="auto"
+                (input)="filterBrands()"
+              />
+              <mat-autocomplete
+                #auto="matAutocomplete"
+                (optionSelected)="onBrandSelected($event)"
+              >
+                <mat-option
+                  *ngFor="let brand of filteredBrands"
+                  [value]="brand.id"
+                >
+                  {{ brand.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> -->
             <mat-form-field>
               <mat-label>Select Color</mat-label>
               <mat-select [(ngModel)]="productColorId" name="colorId">

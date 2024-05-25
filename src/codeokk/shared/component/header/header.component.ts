@@ -19,6 +19,9 @@ export class HeaderComponent implements OnInit {
   cartItemCount: number = 0;
   dialogRef: MatDialogRef<any> | null = null;
   isUserLogedIn: boolean = false;
+  userData: any = [];
+  userName: string = "";
+  userMobile: string = "";
 
   constructor(
     private masterService: MasterService,
@@ -28,6 +31,10 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (localStorage.getItem("authToken") != null) {
+      this.isUserLogedIn = true;
+      this.getUserData();
+    }
     this.getAllParentCategories();
 
     if (localStorage.getItem("id") != null) {
@@ -45,6 +52,12 @@ export class HeaderComponent implements OnInit {
     } else {
       this.cartItemCount = 0;
     }
+  }
+
+  getUserData() {
+    const userData = this.userService.getUserData();
+    this.userName = userData.name;
+    this.userMobile = userData.mobile;
   }
 
   navigateToWishlist() {
@@ -77,6 +90,7 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem("role");
       localStorage.removeItem("id");
       localStorage.removeItem("userId");
+      localStorage.removeItem("userData");
       this.isUserLogedIn = false;
       this.router.navigate(["/"]);
     }

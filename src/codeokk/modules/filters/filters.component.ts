@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { forkJoin } from "rxjs";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MasterService } from "../service/master.service";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-filters",
@@ -41,6 +43,16 @@ export class FiltersComponent {
   showAllColors: boolean = false;
   showAllDiscounts: boolean = false;
 
+  allParentCategories: any[] = [];
+  allCategories: any[] = [];
+  allsubCategories: any[] = [];
+
+  breadcrumb: string = "";
+
+  private allDataLoaded: boolean = false;
+
+  private categorySubcategoriesLoaded: { [key: number]: boolean } = {};
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -56,6 +68,7 @@ export class FiltersComponent {
         this.subCategoryId = Number(params["subCategory"]);
       else this.subCategoryId = 0;
       this.getBrand(this.subCategoryId);
+
       // this.getBrands();
       if (params["category"] != undefined)
         this.menuId = Number(params["category"]);
@@ -71,13 +84,6 @@ export class FiltersComponent {
         this.getDiscountBySubCategoryId(this.subCategoryId);
       }
     });
-    // this.getAllColors();
-    // this.getAllDiscount();
-    this.getAllProductSizes();
-    // this.masterService.getBrandsData().subscribe((brands: any[]) => {
-    //   this.brands = brands;
-    //   console.log(this.brands);
-    // });
   }
 
   get filteredBrands() {
@@ -130,7 +136,7 @@ export class FiltersComponent {
 
   getDiscountBySubCategoryId(categoryId: any) {
     this.masterService
-      .getAllDiscountByCategoryId(categoryId)
+      .getAllDiscountBySubCategoryId(categoryId)
       .subscribe((data: any) => {
         this.discounts = data;
       });

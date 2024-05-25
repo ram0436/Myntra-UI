@@ -6,6 +6,13 @@ import { MatChipInputEvent } from "@angular/material/chips";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MasterService } from "src/codeokk/modules/service/master.service";
 import { ProductService } from "src/codeokk/shared/service/product.service";
+import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+import { Observable, map, startWith } from "rxjs";
+
+interface Brand {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: "app-admin-dashboard",
@@ -65,6 +72,9 @@ export class AdminDashboardComponent {
   tagCtrl = new FormControl("");
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  brandCtrl = new FormControl();
+  filteredBrands!: Observable<Brand[]>;
+
   constructor(
     private masterService: MasterService,
     private snackBar: MatSnackBar,
@@ -81,6 +91,24 @@ export class AdminDashboardComponent {
     for (var i = 0; i < this.cardsCount.length; i++) {
       this.cardsCount[i] = "";
     }
+    // Filter brands based on user input
+    this.filteredBrands = this.brandCtrl.valueChanges.pipe(
+      startWith(""),
+      map((value) => (typeof value === "string" ? value : value.name)),
+      map((name) => (name ? this._filterBrands(name) : this.brands.slice()))
+    );
+  }
+
+  private _filterBrands(name: string): Brand[] {
+    const filterValue = name.toLowerCase();
+    return this.brands.filter(
+      (brand) => brand.name.toLowerCase().indexOf(filterValue) === 0
+    );
+  }
+
+  onBrandSelected(event: MatAutocompleteSelectedEvent) {
+    const selectedBrand: Brand = event.option.value;
+    this.productBrandId = selectedBrand.id;
   }
 
   getAllDicounts() {
