@@ -20,6 +20,10 @@ export class MasterService {
     return this.http.get(`${this.baseUrl}/Master/GetAllParentCategory`);
   }
 
+getAllBrands() {
+  return this.http.get(`${this.baseUrl}/Master/GetAllBrand`);
+}
+
   getAllColors() {
     return this.http.get(`${this.baseUrl}/Master/GetAllColor`);
   }

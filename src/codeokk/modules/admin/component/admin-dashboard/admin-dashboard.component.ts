@@ -74,6 +74,7 @@ export class AdminDashboardComponent {
 
   ngOnInit() {
     this.getAllParentCategories();
+    this.getAllBrands();
     this.getAllColors();
     this.getAllDicounts();
     this.getAllProductSizes();
@@ -171,9 +172,9 @@ export class AdminDashboardComponent {
   }
 
   getAllBrands() {
-    // this.masterService.getAllBrands().subscribe((res: any) => {
-    //   this.brands = res;
-    // });
+    this.masterService.getAllBrands().subscribe((res: any) => {
+      this.brands = res;
+    });
   }
 
   getAllProductSizes() {
