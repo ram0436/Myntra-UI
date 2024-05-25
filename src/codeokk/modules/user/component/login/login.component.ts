@@ -179,6 +179,10 @@ export class LoginComponent {
             localStorage.setItem("id", data.id);
             this.dialogRef.close();
             this.userService.setData("login");
+            this.userService.setUserData({
+              name: data.firstName,
+              mobile: data.mobileNumber,
+            });
             // if (data.role == "Admin")
             //   this.router.navigate(["/Admin/admin-dashboard"]);
             // else this.router.navigate(["/user/account"]);

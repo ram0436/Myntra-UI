@@ -60,7 +60,7 @@
           </span>
           <!-- <span class="mrp">MRP <s>₹999</s></span> -->
           <span class="discount"
-            >({{ productDetails?.discount[0]?.percent }}% OFF)</span
+            >({{ productDetails?.discount[0]?.percent }})</span
           >
         </p>
         <p class="selling-price">
@@ -105,7 +105,7 @@
             class="pdp-goToCart pdp-add-to-bag pdp-button pdp-flex pdp-center"
             (click)="addToBag(productDetails?.productCode)"
             ><span class="material-icons-outlined bag-icon"> shopping_bag </span
-            ><span>ADD TO BAG</span></a
+            ><span>ADD TO CART</span></a
           >
           <div
             class="pdp-add-to-wishlist pdp-button pdp-add-to-wishlist pdp-button pdp-flex pdp-center"
@@ -140,12 +140,7 @@
             </h4>
             <div class="pdp-product-description-content">
               <ul>
-                <li>Black T-shirt for men</li>
-                <li>Graphic&nbsp;printed</li>
-                <li>Regular length</li>
-                <li>Round neck</li>
-                <li>Short, drop shoulder sleeves</li>
-                <li>Knitted cotton fabric</li>
+                <li>{{ productDetails?.description }}</li>
               </ul>
             </div>
           </div>
@@ -166,7 +161,7 @@
               100% Cotton<br />Machine Wash
             </p>
           </div>
-          <div class="index-sizeFitDesc">
+          <!-- <div class="index-sizeFitDesc">
             <h4 class="index-sizeFitDescTitle index-product-description-title">
               Specifications
             </h4>
@@ -240,7 +235,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div>

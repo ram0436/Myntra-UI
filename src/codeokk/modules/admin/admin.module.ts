@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AdminRoutingModule } from "./admin-routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgFor } from "@angular/common";
 import { AdminDashboardComponent } from "./component/admin-dashboard/admin-dashboard.component";
 import { HttpClientModule } from "@angular/common/http";
@@ -15,6 +15,10 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatSelectModule } from "@angular/material/select";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import {
+  MatAutocomplete,
+  MatAutocompleteModule,
+} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [AdminDashboardComponent],
@@ -41,6 +45,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatChipsModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
   ],
 })
 export class AdminModule {}

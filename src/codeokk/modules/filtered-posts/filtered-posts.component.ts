@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MasterService } from "../service/master.service";
+import { filter } from "rxjs";
 
 @Component({
   selector: "app-filtered-posts",
@@ -20,10 +21,18 @@ export class FilteredPostsComponent {
   subCategoryId: Number = 0;
   categoryId: Number = 0;
   subMenuName: string = "";
+
+  allParentCategories: any[] = [];
+  allCategories: any[] = [];
+  allsubCategories: any[] = [];
+
+  breadcrumb: string = "";
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private masterService: MasterService
+    private masterService: MasterService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -39,6 +48,69 @@ export class FilteredPostsComponent {
     this.masterService.getData().subscribe((filters: any) => {
       this.filterProducts(filters);
     });
+    this.getAllParentCategories();
+    this.router.events
+      .pipe(filter((event: any) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.updateBreadcrumb();
+      });
+  }
+
+  updateBreadcrumb() {
+    let breadcrumbParts: string[] = [];
+
+    const parentCategory = this.allParentCategories.find((category) => {
+      return category.id.toString() === this.parentId.toString();
+    });
+
+    if (parentCategory) {
+      breadcrumbParts.push(parentCategory.name);
+    }
+
+    const category = this.allCategories.find((category) => {
+      return category.id.toString() === this.categoryId.toString();
+    });
+    if (category) {
+      breadcrumbParts.push(category.name);
+    }
+
+    const subCategory = this.allsubCategories.find((category) => {
+      return category.id.toString() === this.subCategoryId.toString();
+    });
+    if (subCategory) {
+      breadcrumbParts.push(subCategory.name);
+    }
+
+    this.breadcrumb = breadcrumbParts.join(" / ");
+  }
+
+  getAllParentCategories() {
+    this.masterService.getAllParentCategories().subscribe((data: any) => {
+      this.allParentCategories = data;
+      data.forEach((parentCategory: any) => {
+        this.getAllCategoryByParentCategoryId(parentCategory.id);
+      });
+    });
+  }
+
+  getAllCategoryByParentCategoryId(parentCategoryId: number) {
+    this.masterService
+      .getCategoryByParentCategoryId(parentCategoryId)
+      .subscribe((data: any) => {
+        this.allCategories.push(...data);
+        data.forEach((category: any) => {
+          this.getAllSubCategoryByCategoryId(category.id);
+        });
+      });
+  }
+
+  getAllSubCategoryByCategoryId(categoryId: number) {
+    this.masterService
+      .getSubCategoryByCategoryId(categoryId)
+      .subscribe((data: any) => {
+        this.allsubCategories.push(...data);
+        this.updateBreadcrumb();
+      });
   }
 
   matchProductIds(product: any): boolean {
