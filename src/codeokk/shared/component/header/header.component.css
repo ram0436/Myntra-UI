@@ -76,6 +76,10 @@
   font-weight: 700;
 }
 
+.hover-effect:hover {
+  font-weight: 700;
+}
+
 .subcategory-ul {
   padding: 0;
   margin: 0;
