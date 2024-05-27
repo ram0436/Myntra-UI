@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { MasterService } from "src/codeokk/modules/service/master.service";
 import { LoginComponent } from "src/codeokk/modules/user/component/login/login.component";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
+import { ProductService } from "../../service/product.service";
 
 @Component({
   selector: "app-header",
@@ -28,10 +29,12 @@ export class HeaderComponent implements OnInit {
     private masterService: MasterService,
     private router: Router,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private productService: ProductService
   ) {}
 
   ngOnInit() {
+    // this.cartItemCount = this.productService.bagCount;
     if (localStorage.getItem("authToken") != null) {
       this.isUserLogedIn = true;
       this.getUserData();

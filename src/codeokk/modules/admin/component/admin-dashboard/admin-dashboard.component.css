@@ -33,6 +33,20 @@
   cursor: pointer;
 }
 
+.color-option {
+  display: flex;
+  align-items: center;
+}
+
+.color-label {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  /* border: 1px solid black; */
+}
+
 .section {
   cursor: pointer;
 }

@@ -337,7 +337,16 @@
               <mat-label>Select Color</mat-label>
               <mat-select [(ngModel)]="productColorId" name="colorId">
                 <mat-option *ngFor="let color of colors" [value]="color.id">
-                  {{ color.name }}
+                  <span class="color-option">
+                    <span
+                      class="color-label"
+                      [style.backgroundColor]="color.code"
+                      [style.border]="
+                        color.name === 'White' ? '1px solid #d6d6d6' : 'none'
+                      "
+                    ></span>
+                    <span>{{ color.name }}</span>
+                  </span>
                 </mat-option>
               </mat-select>
             </mat-form-field>

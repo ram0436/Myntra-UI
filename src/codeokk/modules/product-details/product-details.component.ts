@@ -51,7 +51,6 @@ export class ProductDetailsComponent {
           productCode: productId,
           createdBy: Number(localStorage.getItem("id")),
           productSizeId: this.selectedSize,
-          // createdBy: localStorage.getItem("id"),
           createdOn: new Date().toISOString(),
           modifiedBy: Number(localStorage.getItem("id")),
           modifiedOn: new Date().toISOString(),
@@ -61,9 +60,10 @@ export class ProductDetailsComponent {
         this.userService.addToCart(cartItem).subscribe(
           (response: any) => {
             this.showNotification("Successfully Added to Cart");
-            this.productService.bagCount.subscribe((count) => {
-              this.productService.updateBagCount(count + 1);
-            });
+            // this.productService.bagCount.subscribe((count) => {
+            //   this.productService.updateBagCount(count + 1);
+            // });
+            // this.productService.bagCount += 1;
           },
           (error: any) => {}
         );

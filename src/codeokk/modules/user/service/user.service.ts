@@ -12,11 +12,6 @@ export class UserService {
 
   private baseUrl = environment.baseUrl;
 
-  private selectedCount: number = 0;
-  private totalMRP: number = 0;
-  private totalDiscount: number = 0;
-  private totalAmount: number = 0;
-
   private userName: string = "";
   private mobileNo: string = "";
 
@@ -24,7 +19,102 @@ export class UserService {
 
   private priceDetailsKey = "priceDetails";
 
-  constructor(private httpClient: HttpClient) {}
+  private _selectedCount: number = 0;
+  private _totalMRP: number = 0;
+  private _totalDiscount: number = 0;
+  private _totalAmount: number = 0;
+  private _orderDetails: any[] = [];
+
+  private placeOrderSubject = new Subject<void>();
+
+  placeOrder$ = this.placeOrderSubject.asObservable();
+
+  constructor(private httpClient: HttpClient) {
+    this.loadFromLocalStorage();
+  }
+
+  triggerPlaceOrder() {
+    this.placeOrderSubject.next();
+  }
+
+  get selectedCount(): number {
+    return this._selectedCount;
+  }
+
+  set selectedCount(value: number) {
+    this._selectedCount = value;
+    this.saveToLocalStorage();
+  }
+
+  get orderDetails(): any {
+    return this._orderDetails;
+  }
+
+  set orderDetails(value: any) {
+    this._orderDetails = value;
+    this.saveToLocalStorage();
+  }
+
+  get totalMRP(): number {
+    return this._totalMRP;
+  }
+
+  set totalMRP(value: number) {
+    this._totalMRP = value;
+    this.saveToLocalStorage();
+  }
+
+  get totalDiscount(): number {
+    return this._totalDiscount;
+  }
+
+  set totalDiscount(value: number) {
+    this._totalDiscount = value;
+    this.saveToLocalStorage();
+  }
+
+  get totalAmount(): number {
+    return this._totalAmount;
+  }
+
+  set totalAmount(value: number) {
+    this._totalAmount = value;
+    this.saveToLocalStorage();
+  }
+
+  private saveToLocalStorage() {
+    localStorage.setItem(
+      "cart",
+      JSON.stringify({
+        selectedCount: this._selectedCount,
+        totalMRP: this._totalMRP,
+        totalDiscount: this._totalDiscount,
+        totalAmount: this._totalAmount,
+      })
+    );
+    localStorage.setItem(
+      "orderDetails",
+      JSON.stringify({
+        details: this._orderDetails,
+      })
+    );
+  }
+
+  private loadFromLocalStorage() {
+    const cartString = localStorage.getItem("cart");
+    if (cartString) {
+      const cart = JSON.parse(cartString);
+      this._selectedCount = cart.selectedCount;
+      this._totalMRP = cart.totalMRP;
+      this._totalDiscount = cart.totalDiscount;
+      this._totalAmount = cart.totalAmount;
+    }
+    const orderDetailsStrin = localStorage.getItem("orderDetails");
+    if (orderDetailsStrin) {
+      const orderDetails = JSON.parse(orderDetailsStrin);
+      this._orderDetails = orderDetails.details;
+    }
+  }
 
   setPriceDetails(
     selectedCount: number,

@@ -31,6 +31,7 @@ export class CartComponent {
   selectedSize: string = "";
   selectedQty: number = 1;
   qtyOptions: number[] = Array.from({ length: 10 }, (_, i) => i + 1);
+  selectedProducts: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -41,6 +42,41 @@ export class CartComponent {
 
   ngOnInit() {
     this.getUserCartData();
+    this.userService.placeOrder$.subscribe(() => {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("orderDetails");
+      this.removeSelectedProducts(this.selectedProducts);
+    });
+  }
+
+  removeProducts() {
+    const userId = Number(localStorage.getItem("id"));
+    this.selectedProducts = this.cartProducts.filter(
+      (product) => product.selected
+    );
+
+    if (this.selectedProducts.length === 0) {
+      this.showNotification(
+        "Please select at least one product to place an order."
+      );
+      return;
+    }
+
+    const orderPayload = {
+      createdBy: userId,
+      createdOn: new Date().toISOString(),
+      modifiedBy: userId,
+      modifiedOn: new Date().toISOString(),
+      id: 0,
+      productOrderMapping: this.selectedProducts.map((product) => ({
+        id: 0,
+        productId: Number(product.id),
+      })),
+      totalAmount: Math.round(this.totalAmount),
+    };
+
+    this.userService.orderDetails = orderPayload;
+    this.router.navigate(["/user/address"]);
   }
 
   toggleShowMore() {
@@ -146,54 +182,14 @@ export class CartComponent {
         }, 0)
     );
     this.totalAmount = this.totalMRP - this.totalDiscount;
-    this.userService.setPriceDetails(
-      this.selectedCount,
-      this.totalMRP,
-      this.totalDiscount,
-      this.totalAmount
-    );
+    this.userService.selectedCount = this.selectedCount;
+    this.userService.totalMRP = this.totalMRP;
+    this.userService.totalDiscount = this.totalDiscount;
+    this.userService.totalAmount = this.totalAmount;
   }
 
   getProductSizes(product: any): string[] {
     return product.productSize.map((size: any) => size.size);
-  }
-
-  placeOrder() {
-    const userId = Number(localStorage.getItem("id"));
-    const selectedProducts = this.cartProducts.filter(
-      (product) => product.selected
-    );
-
-    if (selectedProducts.length === 0) {
-      this.showNotification(
-        "Please select at least one product to place an order."
-      );
-      return;
-    }
-
-    const orderPayload = {
-      createdBy: userId,
-      createdOn: new Date().toISOString(),
-      modifiedBy: userId,
-      modifiedOn: new Date().toISOString(),
-      id: 0,
-      productOrderMapping: selectedProducts.map((product) => ({
-        id: 0,
-        productId: Number(product.id),
-      })),
-      totalAmount: Math.round(this.totalAmount),
-    };
-
-    this.userService.createOrder(orderPayload).subscribe(
-      (response) => {
-        this.showNotification("Order placed successfully!");
-        this.removeSelectedProducts(selectedProducts);
-        this.router.navigate(["/user/address"]);
-      },
-      (error) => {
-        this.showNotification("Failed to place the order. Please try again.");
-      }
-    );
   }
 
   handleDashboardData(cartItem: any) {
@@ -232,7 +228,7 @@ export class CartComponent {
             (p) => p.cartId !== product.cartId
           );
 
-          this.updateTotals();
+          // this.updateTotals();
         },
         (error) => {
           console.error("Error removing product from cart:", error);

@@ -29,7 +29,6 @@ export class OrdersComponent {
   ) {}
 
   ngOnInit() {
-    this.getPriceDetails();
     this.getOrdersByUserId();
     this.loggedInUserId = Number(localStorage.getItem("id"));
   }
@@ -38,7 +37,7 @@ export class OrdersComponent {
     this.userService
       .getOrderByUserId(Number(localStorage.getItem("id")))
       .subscribe((data: any) => {
-        this.userOrders = data;
+        this.userOrders = data.reverse();
 
         this.userOrders.forEach((order) => {
           let orderedProds: any[] = [];
@@ -94,14 +93,6 @@ export class OrdersComponent {
   // getProductbyProductId(productId: any) {
   //   return this.productService.getProductByProductId(productId);
   // }
-
-  getPriceDetails() {
-    const priceDetails = this.userService.getPriceDetails();
-    this.selectedCount = priceDetails.selectedCount;
-    this.totalMRP = priceDetails.totalMRP;
-    this.totalDiscount = priceDetails.totalDiscount;
-    this.totalAmount = priceDetails.totalAmount;
-  }
 
   getProductImage(product: any): string {
     if (
