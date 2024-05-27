@@ -59,6 +59,10 @@ export class AddressComponent {
   }
 
   continuePayment() {
+    this.userService.selectedCount = this.selectedCount;
+    this.userService.totalMRP = this.totalMRP;
+    this.userService.totalDiscount = this.totalDiscount;
+    this.userService.totalAmount = this.totalAmount;
     this.router.navigate(["/user/payment"]);
   }
 
@@ -88,7 +92,6 @@ export class AddressComponent {
       .getAddressByUserId(Number(localStorage.getItem("id")))
       .subscribe((data: any) => {
         this.userAddress = data;
-        console.log(this.userAddress);
       });
   }
 
@@ -109,11 +112,12 @@ export class AddressComponent {
   }
 
   getPriceDetails() {
-    const priceDetails = this.userService.getPriceDetails();
-    this.selectedCount = priceDetails.selectedCount;
-    this.totalMRP = priceDetails.totalMRP;
-    this.totalDiscount = priceDetails.totalDiscount;
-    this.totalAmount = priceDetails.totalAmount;
+    // const priceDetails = this.userService.getPriceDetails();
+
+    this.selectedCount = this.userService.selectedCount;
+    this.totalMRP = this.userService.totalMRP;
+    this.totalDiscount = this.userService.totalDiscount;
+    this.totalAmount = this.userService.totalAmount;
   }
 
   toggleShowMore() {

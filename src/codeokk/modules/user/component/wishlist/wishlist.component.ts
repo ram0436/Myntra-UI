@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "./../../service/user.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-wishlist",
@@ -12,14 +13,48 @@ export class WishlistComponent {
   savedProducts: any[] = [];
   wishlistCount: number = 0;
   savedItems: any[] = [];
+  selectedSize: number | null = null;
 
   constructor(
     private productService: ProductService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
     this.getUserWishlistData();
+  }
+
+  addToBag(productId: string) {
+    const cartItem = {
+      id: 0,
+      productCode: productId,
+      createdBy: Number(localStorage.getItem("id")),
+      productSizeId: this.selectedSize,
+      createdOn: new Date().toISOString(),
+      modifiedBy: Number(localStorage.getItem("id")),
+      modifiedOn: new Date().toISOString(),
+      userId: Number(localStorage.getItem("id")),
+    };
+
+    this.userService.addToCart(cartItem).subscribe(
+      (response: any) => {
+        this.showNotification("Successfully Added to Cart");
+        // this.productService.bagCount.subscribe((count) => {
+        //   this.productService.updateBagCount(count + 1);
+        // });
+        // this.productService.bagCount += 1;
+      },
+      (error: any) => {}
+    );
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, "Close", {
+      duration: 5000,
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
   }
 
   updateWishlistCount() {

@@ -88,7 +88,6 @@
 .product-info {
   position: relative;
   z-index: 4;
-  background: #fff;
   padding: 0 8px;
   height: 100%;
   margin-top: 12px;
@@ -109,7 +108,6 @@
 
 .bag-actions {
   display: block;
-  background: #fff;
   width: 100%;
   margin-top: 10px;
   padding: 5px 10px;
@@ -385,3 +383,158 @@ h4 {
   left: 5px;
   top: 10px;
 } */
+
+.Modal-modalContent {
+  z-index: 112;
+  overflow: auto;
+  text-align: center;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.Modal-modalContent:after {
+  vertical-align: middle;
+  display: inline-block;
+  height: 100%;
+  margin-left: -0.05em;
+  content: "";
+}
+
+.dialog-base-header {
+  margin: 16px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.Modal-modalContent,
+.Modal-modalOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Modal-modalDialog {
+  position: relative;
+  outline: 0;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  max-width: auto;
+  cursor: default;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 0px 3px 0px rgba(134, 134, 134, 0.75);
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(134, 134, 134, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(134, 134, 134, 0.75);
+}
+
+.Modal-modalDialog div.details-details {
+  color: #282c3f;
+  overflow: auto;
+  scrollbar-width: 0px;
+  background-color: #fff;
+  text-align: left;
+  width: 312px;
+  max-height: 500px;
+  padding: 24px;
+  border-radius: 6px;
+}
+
+.Modal-modalDialog .details-details h3 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.Modal-modalDialog .details-details p {
+  font-size: 16px;
+  margin: 4px 8px 0 0;
+}
+
+.Modal-modalDialog .details-details ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Modal-modalDialog .details-details li {
+  margin-top: 16px;
+}
+
+.Modal-modalDialog .details-details h4,
+.Modal-modalDialog .details-details p {
+  font-size: 16px;
+  margin: 4px 8px 0 0;
+}
+
+.Modal-modalDialog .dialogs-base-header {
+  padding: 19px 0 18px 8px;
+  font-weight: 700;
+  font-size: 16px;
+  border-bottom: 1px solid #f5f5f6;
+  margin: 16px;
+}
+
+.Modal-modalDialog .dialogs-base-qtyList {
+  max-height: 200px;
+  padding: 16px 0 0 8px;
+}
+
+.Modal-modalDialog .dialogs-base-item {
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  padding: 14px 16px;
+  border: 1px solid #535766;
+  border-radius: 50px;
+  display: inline-block;
+  margin-right: 12px;
+  margin-bottom: 16px;
+}
+
+.Modal-modalDialog .dialogs-base-display {
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 14px;
+  line-height: normal;
+  text-align: center;
+}
+
+.Modal-modalDialog .dialogs-base-selected {
+  font-weight: 700;
+  color: #ff3f6c;
+  border-color: #ff3f6c !important;
+}
+
+.Modal-modalDialog .css-cilza6 {
+  font-size: 14px;
+  padding: 10px 16px;
+  width: 100%;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  border-radius: 2px;
+  border-width: 0px;
+  background-color: rgb(255, 63, 108);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.css-xjhrni {
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  display: flex;
+}
+
+.sprites-remove {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  cursor: pointer;
+}

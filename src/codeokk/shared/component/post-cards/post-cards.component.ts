@@ -31,6 +31,11 @@ export class PostCardsComponent {
   productsPerPage: number = 24;
   wishlistCount: number = 0;
 
+  selectedSize: number | null = null;
+
+  showModal: boolean = false;
+  selectedProduct: any;
+
   constructor(
     private router: Router,
     private productService: ProductService,
@@ -51,19 +56,10 @@ export class PostCardsComponent {
     });
   }
 
-  // ngOnInit() {
-  //   if (this.wishlistRoute) {
-  //     this.wishlistCount = this.products.length;
-  //     console.log(this.wishlistCount);
-  //   }
-  // }
-
-  // Function to get the index of the first product on the current page
   get startIndex(): number {
     return (this.currentPage - 1) * this.productsPerPage;
   }
 
-  // Function to get the index of the last product on the current page
   get endIndex(): number {
     return Math.min(
       this.startIndex + this.productsPerPage,
@@ -77,7 +73,6 @@ export class PostCardsComponent {
     }
   }
 
-  // Generate an array of page numbers
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
@@ -86,24 +81,70 @@ export class PostCardsComponent {
     return Math.ceil(this.products.length / this.productsPerPage);
   }
 
-  // Function to get the products to display on the current page
   get currentPageProducts(): any[] {
     return this.products.slice(this.startIndex, this.endIndex);
   }
 
-  // Function to navigate to the previous page
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
   }
 
-  // Function to navigate to the next page
   nextPage() {
     const totalPages = Math.ceil(this.products.length / this.productsPerPage);
     if (this.currentPage < totalPages) {
       this.currentPage++;
     }
+  }
+
+  toggleModal(event: Event, product?: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.selectedProduct = product;
+    this.showModal = !this.showModal;
+  }
+
+  doneSelection(event: Event, productCode: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.showModal = false;
+    this.addToBag(productCode);
+  }
+
+  getProductSizes(product: any): string[] {
+    return product.productSize.map((size: any) => size.size);
+  }
+
+  selectSize(event: Event, sizeId: number) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.selectedProduct) {
+      this.selectedSize = sizeId;
+    }
+  }
+
+  addToBag(productId: string) {
+    const cartItem = {
+      id: 0,
+      productCode: productId,
+      createdBy: Number(localStorage.getItem("id")),
+      createdOn: new Date().toISOString(),
+      modifiedBy: Number(localStorage.getItem("id")),
+      modifiedOn: new Date().toISOString(),
+      userId: Number(localStorage.getItem("id")),
+    };
+
+    this.userService.addToCart(cartItem).subscribe(
+      (response: any) => {
+        this.showNotification("Successfully Added to Cart");
+        // this.productService.bagCount.subscribe((count) => {
+        //   this.productService.updateBagCount(count + 1);
+        // });
+        // this.productService.bagCount += 1;
+      },
+      (error: any) => {}
+    );
   }
 
   getImageUrl(product: any): string {

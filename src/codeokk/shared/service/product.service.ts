@@ -8,18 +8,38 @@ import { tap } from "rxjs/operators";
   providedIn: "root",
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // this.loadFromLocalStorage();
+  }
   private BaseURL = environment.baseUrl;
 
-  private _bagCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  // private _bagCount: number = 0;
 
-  get bagCount() {
-    return this._bagCount.asObservable();
-  }
+  // get bagCount(): number {
+  //   return this._bagCount;
+  // }
 
-  updateBagCount(count: number) {
-    this._bagCount.next(count);
-  }
+  // set bagCount(value: number) {
+  //   this._bagCount = value;
+  //   this.saveToLocalStorage();
+  // }
+
+  // private saveToLocalStorage() {
+  //   localStorage.setItem(
+  //     "bagCount",
+  //     JSON.stringify({
+  //       bagCount: this._bagCount,
+  //     })
+  //   );
+  // }
+
+  // private loadFromLocalStorage() {
+  //   const bagString = localStorage.getItem("bagCount");
+  //   if (bagString) {
+  //     const bag = JSON.parse(bagString);
+  //     this._bagCount = bag.bagCount;
+  //   }
+  // }
 
   getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.BaseURL}Product/GetAllProduct`);

@@ -13,6 +13,7 @@ export class PaymentComponent {
   totalMRP: number = 0;
   totalDiscount: number = 0;
   totalAmount: number = 0;
+  selectCODOption: boolean = true;
 
   constructor(
     private userService: UserService,
@@ -24,11 +25,39 @@ export class PaymentComponent {
     this.getPriceDetails();
   }
 
+  selectCOD() {
+    this.selectCODOption = !this.selectCODOption;
+  }
+
+  proceedToCheckout() {
+    const orderPayload = this.userService.orderDetails;
+
+    this.userService.createOrder(orderPayload).subscribe(
+      (response) => {
+        this.showNotification("Order placed successfully!");
+        localStorage.removeItem("orderDetails");
+        localStorage.removeItem("cart");
+        this.userService.triggerPlaceOrder();
+        this.router.navigate(["/user/orders"]);
+      },
+      (error) => {
+        this.showNotification("Failed to place the order. Please try again.");
+      }
+    );
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, "Close", {
+      duration: 2000,
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
+  }
+
   getPriceDetails() {
-    const priceDetails = this.userService.getPriceDetails();
-    this.selectedCount = priceDetails.selectedCount;
-    this.totalMRP = priceDetails.totalMRP;
-    this.totalDiscount = priceDetails.totalDiscount;
-    this.totalAmount = priceDetails.totalAmount;
+    this.selectedCount = this.userService.selectedCount;
+    this.totalMRP = this.userService.totalMRP;
+    this.totalDiscount = this.userService.totalDiscount;
+    this.totalAmount = this.userService.totalAmount;
   }
 }

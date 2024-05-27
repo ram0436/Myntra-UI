@@ -43,6 +43,7 @@
             <span
               class="product-bagFlex product-actionsButton product-bag"
               style="width: 100%; text-align: center"
+              (click)="toggleModal($event, product)"
             >
               Add To Bag
             </span>
@@ -73,6 +74,43 @@
         </a>
       </div>
       <h3 *ngIf="products.length == 0">No products avaialble</h3>
+    </div>
+    <div
+      *ngIf="showModal && selectedProduct"
+      class="Modal-modalContent d-block"
+    >
+      <div class="Modal-modalDialog">
+        <div class="details-details">
+          <span
+            class="material-icons-outlined myntraweb-sprite Address-close-button sprites-remove"
+            (click)="toggleModal($event)"
+            >clear</span
+          >
+          <div class="dialog-base-header">Select Size</div>
+          <div class="dialogs-base-qtyList">
+            <div
+              *ngFor="let size of selectedProduct?.productSize"
+              (click)="selectSize($event, size.id)"
+              [ngClass]="{
+                'dialogs-base-selected': size.id === selectedSize
+              }"
+              class="dialogs-base-item"
+            >
+              <div class="dialogs-base-display">{{ size.size }}</div>
+            </div>
+          </div>
+          <button
+            (click)="doneSelection($event, selectedProduct?.productCode)"
+            width="100%"
+            letterspacing="1px"
+            font-weight="bold"
+            role="button"
+            class="css-cilza6"
+          >
+            <div class="css-xjhrni">DONE</div>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="pagination-btns" *ngIf="products.length !== 0">
       <div

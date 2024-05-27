@@ -217,6 +217,17 @@
   margin: 0;
 }
 
+.cash-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.address-radioIcon {
+  fill: #ff3f6c;
+}
+
 .address-add {
   color: #282c3f;
   text-transform: uppercase;
