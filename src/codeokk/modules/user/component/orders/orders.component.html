@@ -1,0 +1,74 @@
+<div class="orders">
+  <div class="orders-container">
+    <div class="orders-flex">
+      <div class="order" *ngFor="let order of userOrders; let i = index">
+        <div class="order-details">
+          <div class="top">
+            <div class="left">
+              <div class="order-date flex-col">
+                <span class="title">Order Placed</span>
+                <span class="date title-desc">{{
+                  order.createdOn | date : "dd MMM yyyy"
+                }}</span>
+              </div>
+              <div class="total-amount flex-col">
+                <span class="title">Total</span>
+                <span class="amount title-desc">₹{{ order.totalAmount }}</span>
+              </div>
+              <div class="owner-details flex-col">
+                <span class="title">Created By</span>
+                <span class="name title-desc">{{
+                  getOrderCreatorName(order.createdBy)
+                }}</span>
+              </div>
+            </div>
+            <div class="right"></div>
+          </div>
+          <div class="bottom">
+            <h2 class="delivery-status">
+              {{ calculateDeliveryDate(order.createdOn) }}
+            </h2>
+            <span class="delivery-place">
+              Package will be delivered at given address
+            </span>
+            <div
+              class="product-details"
+              *ngFor="let prodArray of orderedProducts[i]"
+            >
+              <div *ngFor="let product of prodArray" class="product-details">
+                <div class="img-container">
+                  <img
+                    [src]="getProductImage(product)"
+                    alt=""
+                    (click)="navigateToProductDetails(product.productCode)"
+                  />
+                </div>
+                <div class="text-container">
+                  <div
+                    class="product-name"
+                    (click)="navigateToProductDetails(product.productCode)"
+                  >
+                    {{ product.name }}
+                  </div>
+                  <span class="product-desc">{{ product.description }}</span>
+                  <div class="return-status">
+                    Return window will close after 3 days of delivery
+                  </div>
+                  <div class="action-btns">
+                    <button class="buy-again-btn">Buy it Again</button>
+                    <button
+                      class="view-item-btn"
+                      (click)="navigateToProductDetails(product.productCode)"
+                    >
+                      View your Item
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

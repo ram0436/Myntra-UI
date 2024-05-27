@@ -133,16 +133,18 @@ export class CartComponent {
     this.totalMRP = this.cartProducts
       .filter((product) => product.selected)
       .reduce((total, product) => total + product.price * product.quantity, 0);
-    this.totalDiscount = this.cartProducts
-      .filter((product) => product.selected)
-      .reduce((total, product) => {
-        const discountPercent = product.discount?.[0]?.percent
-          .replace("% OFF", "")
-          .trim();
-        const discountValue =
-          product.price * (parseFloat(discountPercent) / 100);
-        return total + discountValue;
-      }, 0);
+    this.totalDiscount = Math.round(
+      this.cartProducts
+        .filter((product) => product.selected)
+        .reduce((total, product) => {
+          const discountPercent = product.discount?.[0]?.percent
+            .replace("% OFF", "")
+            .trim();
+          const discountValue =
+            product.price * (parseFloat(discountPercent) / 100);
+          return total + discountValue;
+        }, 0)
+    );
     this.totalAmount = this.totalMRP - this.totalDiscount;
     this.userService.setPriceDetails(
       this.selectedCount,
@@ -157,7 +159,41 @@ export class CartComponent {
   }
 
   placeOrder() {
-    this.router.navigate(["/user/address"]);
+    const userId = Number(localStorage.getItem("id"));
+    const selectedProducts = this.cartProducts.filter(
+      (product) => product.selected
+    );
+
+    if (selectedProducts.length === 0) {
+      this.showNotification(
+        "Please select at least one product to place an order."
+      );
+      return;
+    }
+
+    const orderPayload = {
+      createdBy: userId,
+      createdOn: new Date().toISOString(),
+      modifiedBy: userId,
+      modifiedOn: new Date().toISOString(),
+      id: 0,
+      productOrderMapping: selectedProducts.map((product) => ({
+        id: 0,
+        productId: Number(product.id),
+      })),
+      totalAmount: Math.round(this.totalAmount),
+    };
+
+    this.userService.createOrder(orderPayload).subscribe(
+      (response) => {
+        this.showNotification("Order placed successfully!");
+        this.removeSelectedProducts(selectedProducts);
+        this.router.navigate(["/user/address"]);
+      },
+      (error) => {
+        this.showNotification("Failed to place the order. Please try again.");
+      }
+    );
   }
 
   handleDashboardData(cartItem: any) {
@@ -174,9 +210,7 @@ export class CartComponent {
           });
         }
       },
-      (dashboardError: any) => {
-        console.error("Error fetching product details", dashboardError);
-      }
+      (dashboardError: any) => {}
     );
   }
 
@@ -186,6 +220,25 @@ export class CartComponent {
     } else {
       return "/assets/no-img.png";
     }
+  }
+
+  removeSelectedProducts(selectedProducts: any[]) {
+    const userId = Number(localStorage.getItem("id"));
+
+    selectedProducts.forEach((product) => {
+      this.userService.removeItemFromCart(product.cartId, userId).subscribe(
+        (response: any) => {
+          this.cartProducts = this.cartProducts.filter(
+            (p) => p.cartId !== product.cartId
+          );
+
+          this.updateTotals();
+        },
+        (error) => {
+          console.error("Error removing product from cart:", error);
+        }
+      );
+    });
   }
 
   removeItemFromCart(event: Event, cartId: any) {

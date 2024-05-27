@@ -104,6 +104,16 @@ export class UserService {
     return this.httpClient.post(`${this.baseUrl}User/AddToCart`, payload);
   }
 
+  createOrder(payload: any) {
+    return this.httpClient.post(`${this.baseUrl}User/CreateOrder`, payload);
+  }
+
+  getOrderByUserId(userId: any) {
+    return this.httpClient.get(
+      `${this.baseUrl}User/GetOrderByUserId?userId=${userId}`
+    );
+  }
+
   removeItemFromCart(cartId: any, userId: any) {
     return this.httpClient.delete(
       `${this.baseUrl}User/RemoveCartById?cartId=${cartId}&loggedInUserId=${userId}`
@@ -119,6 +129,12 @@ export class UserService {
   getWishListByUserId(userId: any) {
     return this.httpClient.get(
       `${this.baseUrl}User/GetWishListByUserId?userId=${userId}`
+    );
+  }
+
+  getAddressByUserId(userId: any) {
+    return this.httpClient.get(
+      `${this.baseUrl}User/GetAddressByUserId?userId=${userId}`
     );
   }
 

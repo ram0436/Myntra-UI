@@ -2,11 +2,14 @@ import { Component } from "@angular/core";
 import { UserService } from "../../service/user.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-address",
   templateUrl: "./address.component.html",
   styleUrls: ["./address.component.css"],
+  providers: [DatePipe],
 })
 export class AddressComponent {
   selectedCount: number = 0;
@@ -22,6 +25,8 @@ export class AddressComponent {
   userName: string = "";
   localArea: string = "";
 
+  userAddress: any = [];
+
   postOffices: any[] = [];
 
   addressForm!: FormGroup;
@@ -29,6 +34,11 @@ export class AddressComponent {
   numericValue: number = 0;
 
   showAddressFields: boolean = false;
+
+  showAddNewAddress: boolean = false;
+  showAddressForm: boolean = false;
+
+  selectedAddressId: number = 1;
 
   offers: string[] = [
     "10% Instant Discount on Citi-branded Credit and Debit Cards on a minimum spend of ₹3,000. TCA",
@@ -39,11 +49,30 @@ export class AddressComponent {
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.getPriceDetails();
+    this.getAddressByUserId();
+  }
+
+  continuePayment() {
+    this.router.navigate(["/user/payment"]);
+  }
+
+  selectAddress(addressId: number) {
+    this.selectedAddressId = addressId;
+  }
+
+  toggleAddNewAddress() {
+    this.showAddNewAddress = true;
+    this.showAddressForm = false;
+  }
+
+  toggleAddressForm() {
+    this.showAddressForm = !this.showAddressForm;
   }
 
   showNotification(message: string): void {
@@ -52,6 +81,15 @@ export class AddressComponent {
       horizontalPosition: "end",
       verticalPosition: "top",
     });
+  }
+
+  getAddressByUserId() {
+    this.userService
+      .getAddressByUserId(Number(localStorage.getItem("id")))
+      .subscribe((data: any) => {
+        this.userAddress = data;
+        console.log(this.userAddress);
+      });
   }
 
   allowOnlyNumbers(event: Event): void {
@@ -157,6 +195,9 @@ export class AddressComponent {
     };
     this.userService.saveAddress(addressDetails).subscribe((response) => {
       this.showNotification("Address saved successfully");
+      this.getAddressByUserId();
+      this.toggleAddressForm();
+      this.showAddNewAddress = false;
     });
   }
 }

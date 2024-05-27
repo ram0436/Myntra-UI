@@ -105,6 +105,13 @@
             [value]="color.id"
             (change)="toggleColor(color.id)"
           />
+          <span
+            class="colour-label colour-colorDisplay"
+            [ngStyle]="{
+              backgroundColor: color.code,
+              border: color.name === 'White' ? '1px solid #d6d6d6' : 'none'
+            }"
+          ></span>
           {{ color.name }}
           <div class="checkbox-indicator"></div>
         </label>
@@ -138,7 +145,6 @@
             (change)="toggleDiscount(discount.id)"
           />
           <!-- [checked]="selectedDiscount.includes(discount.id)" -->
-          <span class="colour-label colour-colorDisplay"></span>
           {{ discount.percent }}
           <div class="checkbox-indicator"></div>
         </label>
