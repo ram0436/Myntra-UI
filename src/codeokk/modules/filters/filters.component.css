@@ -52,7 +52,8 @@
 }
 
 .custom-checkbox {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 95%;
   white-space: nowrap;
   cursor: pointer;
@@ -207,10 +208,10 @@
 .colour-colorDisplay {
   width: 15px;
   height: 15px;
-  display: none;
   border-radius: 50%;
-  /* display: inline-block; */
-  /* margin-right: 8px; */
+  display: inline-block;
+  margin-right: 8px;
+  /* border: 1px solid black; */
 }
 
 .colour-num {

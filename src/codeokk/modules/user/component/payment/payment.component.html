@@ -1,0 +1,100 @@
+<div class="cart">
+  <div class="cart-container">
+    <div class="cart-flex">
+      <div class="address">
+        <div class="top-section">
+          <div class="top-title">
+            <p>Select Payment Method</p>
+            <button class="address-add">Add Payment Method</button>
+          </div>
+        </div>
+        <div class="address-details">
+          <div class="add-new">
+            <div class="left">
+              <span class="material-icons">add</span>
+              <div class="new-title">Add Payment Method</div>
+            </div>
+            <div class="right">
+              <span class="material-icons">close</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-details">
+        <div class="price-container">
+          <div class="price-header">
+            PRICE DETAILS ({{ selectedCount }}
+            {{ selectedCount === 1 ? "Item" : "Items" }})
+          </div>
+          <div class="price-orderSummary">
+            <div class="priceDetail">
+              <span class=" ">Total MRP</span
+              ><span class="priceDetail-base-value"
+                ><span></span
+                ><span>
+                  <span class="">₹</span>{{ totalMRP | number : "1.2-2" }}</span
+                ></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span class=" ">Discount on MRP</span
+              ><span class="priceDetail-base-value priceDetail-base-discount"
+                ><span>-</span
+                ><span>
+                  <span class="">₹</span
+                  >{{ totalDiscount | number : "1.2-2" }}</span
+                ></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span class=" "
+                >Platform Fee<span class="priceDetail-base-knowMore"
+                  >Know More</span
+                ></span
+              ><span class="priceDetail-base-value"
+                ><span class="priceDetail-base-discount">FREE</span></span
+              >
+            </div>
+            <div class="priceDetail">
+              <span
+                >Shipping Fee
+                <div class="priceDetail-base-infoTextContainer">
+                  <button font-weight="bold" role="button" class="css-1pl9bms">
+                    <div class="css-xjhrni">Know More</div>
+                  </button>
+                </div></span
+              ><span class="priceDetail-base-value"
+                ><span
+                  class="priceDetail-base-striked priceDetail-base-spaceRight"
+                  ><span>₹79</span></span
+                ><span class="priceDetail-base-discount">FREE</span></span
+              >
+            </div>
+            <div class="priceDetail-total">
+              <span class=" ">Total Amount</span
+              ><span class="priceDetail-base-value"
+                ><span></span
+                ><span>
+                  <span class="priceDetail-base-redesignRupeeTotalIcon">₹</span
+                  >{{ totalAmount | number : "1.2-2" }}</span
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            width="100%"
+            letterspacing="1px"
+            font-weight="bold"
+            role="button"
+            class="css-ibwr57"
+          >
+            <div class="css-xjhrni">Proceed</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
