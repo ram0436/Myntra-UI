@@ -3,11 +3,40 @@
     <!-- <div class="total-items" *ngIf="this.wishlistRoute">
       <span class="text-bold">My Wishlist</span> {{ wishlistCount }} Items
     </div> -->
+
     <div class="products">
-      <div class="product" *ngFor="let product of currentPageProducts">
+      <div
+        class="product"
+        *ngFor="let product of currentPageProducts"
+        (mouseenter)="initImageSlider(product.productCode)"
+        (mouseleave)="resetHover()"
+      >
         <a [routerLink]="'/product-details/' + product.productCode">
-          <div class="image-container">
-            <img [src]="getImageUrl(product)" class="product-img" />
+          <div
+            class="image-container"
+            [class.z-10]="hoveredProduct === product.productCode"
+          >
+            <ng-container
+              *ngIf="
+                hoveredProduct !== product.productCode;
+                else swiperTemplate
+              "
+            >
+              <img [src]="getImageUrl(product)" class="product-img" />
+            </ng-container>
+            <ng-template #swiperTemplate>
+              <swiper-container
+                init="false"
+                class="swiper-cont"
+                [class.img-w]="hoveredProduct === product.productCode"
+              >
+                <ng-container *ngFor="let image of product.productImageList">
+                  <swiper-slide class="swiper-slide">
+                    <img [src]="image.imageURL" class="product-img" />
+                  </swiper-slide>
+                </ng-container>
+              </swiper-container>
+            </ng-template>
           </div>
           <span
             class="close-icon material-icons"
@@ -17,7 +46,10 @@
             close
           </span>
           <!-- *ngIf="this.wishlistRoute" -->
-          <div class="product-info">
+          <div
+            class="product-info"
+            (mouseenter)="initImageSlider(product.productCode)"
+          >
             <h3 class="brand">{{ product.brand[0]?.name }}</h3>
             <h4 class="product-name">{{ product.name }}</h4>
             <h4 class="product-sizes">
@@ -49,7 +81,11 @@
             </span>
           </div>
 
-          <div class="product-actions" *ngIf="!this.wishlistRoute">
+          <div
+            class="product-actions"
+            *ngIf="!this.wishlistRoute"
+            (mouseenter)="initImageSlider(product.productCode)"
+          >
             <span
               class="product-wishlistFlex product-actionsButton product-wishlist"
               style="width: 100%; text-align: center"
