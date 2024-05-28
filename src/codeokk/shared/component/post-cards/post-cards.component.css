@@ -56,6 +56,30 @@
   z-index: 3;
 }
 
+.img-w {
+  /* width: 100px; */
+  height: 200px !important;
+}
+
+.product-img.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* .z-10 {
+  z-index: 8;
+} */
+
+.swiper-cont {
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-slide {
+  height: 100%;
+  width: 100%;
+}
+
 .product:hover .set-fav-card {
   display: flex;
 }
@@ -124,7 +148,7 @@
 }
 
 .product-actions {
-  display: none;
+  display: block;
   position: absolute;
   z-index: 5;
   left: 0;

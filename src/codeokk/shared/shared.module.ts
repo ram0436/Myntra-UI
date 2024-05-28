@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "./component/header/header.component";
 import { FooterComponent } from "./component/footer/footer.component";
@@ -10,5 +10,6 @@ import { FormsModule } from "@angular/forms";
   declarations: [HeaderComponent, FooterComponent, PostCardsComponent],
   imports: [CommonModule, RouterModule, FormsModule],
   exports: [HeaderComponent, FooterComponent, PostCardsComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}

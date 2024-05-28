@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
@@ -36,6 +37,8 @@ export class PostCardsComponent {
   showModal: boolean = false;
   selectedProduct: any;
 
+  hoveredProduct: string | null = null;
+
   constructor(
     private router: Router,
     private productService: ProductService,
@@ -43,7 +46,8 @@ export class PostCardsComponent {
     private userService: UserService,
     private renderer: Renderer2,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private elementRef: ElementRef
   ) {
     this.route.queryParams.subscribe((params) => {
       const routeName = this.router.url.split("?")[0];
@@ -54,6 +58,54 @@ export class PostCardsComponent {
       this.wishlistRoute =
         urlSegments.length > 0 && urlSegments[0].path === "wishlist";
     });
+  }
+
+  initImageSlider(productCode: string) {
+    this.hoveredProduct = productCode;
+    const swiperEls =
+      this.elementRef.nativeElement.querySelectorAll(".swiper-cont");
+    swiperEls.forEach((swiperEl: any) => {
+      const buttonNext = swiperEl.querySelector(".next-btn");
+      const buttonPrev = swiperEl.querySelector(".prev-btn");
+
+      const swiperParams = {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        pagination: true,
+        autoplay: {
+          delay: 1000,
+          disableOnInteraction: false,
+        },
+        injectStyles: [
+          `
+            .swiper-pagination-bullet{
+              background-color: #ff3f6c;
+            }
+        `,
+        ],
+        on: {
+          init() {
+            // ...
+          },
+        },
+      };
+
+      Object.assign(swiperEl, swiperParams);
+      swiperEl.initialize();
+      if (buttonNext && buttonPrev) {
+        this.renderer.listen(buttonNext, "click", () => {
+          swiperEl.swiper.slideNext();
+        });
+        this.renderer.listen(buttonPrev, "click", () => {
+          swiperEl.swiper.slidePrev();
+        });
+      }
+    });
+  }
+
+  resetHover() {
+    this.hoveredProduct = "";
   }
 
   get startIndex(): number {
