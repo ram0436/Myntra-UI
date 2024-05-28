@@ -9,8 +9,8 @@
         class="product"
         *ngFor="let product of currentPageProducts"
         (mouseenter)="initImageSlider(product.productCode)"
+        (mouseleave)="resetHover()"
       >
-        <!-- (mouseleave)="resetHover()" -->
         <a [routerLink]="'/product-details/' + product.productCode">
           <div
             class="image-container"

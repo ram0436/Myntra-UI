@@ -105,7 +105,7 @@ export class PostCardsComponent {
   }
 
   resetHover() {
-    this.hoveredProduct = "";
+    this.hoveredProduct = "0";
   }
 
   get startIndex(): number {
