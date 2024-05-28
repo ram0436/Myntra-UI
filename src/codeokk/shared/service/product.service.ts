@@ -8,41 +8,22 @@ import { tap } from "rxjs/operators";
   providedIn: "root",
 })
 export class ProductService {
+  private searchResultsSubject = new BehaviorSubject<any[]>([]);
+  private getAllItemsSubject = new BehaviorSubject<any[]>([]);
+  public searchResults$ = this.searchResultsSubject.asObservable();
+  public getAllItems$ = this.getAllItemsSubject.asObservable();
+
   constructor(private http: HttpClient) {
     // this.loadFromLocalStorage();
   }
   private BaseURL = environment.baseUrl;
 
-  // private _bagCount: number = 0;
-
-  // get bagCount(): number {
-  //   return this._bagCount;
-  // }
-
-  // set bagCount(value: number) {
-  //   this._bagCount = value;
-  //   this.saveToLocalStorage();
-  // }
-
-  // private saveToLocalStorage() {
-  //   localStorage.setItem(
-  //     "bagCount",
-  //     JSON.stringify({
-  //       bagCount: this._bagCount,
-  //     })
-  //   );
-  // }
-
-  // private loadFromLocalStorage() {
-  //   const bagString = localStorage.getItem("bagCount");
-  //   if (bagString) {
-  //     const bag = JSON.parse(bagString);
-  //     this._bagCount = bag.bagCount;
-  //   }
-  // }
-
   getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.BaseURL}Product/GetAllProduct`);
+    return this.http.get<any[]>(`${this.BaseURL}Product/GetAllProduct`).pipe(
+      tap((results) => {
+        this.getAllItemsSubject.next(results);
+      })
+    );
   }
 
   getAllColors() {
@@ -67,5 +48,14 @@ export class ProductService {
 
   saveProjectCodePost(payLoad: any) {
     return this.http.post(`${this.BaseURL}/Product`, payLoad);
+  }
+
+  searchAds(searchQuery: string): Observable<any[]> {
+    const apiUrl = `${this.BaseURL}Product/GlobalSearch?searchItem=${searchQuery}`;
+    return this.http.get<any[]>(apiUrl).pipe(
+      tap((results) => {
+        this.searchResultsSubject.next(results);
+      })
+    );
   }
 }

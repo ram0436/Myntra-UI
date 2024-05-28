@@ -148,7 +148,10 @@ export class PostCardsComponent {
   }
 
   getImageUrl(product: any): string {
-    if (product.productImageList.length > 0) {
+    if (
+      product.productImageList !== null &&
+      product.productImageList.length > 0
+    ) {
       return product.productImageList[0].imageURL;
     } else {
       return "/assets/no-img.png";

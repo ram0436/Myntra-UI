@@ -79,8 +79,11 @@
         type="text"
         placeholder="Search for products, brands, and more"
         class="searchbar"
+        (keydown.enter)="search($event)"
+        [(ngModel)]="searchQuery"
+        (input)="onInputChange()"
       />
-      <a href="" class="submit">
+      <a href="" class="submit" (click)="search($event)">
         <span class="material-icons-outlined icon-search"> search </span>
       </a>
     </div>
@@ -118,11 +121,11 @@
                   </div>
                   <div class="info">
                     <div class="info-section" routerLink="/user/orders">
-                      Orders
+                      My Orders
                     </div>
                   </div>
                   <div class="info">
-                    <div class="info-section">Wishlist</div>
+                    <div class="info-section">My Wishlist</div>
                   </div>
                   <div class="info">
                     <div class="info-section">Contact Us</div>
