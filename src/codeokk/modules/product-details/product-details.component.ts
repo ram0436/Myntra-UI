@@ -89,6 +89,9 @@ export class ProductDetailsComponent {
 
   getPostDetails(code: any) {
     this.productService.getProductByProductCode(code).subscribe((res: any) => {
+      if (res && res.description) {
+        res.description = res.description.replace(/\n/g, "<br/>");
+      }
       this.productDetails = res;
       // this.isLoading = false;
     });

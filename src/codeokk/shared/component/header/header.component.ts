@@ -5,6 +5,7 @@ import { MasterService } from "src/codeokk/modules/service/master.service";
 import { LoginComponent } from "src/codeokk/modules/user/component/login/login.component";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
 import { ProductService } from "../../service/product.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-header",
@@ -25,12 +26,21 @@ export class HeaderComponent implements OnInit {
   userName: string = "";
   userMobile: string = "";
 
+  searchQuery: string = "";
+
+  locationSearchQuery: string = "";
+
+  searchResults: any[] = [];
+
+  allItems: any[] = [];
+
   constructor(
     private masterService: MasterService,
     private router: Router,
     private userService: UserService,
     private dialog: MatDialog,
-    private productService: ProductService
+    private productService: ProductService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -56,6 +66,56 @@ export class HeaderComponent implements OnInit {
     } else {
       this.cartItemCount = 0;
     }
+  }
+
+  search(event?: Event): void {
+    event?.preventDefault();
+    event?.stopPropagation();
+    if (this.searchQuery && this.searchQuery.length >= 2) {
+      this.productService.searchAds(this.searchQuery).subscribe(
+        (results: any[]) => {
+          this.searchResults = results;
+        },
+        (error) => {}
+      );
+    } else {
+      this.showNotification("Search query should have at least 2 characters");
+    }
+  }
+
+  // onEnter() {
+  //   if (this.searchQuery.trim() !== "") {
+  //     this.search();
+  //   } else {
+  //     // this.getAllItems();
+  //   }
+  // }
+
+  getAllItems() {
+    this.productService.getAllProducts().subscribe(
+      (allItems: any) => {
+        this.allItems = allItems;
+      },
+      (error) => {}
+    );
+  }
+
+  onInputChange() {
+    if (this.searchQuery.trim() === "") {
+      this.getAllItems();
+    }
+    if (this.searchQuery && this.searchQuery.length >= 2) {
+      this.search();
+    } else {
+    }
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, "Close", {
+      duration: 5000,
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
   }
 
   getUserData() {

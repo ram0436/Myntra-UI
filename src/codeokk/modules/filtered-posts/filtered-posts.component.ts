@@ -28,6 +28,12 @@ export class FilteredPostsComponent {
 
   breadcrumb: string = "";
 
+  sizes: any[] = [];
+
+  showSizeFilters: boolean = false;
+
+  selectedSizes: number[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -36,6 +42,7 @@ export class FilteredPostsComponent {
   ) {}
 
   ngOnInit() {
+    this.getAllProductSizes();
     this.route.queryParams.subscribe((params) => {
       this.parentId = params["parent"];
       if (params["category"] != undefined)
@@ -54,6 +61,107 @@ export class FilteredPostsComponent {
       .subscribe((event) => {
         this.updateBreadcrumb();
       });
+    this.productService.searchResults$.subscribe((results) => {
+      let filteredProducts = results;
+
+      filteredProducts = filteredProducts.filter((product) =>
+        this.matchProductIds(product)
+      );
+
+      this.products = filteredProducts;
+    });
+
+    this.productService.getAllItems$.subscribe((results) => {
+      let filteredProducts = results;
+
+      filteredProducts = filteredProducts.filter((product) =>
+        this.matchProductIds(product)
+      );
+
+      this.products = filteredProducts;
+    });
+  }
+
+  showSize() {
+    this.showSizeFilters = !this.showSizeFilters;
+  }
+
+  getAllProductSizes() {
+    this.masterService.getAllProductSize().subscribe((res: any) => {
+      this.sizes = res;
+    });
+  }
+
+  toggleSize(sizeId: number) {
+    const index = this.selectedSizes.indexOf(sizeId);
+    if (index === -1) {
+      this.selectedSizes.push(sizeId);
+    } else {
+      this.selectedSizes.splice(index, 1);
+    }
+    this.filterProductFromSize();
+  }
+
+  sortProducts(criteria: string) {
+    switch (criteria) {
+      case "recommended":
+        let filteredProducts = [...this.originalProducts];
+        filteredProducts = filteredProducts.filter((product) =>
+          this.matchProductIds(product)
+        );
+        this.products = filteredProducts;
+        break;
+      case "better-discount":
+        this.products.sort((a, b) => {
+          const discountA =
+            parseInt(a.discount[0]?.percent.replace("% OFF", "")) || 0;
+          const discountB =
+            parseInt(b.discount[0]?.percent.replace("% OFF", "")) || 0;
+          return discountB - discountA;
+        });
+        break;
+      case "price-low-to-high":
+        this.products.sort((a, b) => a.price - b.price);
+        break;
+      case "price-high-to-low":
+        this.products.sort((a, b) => b.price - a.price);
+        break;
+    }
+  }
+
+  filterProductFromSize() {
+    let filteredProducts = [...this.originalProducts];
+
+    filteredProducts = filteredProducts.filter((product) =>
+      this.matchProductIds(product)
+    );
+
+    if (this.selectedSizes.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.productSize.some((size: any) =>
+          this.selectedSizes.includes(size.id)
+        )
+      );
+    }
+
+    this.products = filteredProducts;
+  }
+
+  clearFilters(event: Event) {
+    event.preventDefault();
+    window.location.reload();
+  }
+
+  applyFilters() {
+    let filteredProducts = [...this.originalProducts];
+
+    if (this.selectedSizes.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.sizes.some((size: any) => this.selectedSizes.includes(size.id))
+      );
+    }
+
+    this.products = filteredProducts;
   }
 
   updateBreadcrumb() {
@@ -125,7 +233,7 @@ export class FilteredPostsComponent {
     );
   }
 
-  filterProducts(filters: any) {
+  filterProducts(filters?: any) {
     let filteredProducts = [...this.originalProducts];
 
     filteredProducts = filteredProducts.filter((product) =>

@@ -1,14 +1,76 @@
 <div class="breadcrumb">
   <p class="breadcrumb-text">{{ breadcrumb }}</p>
   <div class="filter-head">
-    <span class="head-title">FILTERS</span>
+    <div class="left">
+      <span class="head-title">FILTERS</span>
+      <span class="clear-filters" (click)="clearFilters($event)"
+        >Clear All</span
+      >
+    </div>
+    <div class="right">
+      <div class="top">
+        <div
+          class="more-filters"
+          [ngClass]="{ 'bg-whitesome': showSizeFilters }"
+          (click)="showSize()"
+        >
+          Size
+          <span class="material-icons-outlined">
+            {{ showSizeFilters ? "expand_less" : "expand_more" }}
+          </span>
+        </div>
+        <div class="sort-options">
+          <div class="visible">
+            <span>
+              Sort By : <span class="selected-sort">Recommended</span>
+            </span>
+            <span class="material-icons-outlined expand-icon">
+              expand_more
+            </span>
+          </div>
+          <div class="more-sort-options">
+            <span class="sort-option" (click)="sortProducts('recommended')"
+              >Recommended</span
+            >
+            <span class="sort-option" (click)="sortProducts('better-discount')"
+              >Better Discount</span
+            >
+            <span
+              class="sort-option"
+              (click)="sortProducts('price-low-to-high')"
+              >Price: Low to High</span
+            >
+            <span
+              class="sort-option"
+              (click)="sortProducts('price-high-to-low')"
+              >Price: High to Low</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="show-selected-option" *ngIf="this.showSizeFilters">
+        <div class="show-options">
+          <div class="option" *ngFor="let size of sizes">
+            <label for="" class="custom-checkbox">
+              <input
+                type="checkbox"
+                [value]="size.id"
+                (change)="toggleSize(size.id)"
+                [checked]="selectedSizes.includes(size.id)"
+              />
+              {{ size.size }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="flex-row">
   <div class="filters-component">
     <app-filters></app-filters>
   </div>
-  <div class="posts-component">
+  <div class="posts-component" [ngClass]="{ 'pd-top': showSizeFilters }">
     <app-post-cards [products]="products"></app-post-cards>
   </div>
 </div>
