@@ -37,101 +37,107 @@
         </div>
         <mat-card-content>
           <form class="form">
-            <p>Parent Category</p>
-            <mat-form-field>
-              <mat-label>Add Parent Category</mat-label>
-              <input
-                matInput
-                placeholder="Add Parent Category"
-                type="text"
-                name="parentCategory"
-                [(ngModel)]="parentCategory"
-              />
-            </mat-form-field>
-            <button
-              mat-raised-button
-              class="send-feedback"
-              (click)="addParentCategory()"
-            >
-              Add Parent Category
-            </button>
-            <p>Category</p>
-            <mat-form-field>
-              <mat-label>Select Parent Category</mat-label>
-              <mat-select
-                [(ngModel)]="parentCategoryId"
-                name="parentCategoryId"
+            <div class="parent-cat-cont">
+              <p>Parent Category</p>
+              <mat-form-field>
+                <mat-label>Add Parent Category</mat-label>
+                <input
+                  matInput
+                  placeholder="Add Parent Category"
+                  type="text"
+                  name="parentCategory"
+                  [(ngModel)]="parentCategory"
+                />
+              </mat-form-field>
+              <button
+                mat-raised-button
+                class="send-feedback"
+                (click)="addParentCategory()"
               >
-                <mat-option
-                  *ngFor="let parentCategory of parentCategories"
-                  [value]="parentCategory.id"
+                Add Parent Category
+              </button>
+            </div>
+            <div class="cat-cont">
+              <p>Category</p>
+              <mat-form-field>
+                <mat-label>Select Parent Category</mat-label>
+                <mat-select
+                  [(ngModel)]="parentCategoryId"
+                  name="parentCategoryId"
                 >
-                  {{ parentCategory.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Add Category</mat-label>
-              <input
-                matInput
-                placeholder="Add Category"
-                type="text"
-                name="category"
-                [(ngModel)]="category"
-              />
-            </mat-form-field>
+                  <mat-option
+                    *ngFor="let parentCategory of parentCategories"
+                    [value]="parentCategory.id"
+                  >
+                    {{ parentCategory.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Add Category</mat-label>
+                <input
+                  matInput
+                  placeholder="Add Category"
+                  type="text"
+                  name="category"
+                  [(ngModel)]="category"
+                />
+              </mat-form-field>
 
-            <button
-              mat-raised-button
-              class="send-feedback"
-              (click)="addCategory()"
-            >
-              Add Category
-            </button>
-            <p>Sub Category</p>
-            <mat-form-field>
-              <mat-label>Select Parent Category</mat-label>
-              <mat-select
-                [(ngModel)]="subParentCategoryId"
-                name="parentCategoryId"
-                (selectionChange)="onParentCategoryChange($event.value)"
+              <button
+                mat-raised-button
+                class="send-feedback"
+                (click)="addCategory()"
               >
-                <mat-option
-                  *ngFor="let parentCategory of parentCategories"
-                  [value]="parentCategory.id"
+                Add Category
+              </button>
+            </div>
+            <div class="sub-cat-cont">
+              <p>Sub Category</p>
+              <mat-form-field>
+                <mat-label>Select Parent Category</mat-label>
+                <mat-select
+                  [(ngModel)]="subParentCategoryId"
+                  name="parentCategoryId"
+                  (selectionChange)="onParentCategoryChange($event.value)"
                 >
-                  {{ parentCategory.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Select Category</mat-label>
-              <mat-select [(ngModel)]="categoryId" name="categoryId">
-                <mat-option
-                  *ngFor="let category of categories"
-                  [value]="category.id"
-                >
-                  {{ category.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Add Sub Category</mat-label>
-              <input
-                matInput
-                placeholder="Add Sub Category"
-                type="text"
-                name="subcategory"
-                [(ngModel)]="subcategory"
-              />
-            </mat-form-field>
-            <button
-              mat-raised-button
-              class="send-feedback"
-              (click)="addSubCategory()"
-            >
-              Add Sub Category
-            </button>
+                  <mat-option
+                    *ngFor="let parentCategory of parentCategories"
+                    [value]="parentCategory.id"
+                  >
+                    {{ parentCategory.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Select Category</mat-label>
+                <mat-select [(ngModel)]="categoryId" name="categoryId">
+                  <mat-option
+                    *ngFor="let category of categories"
+                    [value]="category.id"
+                  >
+                    {{ category.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Add Sub Category</mat-label>
+                <input
+                  matInput
+                  placeholder="Add Sub Category"
+                  type="text"
+                  name="subcategory"
+                  [(ngModel)]="subcategory"
+                />
+              </mat-form-field>
+              <button
+                mat-raised-button
+                class="send-feedback"
+                (click)="addSubCategory()"
+              >
+                Add Sub Category
+              </button>
+            </div>
           </form>
         </mat-card-content>
       </div>
