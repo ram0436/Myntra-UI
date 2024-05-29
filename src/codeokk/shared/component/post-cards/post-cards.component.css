@@ -52,13 +52,13 @@
 .image-container {
   position: relative;
   width: 230px;
-  height: 240px;
+  height: 255px;
   z-index: 3;
 }
 
 .img-w {
   /* width: 100px; */
-  height: 200px !important;
+  height: 215px !important;
 }
 
 .product-img.hidden {
@@ -152,7 +152,7 @@
   position: absolute;
   z-index: 5;
   left: 0;
-  top: 192px;
+  top: 207px;
   background: #fff;
   width: 100%;
   padding: 10px 10px;
