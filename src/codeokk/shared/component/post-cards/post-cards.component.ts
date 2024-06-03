@@ -73,6 +73,9 @@ export class PostCardsComponent {
         spaceBetween: 10,
         loop: true,
         pagination: true,
+        // pagination: {
+        //   el: ".swiper-pagination",
+        // },
         autoplay: {
           delay: 1000,
           disableOnInteraction: false,
@@ -81,7 +84,14 @@ export class PostCardsComponent {
           `
             .swiper-pagination-bullet{
               background-color: #ff3f6c;
+              z-index: 6;
             }
+
+            .swiper-horizontal > .swiper-pagination-bullets,
+            .swiper-pagination-bullets.swiper-pagination-horizontal {
+                bottom: 0px !important;
+              }
+
         `,
         ],
         on: {
