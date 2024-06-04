@@ -182,6 +182,12 @@ export class UserService {
     return this.httpClient.post(`${this.baseUrl}User/SaveAddress`, payload);
   }
 
+  getProductImageByProductId(id: any) {
+    return this.httpClient.get(
+      `${this.baseUrl}User/GetProductImageByProductId?productId=${id}`
+    );
+  }
+
   setData(data: any) {
     this.dataSubject.next(data);
   }

@@ -42,6 +42,12 @@ export class ProductService {
     );
   }
 
+  getProductImageByProductId(id: any) {
+    return this.http.get(
+      `${this.BaseURL}User/GetProductImageByProductId?productId=${id}`
+    );
+  }
+
   uploadProjectCodeImages(formData: any) {
     return this.http.post(`${this.BaseURL}Product/UploadImages`, formData);
   }
