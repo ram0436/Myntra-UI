@@ -45,7 +45,12 @@ export class OrdersComponent {
             this.productService
               .getProductByProductId(mapping.productId)
               .subscribe((product: any) => {
-                orderedProds.push(product);
+                this.userService
+                  .getProductImageByProductId(mapping.productId)
+                  .subscribe((imageData: any) => {
+                    product[0].imageURL = imageData.imageURL;
+                    orderedProds.push(product);
+                  });
               });
           });
           this.orderedProducts.push(orderedProds);

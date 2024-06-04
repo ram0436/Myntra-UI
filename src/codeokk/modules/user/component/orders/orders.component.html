@@ -38,7 +38,7 @@
               <div *ngFor="let product of prodArray" class="product-details">
                 <div class="img-container">
                   <img
-                    [src]="getProductImage(product)"
+                    [src]="product.imageURL"
                     alt=""
                     (click)="navigateToProductDetails(product.productCode)"
                   />
