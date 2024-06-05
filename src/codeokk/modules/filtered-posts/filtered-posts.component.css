@@ -214,3 +214,75 @@ input[type="radio"] {
   padding-left: 20px;
   padding-bottom: 30px;
 }
+
+.toggle-filters {
+  margin-top: 10px;
+  color: #ff3f6c;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.more-icon {
+  font-size: 18px;
+}
+
+.border-btm {
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+@media (max-width: 1096px) {
+  .filters-component {
+    flex: 2;
+  }
+
+  .filter-head .left {
+    flex: 1.75;
+  }
+}
+
+@media (max-width: 948px) {
+  .filters-component {
+    flex: 3;
+  }
+
+  .filter-head .left {
+    flex: 2.75;
+  }
+}
+
+@media (max-width: 568px) {
+  .flex-row {
+    display: block;
+  }
+
+  .sort-options {
+    width: 220px;
+  }
+
+  .filter-head {
+    display: block;
+  }
+
+  .filter-head .right {
+    padding: 0px;
+    margin-top: 20px;
+  }
+
+  .more-filters {
+    padding: 5px 0px;
+  }
+
+  .show-options {
+    width: 100%;
+    left: -25px;
+  }
+
+  .more-filters:hover {
+    background-color: #fff;
+  }
+
+  .bg-whitesome {
+    background-color: #fff;
+  }
+}

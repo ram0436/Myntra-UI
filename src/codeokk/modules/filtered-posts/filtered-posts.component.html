@@ -63,11 +63,25 @@
           </div>
         </div>
       </div>
+      <div
+        class="bottom toggle-filters"
+        (click)="toggleFilters()"
+        *ngIf="isScreenSmall"
+      >
+        <span>Show More</span
+        ><span class="material-icons-outlined more-icon">
+          {{ filtersToggled ? "expand_more" : "chevron_right" }}</span
+        >
+      </div>
     </div>
   </div>
 </div>
 <div class="flex-row">
-  <div class="filters-component">
+  <div
+    class="filters-component"
+    [ngClass]="{ 'border-btm': filtersToggled }"
+    *ngIf="!isScreenSmall || filtersToggled"
+  >
     <app-filters></app-filters>
   </div>
   <div class="posts-component" [ngClass]="{ 'pd-top': showSizeFilters }">

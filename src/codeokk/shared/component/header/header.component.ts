@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
   cartItemCount: number = 0;
   dialogRef: MatDialogRef<any> | null = null;
   isUserLogedIn: boolean = false;
+  isSearchEnable: boolean = false;
+  isMobileMenuOpen: boolean = false;
   userData: any = [];
   userName: string = "";
   userMobile: string = "";
@@ -33,6 +35,9 @@ export class HeaderComponent implements OnInit {
   searchResults: any[] = [];
 
   allItems: any[] = [];
+
+  activeParentCategoryId: number | null = null;
+  activeCategoryId: number | null = null;
 
   constructor(
     private masterService: MasterService,
@@ -68,6 +73,21 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  toggleCategories(parentCategoryId: number) {
+    this.activeParentCategoryId =
+      this.activeParentCategoryId === parentCategoryId
+        ? null
+        : parentCategoryId;
+    this.activeCategoryId = null; // Reset active category when switching parent category
+  }
+
+  // Method to toggle subcategory visibility
+  toggleSubCategories(categoryId: number, event: Event) {
+    event.stopPropagation();
+    this.activeCategoryId =
+      this.activeCategoryId === categoryId ? null : categoryId;
+  }
+
   search(event?: Event): void {
     event?.preventDefault();
     event?.stopPropagation();
@@ -81,6 +101,14 @@ export class HeaderComponent implements OnInit {
     } else {
       this.showNotification("Search query should have at least 2 characters");
     }
+  }
+
+  toggleSearch() {
+    this.isSearchEnable = !this.isSearchEnable;
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   // onEnter() {

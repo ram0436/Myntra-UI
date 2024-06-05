@@ -19,8 +19,9 @@ import { SharedModule } from "src/codeokk/shared/shared.module";
 import { WishlistComponent } from "./component/wishlist/wishlist.component";
 import { CartComponent } from "./component/cart/cart.component";
 import { AddressComponent } from "./component/address/address.component";
-import { OrdersComponent } from './component/orders/orders.component';
-import { PaymentComponent } from './component/payment/payment.component';
+import { OrdersComponent } from "./component/orders/orders.component";
+import { PaymentComponent } from "./component/payment/payment.component";
+import { SharedOrdersComponent } from "src/codeokk/shared/component/shared-orders/shared-orders.component";
 
 @NgModule({
   declarations: [

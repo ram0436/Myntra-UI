@@ -1,13 +1,16 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { Component, ElementRef, Inject, ViewChild } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
+import { DOCUMENT, DatePipe } from "@angular/common";
 import { FormControl } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MasterService } from "src/codeokk/modules/service/master.service";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
-import { Observable, map, startWith } from "rxjs";
+import { Observable, forkJoin, map, startWith } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserService } from "src/codeokk/modules/user/service/user.service";
+import { Common } from "src/codeokk/shared/model/CommonPayload";
 
 interface Brand {
   id: number;
@@ -18,13 +21,16 @@ interface Brand {
   selector: "app-admin-dashboard",
   templateUrl: "./admin-dashboard.component.html",
   styleUrls: ["./admin-dashboard.component.css"],
+  providers: [DatePipe],
 })
 export class AdminDashboardComponent {
+  productPayload: Common = new Common();
   cardsCount: any[] = new Array(20);
   showCategories = true;
   showBrands = false;
   showColors = false;
   showProduct = false;
+  showOrders: boolean = false;
 
   parentCategories: any[] = [];
   categories: any[] = [];
@@ -72,17 +78,34 @@ export class AdminDashboardComponent {
   tagCtrl = new FormControl("");
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  activeMainOption: string = "productEntry";
+
   brandCtrl = new FormControl();
   filteredBrands!: Observable<Brand[]>;
+
+  product: any = [];
+
+  code: string = "";
+  editRoute: boolean = false;
+  payload: any = [];
 
   constructor(
     private masterService: MasterService,
     private snackBar: MatSnackBar,
     private productService: ProductService,
+    private router: Router,
+    private datePipe: DatePipe,
+    private userService: UserService,
+    private route: ActivatedRoute,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params["editProduct"]) {
+        this.toggleSection("product");
+      }
+    });
     this.getAllParentCategories();
     this.getAllBrands();
     this.getAllColors();
@@ -91,12 +114,61 @@ export class AdminDashboardComponent {
     for (var i = 0; i < this.cardsCount.length; i++) {
       this.cardsCount[i] = "";
     }
-    // Filter brands based on user input
+    forkJoin({
+      brands: this.getAllBrands(),
+    }).subscribe((results: any) => {
+      this.brands = results.brands;
+      this.setupFilteredBrands();
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.code = params["code"];
+      if (this.code != undefined) {
+        this.editRoute = true;
+        this.getProductDetails(this.code);
+      }
+    });
+  }
+
+  setupFilteredBrands() {
     this.filteredBrands = this.brandCtrl.valueChanges.pipe(
       startWith(""),
-      map((value) => (typeof value === "string" ? value : value.name)),
+      map((value) => (typeof value === "string" ? value : value?.name || "")),
       map((name) => (name ? this._filterBrands(name) : this.brands.slice()))
     );
+  }
+
+  getProductDetails(productCode: any) {
+    this.productService
+      .getProductByProductCode(productCode)
+      .subscribe((data: any) => {
+        this.product = data;
+        data.productImageList.forEach((image: any, index: any) => {
+          this.cardsCount[index] = image.imageURL;
+        });
+        this.productPayload.productName = data.name;
+        this.productPayload.productDescription = data.description;
+        this.productPayload.productParentCategoryId =
+          data.parentCategory[0]?.id || 0;
+        this.onParentCategoryChange(
+          this.productPayload.productParentCategoryId
+        );
+        this.productPayload.productCategoryId = data.category[0]?.id || 0;
+        this.onCategoryChange(this.productPayload.productCategoryId);
+        this.productPayload.productSubCategoryId = data.subCategory[0]?.id || 0;
+        this.productPayload.productBrandId = data.brand[0]?.id || 0;
+        this.productPayload.productColorId = data.color[0]?.id || 0;
+        this.productPayload.productSizeId = data.productSize[0]?.id || 0;
+        this.productPayload.productCode = data.productCode;
+        this.productPayload.productPrice = data.price;
+        this.productPayload.tags = data.tagList || [];
+        this.productPayload.productImageList = data.productImageList.map(
+          (img: any) => ({
+            id: img.id,
+            imageURL: img.imageURL,
+          })
+        );
+        this.productPayload.selectedDiscountId = data.discount[0]?.id || null;
+      });
   }
 
   private _filterBrands(name: string): Brand[] {
@@ -106,9 +178,13 @@ export class AdminDashboardComponent {
     );
   }
 
+  displayBrand(brand: any): string {
+    return brand.name || "";
+  }
+
   onBrandSelected(event: MatAutocompleteSelectedEvent) {
     const selectedBrand: Brand = event.option.value;
-    this.productBrandId = selectedBrand.id;
+    this.productPayload.productBrandId = selectedBrand.id;
   }
 
   getAllDicounts() {
@@ -117,40 +193,56 @@ export class AdminDashboardComponent {
     });
   }
 
-  postProduct() {
-    let discountId: number | null = this.selectedDiscountId;
+  updateProduct(productId: any) {
+    console.log(productId);
+    this.loadInitialPayload();
+    var finalPayload = this.addAttachmentsPayload(this.payload);
+    if (this.validatePostForm(finalPayload))
+      this.productService
+        .updateProjectCodePost(productId, finalPayload)
+        .subscribe((data) => {
+          this.showNotification("Product Updated Succesfully");
+        });
+  }
+
+  loadInitialPayload() {
+    let discountId: number | null = this.productPayload.selectedDiscountId;
 
     // If no discount is selected, set it to 0 or handle as needed
     if (discountId === null) {
       discountId = 0; // or any other default value
     }
 
-    const payload = {
+    this.payload = {
       createdBy: Number(localStorage.getItem("id")),
       createdOn: new Date().toISOString(),
       modifiedBy: Number(localStorage.getItem("id")),
       modifiedOn: new Date().toISOString(),
-      name: this.productName,
-      description: this.productDescription,
-      productCode: this.productCode,
-      parentCategoryId: this.productParentCategoryId,
-      categoryId: this.productCategoryId,
-      subCategoryId: this.productSubCategoryId,
-      brandId: this.productBrandId,
-      price: this.productPrice,
-      colorId: this.productColorId,
-      productSizeId: this.productSizeId,
+      name: this.productPayload.productName,
+      description: this.productPayload.productDescription,
+      productCode: this.productPayload.productCode,
+      parentCategoryId: this.productPayload.productParentCategoryId,
+      categoryId: this.productPayload.productCategoryId,
+      subCategoryId: this.productPayload.productSubCategoryId,
+      brandId: this.productPayload.productBrandId,
+      price: this.productPayload.productPrice,
+      colorId: this.productPayload.productColorId,
+      productSizeId: this.productPayload.productSizeId,
       discountId: discountId,
-      tagList: this.tags,
+      tagList: this.productPayload.tags,
+      id: this.product.id || 0,
     };
+  }
 
-    var finalPayload = this.addAttachmentsPayload(payload);
+  postProduct() {
+    this.loadInitialPayload();
+    var finalPayload = this.addAttachmentsPayload(this.payload);
 
     if (this.validatePostForm(finalPayload))
       this.productService
         .saveProjectCodePost(finalPayload)
         .subscribe((data) => {
-          this.showNotification("Post added succesfully");
+          this.showNotification("Product Added Succesfully");
         });
   }
 
@@ -199,10 +291,8 @@ export class AdminDashboardComponent {
     });
   }
 
-  getAllBrands() {
-    this.masterService.getAllBrands().subscribe((res: any) => {
-      this.brands = res;
-    });
+  getAllBrands(): Observable<any> {
+    return this.masterService.getAllBrands();
   }
 
   getAllProductSizes() {
@@ -273,7 +363,7 @@ export class AdminDashboardComponent {
   add(event: MatChipInputEvent): void {
     const value = (event.value || "").trim();
     if (value) {
-      this.tags.push({ id: 0, name: value, projectCodeId: 0 });
+      this.productPayload.tags.push({ id: 0, name: value, projectCodeId: 0 });
     }
     event.chipInput!.clear();
     this.tagCtrl.setValue(null);
@@ -482,12 +572,34 @@ export class AdminDashboardComponent {
     });
   }
 
-  toggleSection(section: string) {
+  toggleMainOption(option: string) {
+    // if (this.activeMainOption === option) {
+    //   this.activeMainOption = "";
+    //   this.resetSections();
+    // } else {
+    // }
+    this.activeMainOption = option;
+    if (option === "productEntry") {
+      this.showOrders = false;
+      this.toggleSection("categories");
+    } else if (option === "manageOrders") {
+      this.resetSections();
+      this.selectedSection = "";
+      this.showOrders = true;
+    }
+  }
+
+  resetSections() {
     this.showCategories = false;
     this.showBrands = false;
     this.showColors = false;
     this.showProduct = false;
+    this.showOrders = false;
+  }
 
+  toggleSection(section: string) {
+    this.activeMainOption = "productEntry";
+    this.resetSections();
     switch (section) {
       case "categories":
         this.showCategories = true;
