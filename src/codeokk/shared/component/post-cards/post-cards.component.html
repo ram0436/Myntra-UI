@@ -4,112 +4,147 @@
       <span class="text-bold">My Wishlist</span> {{ wishlistCount }} Items
     </div> -->
 
-    <div class="products">
-      <div
-        class="product"
-        *ngFor="let product of currentPageProducts"
-        (mouseenter)="initImageSlider(product.productCode)"
-        (mouseleave)="resetHover()"
-      >
-        <a [routerLink]="'/product-details/' + product.productCode">
-          <div
-            class="image-container"
-            [class.z-10]="hoveredProduct === product.productCode"
-          >
-            <ng-container
-              *ngIf="
-                hoveredProduct !== product.productCode;
-                else swiperTemplate
-              "
+    <div class="products-cotainer" [class.w-100]="filteredPostsRoute">
+      <div class="products">
+        <div
+          class="product"
+          *ngFor="let product of currentPageProducts"
+          (mouseenter)="initImageSlider(product.productCode)"
+          (mouseleave)="resetHover()"
+        >
+          <a [routerLink]="'/product-details/' + product.productCode">
+            <div
+              class="image-container"
+              [class.z-10]="hoveredProduct === product.productCode"
             >
-              <img [src]="getImageUrl(product)" class="product-img" />
-            </ng-container>
-            <ng-template #swiperTemplate>
-              <swiper-container
-                init="false"
-                class="swiper-cont"
-                [class.img-w]="hoveredProduct === product.productCode"
+              <ng-container
+                *ngIf="
+                  hoveredProduct !== product.productCode;
+                  else swiperTemplate
+                "
               >
-                <ng-container *ngFor="let image of product.productImageList">
-                  <swiper-slide class="swiper-slide">
-                    <img [src]="image.imageURL" class="product-img" />
-                  </swiper-slide>
-                </ng-container>
-              </swiper-container>
-            </ng-template>
-          </div>
-          <span
-            class="close-icon material-icons"
-            (click)="removeItemFromWishlist($event, product?.cartId)"
-            *ngIf="this.wishlistRoute"
-          >
-            close
-          </span>
-          <!-- *ngIf="this.wishlistRoute" -->
-          <div
-            class="product-info"
-            (mouseenter)="initImageSlider(product.productCode)"
-          >
-            <h3 class="brand">{{ product.brand[0]?.name }}</h3>
-            <h4 class="product-name">{{ product.name }}</h4>
-            <h4 class="product-sizes">
-              Sizes:
-              <span
-                *ngFor="let size of product.productSize; let i = index"
-                class="size"
-              >
-                {{ size.size
-                }}<span *ngIf="i < product.productSize.length - 1">, </span>
-              </span>
-            </h4>
-            <h4 class="product-price">
-              <span>
-                <span class="discounted-price">Rs. {{ product.price }}</span>
-              </span>
-              <span class="discount-percentage"
-                >({{ product.discount[0]?.percent }})</span
-              >
-            </h4>
-          </div>
-          <div class="bag-actions" *ngIf="this.wishlistRoute">
+                <img [src]="getImageUrl(product)" class="product-img" />
+              </ng-container>
+              <ng-template #swiperTemplate>
+                <swiper-container
+                  init="false"
+                  class="swiper-cont"
+                  [class.img-w]="hoveredProduct === product.productCode"
+                >
+                  <ng-container *ngFor="let image of product.productImageList">
+                    <swiper-slide class="swiper-slide">
+                      <img [src]="image.imageURL" class="product-img" />
+                    </swiper-slide>
+                  </ng-container>
+                </swiper-container>
+              </ng-template>
+            </div>
             <span
-              class="product-bagFlex product-actionsButton product-bag"
-              style="width: 100%; text-align: center"
-              (click)="toggleModal($event, product)"
+              class="close-icon material-icons"
+              (click)="removeItemFromWishlist($event, product?.cartId)"
+              *ngIf="this.wishlistRoute"
             >
-              Add To Cart
+              close
             </span>
-          </div>
+            <!-- *ngIf="this.wishlistRoute" -->
+            <div
+              class="product-info"
+              (mouseenter)="initImageSlider(product.productCode)"
+            >
+              <h3 class="brand">{{ product.brand[0]?.name }}</h3>
+              <h4 class="product-name">{{ product.name }}</h4>
+              <h4 class="product-sizes">
+                Sizes:
+                <span
+                  *ngFor="let size of product.productSize; let i = index"
+                  class="size"
+                >
+                  {{ size.size
+                  }}<span *ngIf="i < product.productSize.length - 1">, </span>
+                </span>
+              </h4>
+              <h4 class="product-price">
+                <span>
+                  <span class="discounted-price">Rs. {{ product.price }}</span>
+                </span>
+                <span class="discount-percentage"
+                  >({{ product.discount[0]?.percent }})</span
+                >
+                <span
+                  *ngIf="!this.wishlistRoute"
+                  class="material-icons mobile-wishlist wishlist-icon"
+                  title="Add in Wishlist"
+                  (click)="toggleFavorite($event, product?.productCode)"
+                  [class.favorite-added-bg]="
+                    favoriteStatus[product.productCode]
+                  "
+                >
+                  {{
+                    favoriteStatus[product.productCode]
+                      ? "favorite"
+                      : "favorite_border"
+                  }}
+                </span>
+                <div class="product-options">
+                  <div class="option">
+                    <span
+                      class="material-icons-outlined edit-icon"
+                      (click)="editProduct($event, product)"
+                    >
+                      edit
+                    </span>
+                    <span
+                      class="material-icons-outlined edit-icon delete-icon"
+                      (click)="deleteProduct($event, product.id)"
+                    >
+                      delete
+                    </span>
+                  </div>
+                </div>
+              </h4>
+            </div>
+            <div class="bag-actions" *ngIf="this.wishlistRoute">
+              <span
+                class="product-bagFlex product-actionsButton product-bag"
+                style="width: 100%; text-align: center"
+                (click)="toggleModal($event, product)"
+              >
+                Add To Cart
+              </span>
+            </div>
 
-          <div
-            class="product-actions"
-            *ngIf="!this.wishlistRoute"
-            (mouseenter)="initImageSlider(product.productCode)"
-          >
-            <span
-              class="product-wishlistFlex product-actionsButton product-wishlist"
-              style="width: 100%; text-align: center"
-              (click)="toggleFavorite($event, product?.productCode)"
-              title="Add in Wishlist"
-              [class.favorite-added]="favoriteStatus[product.productCode]"
+            <div
+              class="product-actions"
+              *ngIf="!this.wishlistRoute"
+              (mouseenter)="initImageSlider(product.productCode)"
             >
               <span
-                class="material-icons wishlist-icon"
+                class="product-wishlistFlex product-actionsButton product-wishlist"
+                style="width: 100%; text-align: center"
+                (click)="toggleFavorite($event, product?.productCode)"
                 title="Add in Wishlist"
-                [class.favorite-added-bg]="favoriteStatus[product.productCode]"
+                [class.favorite-added]="favoriteStatus[product.productCode]"
               >
-                {{
-                  favoriteStatus[product.productCode]
-                    ? "favorite"
-                    : "favorite_border"
-                }}
+                <span
+                  class="material-icons wishlist-icon"
+                  title="Add in Wishlist"
+                  [class.favorite-added-bg]="
+                    favoriteStatus[product.productCode]
+                  "
+                >
+                  {{
+                    favoriteStatus[product.productCode]
+                      ? "favorite"
+                      : "favorite_border"
+                  }}
+                </span>
+                wishlist
               </span>
-              wishlist
-            </span>
-          </div>
-        </a>
+            </div>
+          </a>
+        </div>
+        <h3 *ngIf="products.length == 0">No products avaialble</h3>
       </div>
-      <h3 *ngIf="products.length == 0">No products avaialble</h3>
     </div>
     <div
       *ngIf="showModal && selectedProduct"

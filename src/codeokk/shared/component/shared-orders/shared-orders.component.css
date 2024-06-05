@@ -1,0 +1,181 @@
+.orders {
+  /* padding-top: 54px; */
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 50px;
+}
+
+.orders-container {
+  width: 50%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.orders-flex {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.order {
+  margin-left: auto;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.order:first-child {
+  padding-top: 50px;
+}
+
+.admin-order:first-child {
+  padding-top: 20px;
+}
+
+.order .order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 4px;
+  border: 1px solid #eaeaec;
+}
+
+.order-details .top {
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+.top .left {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.title-desc {
+  font-size: 14px;
+}
+
+.owner-details .name {
+  color: rgb(255, 63, 108);
+}
+
+.order-details .bottom {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 15px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.bottom .delivery-status {
+  font-size: 19px;
+}
+
+.bottom .delivery-place {
+  font-size: 15px;
+  color: #535766;
+  margin-bottom: 10px;
+}
+
+.bottom .product-details {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 20px;
+}
+
+.bottom .product-details .img-container {
+  width: 110px;
+  height: 110px;
+}
+
+.bottom .product-details .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  width: 76%;
+  /* gap: 4px; */
+}
+
+.text-container .product-name {
+  font-size: 15px;
+  color: rgb(255, 63, 108);
+  font-weight: 600;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.text-container .product-desc {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 16px;
+  width: 100%;
+}
+
+.text-container .return-status {
+  color: #535766;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.text-container .action-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.text-container button {
+  padding: 8px 10px;
+  background-color: transparent;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buy-again-btn {
+  background-color: rgb(255, 63, 108) !important;
+  color: white;
+  border: 1px solid rgb(255, 63, 108);
+}
+
+.view-item-btn {
+  border: 1px solid #535766;
+}
+
+.admin-text-container {
+  width: 45%;
+}
+
+.admin-orders {
+  padding: 0px;
+}
+
+.admin-orders-container {
+  margin: 0;
+  width: 100%;
+}

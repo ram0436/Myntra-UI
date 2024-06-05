@@ -42,10 +42,8 @@ export class ProductService {
     );
   }
 
-  getProductImageByProductId(id: any) {
-    return this.http.get(
-      `${this.BaseURL}User/GetProductImageByProductId?productId=${id}`
-    );
+  deleteProduct(id: any) {
+    return this.http.delete(`${this.BaseURL}Product/${id}`);
   }
 
   uploadProjectCodeImages(formData: any) {
@@ -54,6 +52,10 @@ export class ProductService {
 
   saveProjectCodePost(payLoad: any) {
     return this.http.post(`${this.BaseURL}/Product`, payLoad);
+  }
+
+  updateProjectCodePost(productId: any, payLoad: any) {
+    return this.http.put(`${this.BaseURL}/Product/${productId}`, payLoad);
   }
 
   searchAds(searchQuery: string): Observable<any[]> {

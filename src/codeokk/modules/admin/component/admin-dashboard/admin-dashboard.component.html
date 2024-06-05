@@ -1,33 +1,53 @@
 <div class="adds-container mt-all-120">
   <div class="d-flex">
     <div class="sections">
-      <div
-        class="section"
-        [class.active]="selectedSection === 'categories'"
-        (click)="toggleSection('categories')"
-      >
-        Manage Categories
-      </div>
-      <div
-        class="section"
-        [class.active]="selectedSection === 'brands'"
-        (click)="toggleSection('brands')"
-      >
-        Manage Brands
-      </div>
-      <div
-        class="section"
-        [class.active]="selectedSection === 'colors'"
-        (click)="toggleSection('colors')"
-      >
-        Manage Colors
-      </div>
-      <div
-        class="section"
-        [class.active]="selectedSection === 'product'"
-        (click)="toggleSection('product')"
-      >
-        Manage Product
+      <div class="main-options">
+        <div class="main-option">
+          <span
+            class="option-heading"
+            [class.active]="activeMainOption === 'productEntry'"
+            (click)="toggleMainOption('productEntry')"
+            >Product Entry</span
+          >
+          <div class="option-sections">
+            <div
+              class="section"
+              [class.active]="selectedSection === 'categories'"
+              (click)="toggleSection('categories')"
+            >
+              Manage Categories
+            </div>
+            <div
+              class="section"
+              [class.active]="selectedSection === 'brands'"
+              (click)="toggleSection('brands')"
+            >
+              Manage Brands
+            </div>
+            <div
+              class="section"
+              [class.active]="selectedSection === 'colors'"
+              (click)="toggleSection('colors')"
+            >
+              Manage Colors
+            </div>
+            <div
+              class="section"
+              [class.active]="selectedSection === 'product'"
+              (click)="toggleSection('product')"
+            >
+              Manage Product
+            </div>
+          </div>
+        </div>
+        <div class="main-option">
+          <span
+            class="option-heading"
+            [class.active]="activeMainOption === 'manageOrders'"
+            (click)="toggleMainOption('manageOrders')"
+            >Manage Orders</span
+          >
+        </div>
       </div>
     </div>
     <div class="section-content">
@@ -231,7 +251,7 @@
                 matInput
                 placeholder="Enter Name"
                 name="productName"
-                [(ngModel)]="productName"
+                [(ngModel)]="productPayload.productName"
               />
             </mat-form-field>
             <mat-form-field>
@@ -240,14 +260,14 @@
                 matInput
                 placeholder="Enter Description"
                 name="textareaInput"
-                [(ngModel)]="productDescription"
+                [(ngModel)]="productPayload.productDescription"
                 rows="3"
               ></textarea>
             </mat-form-field>
             <mat-form-field>
               <mat-label>Select Parent Category</mat-label>
               <mat-select
-                [(ngModel)]="productParentCategoryId"
+                [(ngModel)]="productPayload.productParentCategoryId"
                 name="productParentCategoryId"
                 (selectionChange)="onParentCategoryChange($event.value)"
               >
@@ -262,7 +282,7 @@
             <mat-form-field>
               <mat-label>Select Category</mat-label>
               <mat-select
-                [(ngModel)]="productCategoryId"
+                [(ngModel)]="productPayload.productCategoryId"
                 name="productCategoryId"
                 (ngModelChange)="onCategoryChange($event)"
               >
@@ -277,10 +297,9 @@
             <mat-form-field>
               <mat-label>Select Sub Category</mat-label>
               <mat-select
-                [(ngModel)]="productSubCategoryId"
+                [(ngModel)]="productPayload.productSubCategoryId"
                 name="productSubCategoryId"
               >
-                <!-- (ngModelChange)="onSubCategoryChange($event)" -->
                 <mat-option
                   *ngFor="let subCategory of subCategories"
                   [value]="subCategory.id"
@@ -289,24 +308,18 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <mat-form-field>
-              <mat-label>Select Brand</mat-label>
-              <mat-select [(ngModel)]="productBrandId" name="brandId">
-                <mat-option *ngFor="let brand of brands" [value]="brand.id">
-                  {{ brand.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> -->
             <mat-form-field>
               <input
-                matInput
+                type="text"
                 placeholder="Select Brand"
+                matInput
                 [formControl]="brandCtrl"
                 [matAutocomplete]="auto"
               />
               <mat-autocomplete
                 #auto="matAutocomplete"
                 (optionSelected)="onBrandSelected($event)"
+                [displayWith]="displayBrand"
               >
                 <mat-option
                   *ngFor="let brand of filteredBrands | async"
@@ -316,32 +329,12 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-            <!-- <mat-form-field appearance="fill" class="form-field-w-100">
-              <mat-label>Select Brand</mat-label>
-              <input
-                type="text"
-                placeholder="Search brand"
-                aria-label="Search brand"
-                matInput
-                [formControl]="brandCtrl"
-                [matAutocomplete]="auto"
-                (input)="filterBrands()"
-              />
-              <mat-autocomplete
-                #auto="matAutocomplete"
-                (optionSelected)="onBrandSelected($event)"
-              >
-                <mat-option
-                  *ngFor="let brand of filteredBrands"
-                  [value]="brand.id"
-                >
-                  {{ brand.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field> -->
             <mat-form-field>
               <mat-label>Select Color</mat-label>
-              <mat-select [(ngModel)]="productColorId" name="colorId">
+              <mat-select
+                [(ngModel)]="productPayload.productColorId"
+                name="colorId"
+              >
                 <mat-option *ngFor="let color of colors" [value]="color.id">
                   <span class="color-option">
                     <span
@@ -358,7 +351,10 @@
             </mat-form-field>
             <mat-form-field>
               <mat-label>Select Product Size</mat-label>
-              <mat-select [(ngModel)]="productSizeId" name="productSizeId">
+              <mat-select
+                [(ngModel)]="productPayload.productSizeId"
+                name="productSizeId"
+              >
                 <mat-option *ngFor="let size of sizes" [value]="size.id">
                   {{ size.size }}
                 </mat-option>
@@ -367,7 +363,10 @@
             <mat-form-field class="example-chip-list">
               <mat-label>Enter Tags</mat-label>
               <mat-chip-grid #chipGrid aria-label="tag selection">
-                <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
+                <mat-chip-row
+                  *ngFor="let tag of productPayload.tags"
+                  (removed)="remove(tag)"
+                >
                   {{ tag.name }}
                   <button
                     matChipRemove
@@ -392,14 +391,14 @@
                 placeholder="Rs."
                 name="productPrice"
                 (input)="allowOnlyNumbers($event)"
-                [(ngModel)]="productPrice"
+                [(ngModel)]="productPayload.productPrice"
                 class="price-field"
               />
             </mat-form-field>
             <mat-form-field>
               <mat-label>Select Discount</mat-label>
               <mat-select
-                [(ngModel)]="selectedDiscountId"
+                [(ngModel)]="productPayload.selectedDiscountId"
                 name="selectedDiscountId"
               >
                 <mat-option
@@ -416,7 +415,7 @@
                 matInput
                 placeholder="Enter Product Code"
                 name="productCode"
-                [(ngModel)]="productCode"
+                [(ngModel)]="productPayload.productCode"
               />
             </mat-form-field>
             <div class="uplod-sectin h-550">
@@ -477,6 +476,7 @@
               </div>
             </div>
             <button
+              *ngIf="!editRoute"
               mat-raised-button
               color="primary"
               class="send-feedback"
@@ -484,8 +484,23 @@
             >
               Add Product
             </button>
+            <button
+              *ngIf="editRoute"
+              mat-raised-button
+              color="primary"
+              class="send-feedback"
+              (click)="updateProduct(product.id)"
+            >
+              Update Product
+            </button>
           </form>
         </mat-card-content>
+      </div>
+      <div class="manage-orders" *ngIf="showOrders">
+        <div class="heading">
+          <h2>Manage Orders</h2>
+          <app-shared-orders [apiType]="'admin'"></app-shared-orders>
+        </div>
       </div>
     </div>
   </div>

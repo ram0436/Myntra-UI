@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MasterService } from "../service/master.service";
@@ -32,16 +32,32 @@ export class FilteredPostsComponent {
 
   showSizeFilters: boolean = false;
 
+  filtersToggled: boolean = false;
+
   selectedSizes: number[] = [];
+
+  isScreenSmall: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private masterService: MasterService,
     private router: Router
-  ) {}
+  ) {
+    this.checkScreenWidth();
+  }
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    this.isScreenSmall = window.innerWidth < 568;
+  }
 
   ngOnInit() {
+    this.checkScreenWidth();
     this.getAllProductSizes();
     this.route.queryParams.subscribe((params) => {
       this.parentId = params["parent"];
@@ -80,6 +96,10 @@ export class FilteredPostsComponent {
 
       this.products = filteredProducts;
     });
+  }
+
+  toggleFilters() {
+    this.filtersToggled = !this.filtersToggled;
   }
 
   showSize() {
@@ -226,11 +246,18 @@ export class FilteredPostsComponent {
     const subCategoryId = Number(this.subCategoryId);
     const parentId = Number(this.parentId);
 
-    return (
-      (categoryId === 0 || product.category[0].id === categoryId) &&
-      (subCategoryId === 0 || product.subCategory[0].id === subCategoryId) &&
-      (parentId === 0 || product.parentCategory[0].id === parentId)
-    );
+    if (
+      product.category[0] &&
+      product.subCategory[0] &&
+      product.parentCategory[0]
+    ) {
+      return (
+        (categoryId === 0 || product.category[0].id === categoryId) &&
+        (subCategoryId === 0 || product.subCategory[0].id === subCategoryId) &&
+        (parentId === 0 || product.parentCategory[0].id === parentId)
+      );
+    }
+    return false;
   }
 
   filterProducts(filters?: any) {

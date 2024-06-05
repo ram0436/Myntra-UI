@@ -12,6 +12,12 @@
         routerLink="/"
       />
     </div>
+    <div class="menu-bar" (click)="toggleMobileMenu()">
+      <div class="menu-icons">
+        <span class="material-icons-outlined icon-menu"> menu </span>
+        <span class="menu-title">Menu</span>
+      </div>
+    </div>
     <!-- Your template -->
     <nav class="navbar">
       <div class="nav-links">
@@ -88,6 +94,12 @@
       </a>
     </div>
     <div class="action">
+      <div class="user search-btn" (click)="toggleSearch()">
+        <div class="user-icons">
+          <span class="material-icons-outlined icon-user"> search </span>
+          <span class="user-title">Search</span>
+        </div>
+      </div>
       <div class="user">
         <div class="user-icons">
           <span class="material-icons-outlined icon-user"> person </span>
@@ -151,5 +163,140 @@
         <div class="user-title">Cart</div>
       </div>
     </div>
+
+    <div class="query-cont" *ngIf="isSearchEnable">
+      <div class="query-absolute">
+        <input
+          type="text"
+          placeholder="Search for products, brands, and more"
+          class="searchbar"
+          (keydown.enter)="search($event)"
+          [(ngModel)]="searchQuery"
+          (input)="onInputChange()"
+        />
+        <a href="" class="submit" (click)="search($event)">
+          <span class="material-icons-outlined icon-search"> search </span>
+        </a>
+      </div>
+      <div class="close" (click)="toggleSearch()">
+        <span class="material-icons-outlined"> close </span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mobile-menu"
+    [style.display]="isMobileMenuOpen ? 'block' : 'none'"
+  >
+    <div class="menu-mobile-overlay">
+      <div class="menu-links">
+        <div class="div-block-20">
+          <div class="mobile-logo">
+            <img
+              src="https://cfdblob.blob.core.windows.net/logo/CDK_Logo.png"
+              alt=""
+              class="logo"
+              routerLink="/"
+            />
+          </div>
+          <div class="mobile-nav-links">
+            <div
+              class="mobile-nav-content"
+              *ngFor="let parentCategory of parentCategories"
+            >
+              <div class="mobile-nav-link">
+                <div
+                  class="parent-name top-name"
+                  [ngClass]="{
+                    active: activeParentCategoryId === parentCategory.id
+                  }"
+                  (click)="toggleCategories(parentCategory.id)"
+                >
+                  <span class="mobile-main">{{ parentCategory.name }}</span>
+                  <span class="material-icons-outlined mobile-more-icon">
+                    {{
+                      activeParentCategoryId === parentCategory.id
+                        ? "expand_more"
+                        : "chevron_right"
+                    }}
+                  </span>
+                </div>
+                <div
+                  *ngIf="activeParentCategoryId === parentCategory.id"
+                  class="mobile-categories-cont"
+                >
+                  <div
+                    *ngIf="categoryMap[parentCategory.id]"
+                    class="mobile-categories"
+                  >
+                    <div
+                      *ngFor="let category of categoryMap[parentCategory.id]"
+                      class="mobile-category-block"
+                      (click)="toggleSubCategories(category.id, $event)"
+                    >
+                      <div
+                        class="top-name"
+                        [ngClass]="{ active: activeCategoryId === category.id }"
+                      >
+                        <div
+                          class="mobile-category-name"
+                          [routerLink]="['/filtered-posts']"
+                          [queryParams]="{
+                            parent: parentCategory.id,
+                            category: category.id
+                          }"
+                        >
+                          {{ category.name }}
+                        </div>
+                        <span class="material-icons-outlined mobile-more-icon">
+                          {{
+                            activeCategoryId === category.id
+                              ? "expand_more"
+                              : "chevron_right"
+                          }}
+                        </span>
+                      </div>
+
+                      <div
+                        *ngIf="activeCategoryId === category.id"
+                        class="mobile-subcategories-cont"
+                      >
+                        <div
+                          *ngIf="subCategoryMap[category.id]"
+                          class="mobile-subcategories"
+                        >
+                          <div
+                            *ngFor="
+                              let subCategory of subCategoryMap[category.id]
+                            "
+                            class="mobile-subcategory-block"
+                          >
+                            <div
+                              class="mobile-subcategory-name"
+                              [routerLink]="['/filtered-posts']"
+                              [queryParams]="{
+                                parent: parentCategory.id,
+                                category: category.id,
+                                subCategory: subCategory.id
+                              }"
+                            >
+                              {{ subCategory.name }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="close-menu" (click)="toggleMobileMenu()">
+          <span class="material-icons"> close </span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-closer"></div>
   </div>
 </header>

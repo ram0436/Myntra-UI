@@ -19,10 +19,12 @@ import {
   MatAutocomplete,
   MatAutocompleteModule,
 } from "@angular/material/autocomplete";
+import { SharedModule } from "src/codeokk/shared/shared.module";
 
 @NgModule({
   declarations: [AdminDashboardComponent],
   imports: [
+    SharedModule,
     CommonModule,
     AdminRoutingModule,
     NgFor,

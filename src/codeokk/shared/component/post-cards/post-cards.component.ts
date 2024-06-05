@@ -20,11 +20,13 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
   styleUrls: ["./post-cards.component.css"],
 })
 export class PostCardsComponent {
+  isScreenSmall: boolean = false;
   @Input() products: any;
   @Output() itemRemovedFromWishlist = new EventEmitter<void>();
   favoriteStatus: { [key: string]: boolean } = {};
   wishlistRoute: boolean = false;
   isUserLogedIn: boolean = false;
+  filteredPostsRoute: boolean = false;
   dialogRef: MatDialogRef<any> | null = null;
 
   // Pagination properties
@@ -57,31 +59,68 @@ export class PostCardsComponent {
     this.route.url.subscribe((urlSegments) => {
       this.wishlistRoute =
         urlSegments.length > 0 && urlSegments[0].path === "wishlist";
+      this.filteredPostsRoute =
+        urlSegments.length > 0 && urlSegments[0].path === "filtered-posts";
     });
+    this.checkScreenWidth();
+  }
+
+  ngOnInit() {
+    this.checkScreenWidth();
+  }
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    this.isScreenSmall = window.innerWidth < 768;
+  }
+
+  deleteProduct(event: Event, productId: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.productService.deleteProduct(productId).subscribe(
+      (response: any) => {
+        this.showNotification("Product Deleted Successfylly");
+        window.location.reload();
+      },
+      (error: any) => {}
+    );
+  }
+
+  editProduct(event: Event, product: any) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.router.navigateByUrl(
+      `admin/dashboard?editProduct=true&code=${product.productCode}`
+    );
   }
 
   initImageSlider(productCode: string) {
-    this.hoveredProduct = productCode;
-    const swiperEls =
-      this.elementRef.nativeElement.querySelectorAll(".swiper-cont");
-    swiperEls.forEach((swiperEl: any) => {
-      const buttonNext = swiperEl.querySelector(".next-btn");
-      const buttonPrev = swiperEl.querySelector(".prev-btn");
+    if (!this.isScreenSmall) {
+      this.hoveredProduct = productCode;
+      const swiperEls =
+        this.elementRef.nativeElement.querySelectorAll(".swiper-cont");
+      swiperEls.forEach((swiperEl: any) => {
+        const buttonNext = swiperEl.querySelector(".next-btn");
+        const buttonPrev = swiperEl.querySelector(".prev-btn");
 
-      const swiperParams = {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        loop: true,
-        pagination: true,
-        // pagination: {
-        //   el: ".swiper-pagination",
-        // },
-        autoplay: {
-          delay: 1000,
-          disableOnInteraction: false,
-        },
-        injectStyles: [
-          `
+        const swiperParams = {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          loop: true,
+          pagination: true,
+          // pagination: {
+          //   el: ".swiper-pagination",
+          // },
+          autoplay: {
+            delay: 1000,
+            disableOnInteraction: false,
+          },
+          injectStyles: [
+            `
             .swiper-pagination-bullet{
               background-color: #ff3f6c;
               z-index: 6;
@@ -93,29 +132,32 @@ export class PostCardsComponent {
               }
 
         `,
-        ],
-        on: {
-          init() {
-            // ...
+          ],
+          on: {
+            init() {
+              // ...
+            },
           },
-        },
-      };
+        };
 
-      Object.assign(swiperEl, swiperParams);
-      swiperEl.initialize();
-      if (buttonNext && buttonPrev) {
-        this.renderer.listen(buttonNext, "click", () => {
-          swiperEl.swiper.slideNext();
-        });
-        this.renderer.listen(buttonPrev, "click", () => {
-          swiperEl.swiper.slidePrev();
-        });
-      }
-    });
+        Object.assign(swiperEl, swiperParams);
+        swiperEl.initialize();
+        if (buttonNext && buttonPrev) {
+          this.renderer.listen(buttonNext, "click", () => {
+            swiperEl.swiper.slideNext();
+          });
+          this.renderer.listen(buttonPrev, "click", () => {
+            swiperEl.swiper.slidePrev();
+          });
+        }
+      });
+    }
   }
 
   resetHover() {
-    this.hoveredProduct = "0";
+    if (!this.isScreenSmall) {
+      this.hoveredProduct = "0";
+    }
   }
 
   get startIndex(): number {

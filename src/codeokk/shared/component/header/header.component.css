@@ -14,10 +14,11 @@
 .header-bound {
   margin: auto;
   margin-top: -4px;
-  min-width: 980px;
+  /* min-width: 980px; */
   /* line-height: 80px; */
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .logoContainer {
@@ -32,9 +33,25 @@
   padding: 0;
   margin: 0;
   cursor: pointer;
-  width: 45px;
+  width: 42px;
   height: 42px;
   background-position: -462px 0;
+}
+
+.close-menu {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.close-menu span {
+  font-size: 20px;
+  color: #000;
+}
+
+.close-menu span:hover {
+  color: #f16565;
+  cursor: pointer;
 }
 
 .navbar {
@@ -125,7 +142,7 @@
 .pane-content {
   top: 50px;
   left: 50%;
-  margin-left: -570px;
+  margin-left: -50px;
   width: 215px;
   z-index: 1;
   line-height: normal;
@@ -250,10 +267,57 @@
   position: relative;
   min-width: 470px;
   max-width: 470px;
+  margin-right: -60px;
+}
+
+.query-absolute {
+  margin: 20px 20px 20px 62px;
+  display: flex;
+  float: left;
+  line-height: 0;
+  position: relative;
+  min-width: 83%;
+  max-width: 83%;
+  margin-right: -60px;
+}
+
+.close {
+  margin-left: 35px;
+  color: #000;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 40px;
+  text-align: center;
+  padding: 8px 0 2px;
+  background: #f5f5f6;
+  border: 1px solid #f5f5f6;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.close span {
+  font-size: 18px;
+}
+
+.query-cont {
+  position: absolute;
+  top: 2px;
+  left: 64px;
+  z-index: 10;
+  width: 100%;
+  margin-left: -60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .query > input.searchbar,
-.queryPincode > input.searchbar {
+.queryPincode > input.searchbar,
+.query-absolute > input.searchbar {
   display: inline-block;
   /* float: left; */
   font-size: 14px;
@@ -273,6 +337,10 @@
 
 .query > input.searchbar {
   width: 95%;
+}
+
+.query-absolute > input.searchbar {
+  width: 90%;
 }
 
 a.submit {
@@ -321,7 +389,8 @@ a.submit {
   position: relative;
 }
 
-.user-title {
+.user-title,
+.menu-title {
   color: #000;
   font-size: 12px;
   font-weight: 700;
@@ -329,9 +398,14 @@ a.submit {
   line-height: 6px;
 }
 
+.icon-menu {
+  color: #000;
+}
+
 .user-icons,
 .wishlist,
-.cart {
+.cart,
+.menu-icons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -479,9 +553,259 @@ a.submit {
   margin-right: 5px;
 }
 
+.search-btn {
+  display: none;
+}
+
+.menu-bar {
+  display: none;
+  margin-left: 20px;
+}
+
+.mobile-menu {
+  justify-content: center;
+  align-items: stretch;
+  display: block;
+  overflow: auto;
+}
+
+.menu-closer {
+  z-index: 9999;
+  background-color: transparent;
+  width: 50vw;
+  display: block;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  left: auto;
+  right: 0%;
+}
+
+.menu-mobile-overlay {
+  z-index: 6000;
+  flex-flow: row;
+  flex: 0 auto;
+  order: 0;
+  justify-content: space-between;
+  align-self: auto;
+  align-items: flex-start;
+  width: 35vw;
+  max-width: 1110px;
+  height: auto;
+  margin: auto;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-right: 0;
+  display: flex;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  right: auto;
+  left: 0%;
+  background-color: #fff;
+  box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 8px 0px 10px 0px rgba(0, 0, 0, 0.08);
+  color: #000;
+  overflow: auto;
+}
+
+.menu-links {
+  z-index: 8000;
+  flex-direction: column;
+  align-self: auto;
+  align-items: flex-start;
+  width: 80%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  position: relative;
+}
+
+.div-block-20 {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+}
+
+.mobile-nav-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-nav-link {
+  display: flex;
+  flex-direction: column;
+}
+
+.parent-name,
+.top-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.mobile-more-icon {
+  font-size: 18px;
+}
+
+.mobile-categories-cont,
+.mobile-subcategories-cont {
+  margin: 10px 0 10px 8px;
+}
+
+.mobile-categories,
+.mobile-subcategories {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-subcategory-name {
+  cursor: pointer;
+}
+
+.mobile-nav-link .top-name.active .mobile-main,
+.mobile-nav-link .top-name.active .mobile-category-name {
+  color: #f16565;
+}
+
+.mobile-nav-link .top-name .mobile-main,
+.mobile-nav-link .top-name .mobile-category-name {
+  color: black;
+}
+
+.material-icons-outlined.mobile-more-icon {
+  transition: transform 0.3s ease;
+}
+
+.material-icons-outlined.mobile-more-icon.expand_more {
+  transform: rotate(180deg);
+}
+
 @media (min-width: 1500px) {
   .pane-content {
     left: 9%;
     margin: auto;
+  }
+}
+
+@media (max-width: 1180px) {
+  .query {
+    min-width: 380px;
+  }
+}
+
+@media (max-width: 1088px) {
+  .query {
+    min-width: 300px;
+  }
+
+  .action {
+    width: 16.5%;
+  }
+}
+
+@media (max-width: 1026px) {
+  .query {
+    margin-right: -10px;
+  }
+}
+
+@media (max-width: 965px) {
+  .query {
+    min-width: 260px;
+  }
+
+  .navbar {
+    margin-left: 1%;
+  }
+
+  .action {
+    width: 17.5%;
+  }
+}
+
+@media (max-width: 910px) {
+  .query {
+    display: none;
+  }
+
+  .action {
+    width: 28.5%;
+  }
+
+  .search-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .action {
+    width: 35%;
+  }
+}
+
+@media (max-width: 668px) {
+  .query-absolute {
+    min-width: 80%;
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 632px) {
+  .navbar {
+    display: none;
+  }
+
+  .logoContainer {
+    display: none;
+  }
+
+  .menu-bar {
+    display: block;
+  }
+
+  .action {
+    width: 40%;
+  }
+}
+
+@media (max-width: 551px) {
+  .action {
+    width: 45%;
+  }
+
+  .query-absolute {
+    min-width: 75%;
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 490px) {
+  .action {
+    width: 50%;
+  }
+
+  .query-absolute {
+    min-width: 72%;
+    max-width: 72%;
+  }
+}
+
+@media (max-width: 440px) {
+  .action {
+    width: 55%;
+  }
+}
+
+@media (max-width: 397px) {
+  .query-absolute {
+    min-width: 68%;
+    max-width: 68%;
   }
 }

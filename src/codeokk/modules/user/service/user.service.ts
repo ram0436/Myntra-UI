@@ -210,6 +210,10 @@ export class UserService {
     );
   }
 
+  getAllOrders() {
+    return this.httpClient.get(`${this.baseUrl}User/GetAllOrder`);
+  }
+
   removeItemFromCart(cartId: any, userId: any) {
     return this.httpClient.delete(
       `${this.baseUrl}User/RemoveCartById?cartId=${cartId}&loggedInUserId=${userId}`
