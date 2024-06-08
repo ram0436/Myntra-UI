@@ -31,6 +31,7 @@ export class AdminDashboardComponent {
   showColors = false;
   showProduct = false;
   showOrders: boolean = false;
+  showDeleteCategories: boolean = false;
 
   parentCategories: any[] = [];
   categories: any[] = [];
@@ -88,6 +89,15 @@ export class AdminDashboardComponent {
   code: string = "";
   editRoute: boolean = false;
   payload: any = [];
+
+  categoryMap: { [key: number]: any[] } = {};
+  subCategoryMap: { [key: number]: any[] } = {};
+
+  selectedParentCategories: number[] = [];
+  selectedCategories: number[] = [];
+  selectedSubCategories: number[] = [];
+
+  expandedCategories: { [key: number]: boolean } = {};
 
   constructor(
     private masterService: MasterService,
@@ -194,7 +204,6 @@ export class AdminDashboardComponent {
   }
 
   updateProduct(productId: any) {
-    console.log(productId);
     this.loadInitialPayload();
     var finalPayload = this.addAttachmentsPayload(this.payload);
     if (this.validatePostForm(finalPayload))
@@ -305,9 +314,160 @@ export class AdminDashboardComponent {
     this.masterService.getAllParentCategories().subscribe((data: any) => {
       this.parentCategories = data;
       this.parentCategories.forEach((parentCategory) => {
+        parentCategory.expanded = false;
+        parentCategory.completed = false;
         this.getCategoryByParentCategoryId(parentCategory.id);
       });
     });
+  }
+
+  isParentCategorySelected(parentCategoryId: number) {
+    return this.selectedParentCategories.includes(parentCategoryId);
+  }
+
+  toggleParentCategory(parentCategory: any) {
+    if (this.expandedCategories[parentCategory.id]) {
+      delete this.expandedCategories[parentCategory.id];
+    } else {
+      this.expandedCategories[parentCategory.id] = true;
+    }
+  }
+
+  toggleParentCategorySelection(parentCategory: any) {
+    const index = this.selectedParentCategories.indexOf(parentCategory.id);
+    if (index === -1) {
+      this.selectedParentCategories.push(parentCategory.id);
+      this.expandedCategories[parentCategory.id] = true;
+      const categories = this.categoryMap[parentCategory.id] || [];
+      categories.forEach((category) => {
+        if (!this.selectedCategories.includes(category.id)) {
+          this.selectedCategories.push(category.id);
+        }
+        const subCategories = this.subCategoryMap[category.id] || [];
+        subCategories.forEach((subCategory) => {
+          if (!this.selectedSubCategories.includes(subCategory.id)) {
+            this.selectedSubCategories.push(subCategory.id);
+          }
+        });
+      });
+    } else {
+      this.selectedParentCategories.splice(index, 1);
+      this.expandedCategories[parentCategory.id] = false;
+      const categories = this.categoryMap[parentCategory.id] || [];
+      categories.forEach((category) => {
+        const categoryIndex = this.selectedCategories.indexOf(category.id);
+        if (categoryIndex !== -1) {
+          this.selectedCategories.splice(categoryIndex, 1);
+        }
+        const subCategories = this.subCategoryMap[category.id] || [];
+        subCategories.forEach((subCategory) => {
+          const subCategoryIndex = this.selectedSubCategories.indexOf(
+            subCategory.id
+          );
+          if (subCategoryIndex !== -1) {
+            this.selectedSubCategories.splice(subCategoryIndex, 1);
+          }
+        });
+      });
+    }
+  }
+
+  isParentCategoryExpanded(parentCategoryId: number): boolean {
+    return this.expandedCategories[parentCategoryId] || false;
+  }
+
+  isCategorySelected(categoryId: number) {
+    return this.selectedCategories.includes(categoryId);
+  }
+
+  toggleCategorySelection(category: any): void {
+    const index = this.selectedCategories.indexOf(category.id);
+    if (index === -1) {
+      this.selectedCategories.push(category.id);
+      const subCategories = this.subCategoryMap[category.id] || [];
+      subCategories.forEach((subCategory) => {
+        if (!this.selectedSubCategories.includes(subCategory.id)) {
+          this.selectedSubCategories.push(subCategory.id);
+        }
+      });
+    } else {
+      this.selectedCategories.splice(index, 1);
+      const subCategories = this.subCategoryMap[category.id] || [];
+      subCategories.forEach((subCategory) => {
+        const subCategoryIndex = this.selectedSubCategories.indexOf(
+          subCategory.id
+        );
+        if (subCategoryIndex !== -1) {
+          this.selectedSubCategories.splice(subCategoryIndex, 1);
+        }
+      });
+    }
+  }
+
+  isSubCategorySelected(subCategoryId: number) {
+    return this.selectedSubCategories.includes(subCategoryId);
+  }
+
+  toggleSubCategorySelection(subCategory: any) {
+    const index = this.selectedSubCategories.indexOf(subCategory.id);
+    if (index === -1) {
+      this.selectedSubCategories.push(subCategory.id);
+    } else {
+      this.selectedSubCategories.splice(index, 1);
+    }
+  }
+
+  deleteSelectedCategories() {
+    if (this.selectedParentCategories.length > 0) {
+      this.selectedParentCategories.forEach((parentCategoryId) => {
+        this.deleteParentCategory(parentCategoryId);
+        const categoriesToDelete = this.categoryMap[parentCategoryId] || [];
+        categoriesToDelete.forEach((category) => {
+          this.deleteCategory(category.id);
+          const subCategoriesToDelete = this.subCategoryMap[category.id] || [];
+          subCategoriesToDelete.forEach((subCategory) => {
+            this.deleteSubCategory(subCategory.id);
+          });
+        });
+      });
+      this.showNotification("Parent category deleted successfully");
+      this.selectedParentCategories = [];
+      this.selectedCategories = [];
+      this.selectedSubCategories = [];
+    } else {
+      if (this.selectedCategories.length > 0) {
+        this.selectedCategories.forEach((categoryId) => {
+          this.deleteCategory(categoryId);
+          const subCategoriesToDelete = this.subCategoryMap[categoryId] || [];
+          subCategoriesToDelete.forEach((subCategory) => {
+            this.deleteSubCategory(subCategory.id);
+          });
+        });
+        this.showNotification("Category deleted successfully");
+        this.selectedCategories = [];
+        this.selectedSubCategories = [];
+      } else if (this.selectedSubCategories.length > 0) {
+        this.selectedSubCategories.forEach((subCategoryId) => {
+          this.deleteSubCategory(subCategoryId);
+        });
+        this.showNotification("Subcategory deleted successfully");
+        this.selectedSubCategories = [];
+      }
+    }
+  }
+
+  deleteParentCategory(parentId: any) {
+    this.masterService
+      .removeParentCategory(parentId)
+      .subscribe((data: any) => {});
+  }
+  deleteCategory(categoryId: any) {
+    this.masterService.removeCategory(categoryId).subscribe((data: any) => {});
+  }
+  deleteSubCategory(subCategoryId: any) {
+    this.masterService
+      .removeSubCategory(subCategoryId)
+      .subscribe((data: any) => {});
   }
 
   onSubParentCategoryChange(parentCategoryId: number) {
@@ -334,13 +494,13 @@ export class AdminDashboardComponent {
       });
   }
 
-  onSubCategoryChange(subCategoryId: number) {
-    this.masterService
-      .getBrandBySubCategoryId(subCategoryId)
-      .subscribe((data: any) => {
-        this.brands = data;
-      });
-  }
+  // onSubCategoryChange(subCategoryId: number) {
+  //   this.masterService
+  //     .getBrandBySubCategoryId(subCategoryId)
+  //     .subscribe((data: any) => {
+  //       this.brands = data;
+  //     });
+  // }
 
   allowOnlyNumbers(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -439,6 +599,11 @@ export class AdminDashboardComponent {
     this.masterService
       .getCategoryByParentCategoryId(parentCategoryId)
       .subscribe((data: any) => {
+        this.categoryMap[parentCategoryId] = data.map((category: any) => ({
+          ...category,
+          expanded: false,
+          completed: false,
+        }));
         data.forEach((category: any) => {
           this.getSubCategoryByCategoryId(category.id);
           this.getBrandsByCategoryId(category.id);
@@ -450,6 +615,10 @@ export class AdminDashboardComponent {
     this.masterService
       .getSubCategoryByCategoryId(categoryId)
       .subscribe((data: any) => {
+        this.subCategoryMap[categoryId] = data.map((subCategory: any) => ({
+          ...subCategory,
+          completed: false,
+        }));
         data.forEach((subCategory: any) => {
           this.getBrandsBySubCategoryId(subCategory.id);
         });
@@ -595,6 +764,7 @@ export class AdminDashboardComponent {
     this.showColors = false;
     this.showProduct = false;
     this.showOrders = false;
+    this.showDeleteCategories = false;
   }
 
   toggleSection(section: string) {
@@ -612,6 +782,9 @@ export class AdminDashboardComponent {
         break;
       case "product":
         this.showProduct = true;
+        break;
+      case "delete-categories":
+        this.showDeleteCategories = true;
         break;
       default:
         break;

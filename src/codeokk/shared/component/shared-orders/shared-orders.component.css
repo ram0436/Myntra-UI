@@ -71,8 +71,71 @@
   font-size: 14px;
 }
 
+.owner-details {
+  position: relative;
+}
+
+.address-details {
+  position: absolute;
+  bottom: -164px;
+  left: -5px;
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+  padding: 7px;
+  min-width: 125px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.08);
+  display: none;
+}
+
+.address-details div {
+  font-size: 13px;
+}
+
+.address-details .owner-name {
+  font-weight: bold;
+}
+
+.arrow-up {
+  position: absolute;
+  top: -9px;
+  left: 17%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  z-index: 1001;
+}
+
+.address-details .arrow-up::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border: 1px solid #d7d7d7;
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  z-index: -1;
+}
+
 .owner-details .name {
   color: rgb(255, 63, 108);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.owner-details:hover .address-details {
+  display: block;
+}
+
+.owner-details .name span {
+  font-size: 20px;
 }
 
 .order-details .bottom {
@@ -99,6 +162,7 @@ h2 {
   margin-bottom: 10px;
   display: flex;
   gap: 20px;
+  width: 100%;
 }
 
 .bottom .product-details .img-container {
@@ -173,6 +237,7 @@ h2 {
 
 .admin-orders {
   padding: 0px;
+  width: 115%;
 }
 
 .admin-orders-container {

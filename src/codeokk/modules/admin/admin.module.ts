@@ -15,6 +15,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatSelectModule } from "@angular/material/select";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import {
   MatAutocomplete,
   MatAutocompleteModule,
@@ -49,6 +50,7 @@ import { SharedModule } from "src/codeokk/shared/shared.module";
     MatProgressBarModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
   ],
 })
 export class AdminModule {}

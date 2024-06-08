@@ -15,7 +15,14 @@
               [class.active]="selectedSection === 'categories'"
               (click)="toggleSection('categories')"
             >
-              Manage Categories
+              Add Categories
+            </div>
+            <div
+              class="section"
+              [class.active]="selectedSection === 'delete-categories'"
+              (click)="toggleSection('delete-categories')"
+            >
+              Delete Categories
             </div>
             <div
               class="section"
@@ -161,6 +168,83 @@
           </form>
         </mat-card-content>
       </div>
+      <div class="manage-categories" *ngIf="showDeleteCategories">
+        <div class="heading">
+          <h2>Delete Categories</h2>
+        </div>
+        <mat-card-content class="delete-section">
+          <section *ngFor="let parentCategory of parentCategories">
+            <div
+              class="toggle-section"
+              (click)="toggleParentCategory(parentCategory)"
+              [ngClass]="{
+                expanded: isParentCategoryExpanded(parentCategory.id)
+              }"
+            >
+              <span class="toggle-heading">
+                {{ parentCategory.name }}
+              </span>
+              <span class="material-icons-outlined expand-icon">
+                {{
+                  isParentCategoryExpanded(parentCategory.id)
+                    ? "expand_more"
+                    : "chevron_right"
+                }}
+              </span>
+            </div>
+            <div
+              [ngClass]="{
+                hidden: !isParentCategoryExpanded(parentCategory.id)
+              }"
+              class="selection-section"
+            >
+              <span class="example-list-section">
+                <mat-checkbox
+                  class="example-margin"
+                  [checked]="isParentCategorySelected(parentCategory.id)"
+                  (change)="toggleParentCategorySelection(parentCategory)"
+                >
+                  {{ parentCategory.name }}
+                </mat-checkbox>
+              </span>
+              <span class="example-list-section">
+                <ul>
+                  <li *ngFor="let category of categoryMap[parentCategory.id]">
+                    <mat-checkbox
+                      class="example-margin"
+                      [checked]="isCategorySelected(category.id)"
+                      (change)="toggleCategorySelection(category)"
+                    >
+                      {{ category.name }}
+                    </mat-checkbox>
+                    <ul>
+                      <li
+                        *ngFor="let subCategory of subCategoryMap[category.id]"
+                      >
+                        <mat-checkbox
+                          class="example-margin"
+                          [checked]="isSubCategorySelected(subCategory.id)"
+                          (change)="toggleSubCategorySelection(subCategory)"
+                        >
+                          {{ subCategory.name }}
+                        </mat-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </section>
+          <button
+            mat-raised-button
+            color="primary"
+            class="send-feedback"
+            (click)="deleteSelectedCategories()"
+          >
+            Delete
+          </button>
+        </mat-card-content>
+      </div>
 
       <div class="manage-brands" *ngIf="showBrands">
         <div class="heading">
@@ -179,17 +263,6 @@
                 [(ngModel)]="brandName"
               />
             </mat-form-field>
-            <!-- <mat-form-field>
-              <mat-label>Select Sub Category</mat-label>
-              <mat-select [(ngModel)]="brandCategoryId" name="brandCategoryId">
-                <mat-option
-                  *ngFor="let subCategory of brandSubCategories"
-                  [value]="subCategory.id"
-                >
-                  {{ subCategory.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> -->
             <button
               mat-raised-button
               color="primary"
