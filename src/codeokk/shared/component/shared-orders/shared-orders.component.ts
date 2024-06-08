@@ -39,7 +39,7 @@ export class SharedOrdersComponent {
     if (!text || text.length <= maxLength) {
       return text;
     }
-    return text.substring(0, maxLength) + '...';
+    return text.substring(0, maxLength) + "...";
   }
 
   getAllOrders() {
@@ -59,19 +59,26 @@ export class SharedOrdersComponent {
   populateOrderedProducts() {
     this.orders.forEach((order) => {
       let orderedProds: any[] = [];
-      order.productOrderMapping.forEach((mapping: any) => {
-        this.productService
-          .getProductByProductId(mapping.productId)
-          .subscribe((product: any) => {
-            this.userService
-              .getProductImageByProductId(mapping.productId)
-              .subscribe((imageData: any) => {
-                product[0].imageURL = imageData.imageURL;
-                orderedProds.push(product);
+      this.userService
+        .getAddressByUserId(order.createdBy)
+        .subscribe((addressData: any) => {
+          const address = addressData[0];
+          order.address = address;
+          order.productOrderMapping.forEach((mapping: any) => {
+            this.productService
+              .getProductByProductId(mapping.productId)
+              .subscribe((product: any) => {
+                this.userService
+                  .getProductImageByProductId(mapping.productId)
+                  .subscribe((imageData: any) => {
+                    product[0].imageURL = imageData.imageURL;
+                    orderedProds.push(product);
+                    console.log(orderedProds);
+                  });
               });
           });
-      });
-      this.orderedProducts.push(orderedProds);
+          this.orderedProducts.push(orderedProds);
+        });
     });
   }
 

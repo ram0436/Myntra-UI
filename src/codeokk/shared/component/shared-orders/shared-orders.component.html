@@ -23,13 +23,21 @@
                 <span class="amount title-desc">₹{{ order.totalAmount }}</span>
               </div>
               <div class="owner-details flex-col">
-                <span class="title">Created By</span>
-                <span class="name title-desc" *ngIf="!this.adminRoute">{{
-                  getOrderCreatorName(order.createdBy)
-                }}</span>
-                <span class="name title-desc" *ngIf="this.adminRoute"
-                  >Name</span
-                >
+                <span class="title">Shipped To</span>
+                <span class="name title-desc">
+                  <div>{{ order.address.userName }}</div>
+                  <span class="material-icons-outlined">expand_more</span>
+                </span>
+                <div class="address-details">
+                  <div class="arrow-up"></div>
+                  <div class="owner-name">{{ order.address.userName }}</div>
+                  <div class="local-area">{{ order.address.localArea }}</div>
+                  <div class="town">{{ order.address.town }}</div>
+                  <div class="city">{{ order.address.city }}</div>
+                  <div class="state">{{ order.address.state }}</div>
+                  <div class="pincode">{{ order.address.pincode }}</div>
+                  <div class="pincode">{{ order.address.mobileNo }}</div>
+                </div>
               </div>
             </div>
             <div class="right"></div>

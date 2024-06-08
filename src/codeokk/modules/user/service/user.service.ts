@@ -137,29 +137,6 @@ export class UserService {
     };
   }
 
-  // setPriceDetails(
-  //   selectedCount: number,
-  //   totalMRP: number,
-  //   totalDiscount: number,
-  //   totalAmount: number
-  // ) {
-  //   const priceDetails = {
-  //     selectedCount,
-  //     totalMRP,
-  //     totalDiscount,
-  //     totalAmount,
-  //   };
-  //   localStorage.setItem(this.priceDetailsKey, JSON.stringify(priceDetails));
-  // }
-
-  // getPriceDetails() {
-  //   const priceDetailsString = localStorage.getItem(this.priceDetailsKey);
-  //   if (priceDetailsString) {
-  //     return JSON.parse(priceDetailsString);
-  //   }
-  //   return null;
-  // }
-
   setUserData(data: { name: string; mobile: string }) {
     localStorage.setItem(this.userDataKey, JSON.stringify(data));
   }

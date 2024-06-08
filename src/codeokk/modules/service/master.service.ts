@@ -20,9 +20,9 @@ export class MasterService {
     return this.http.get(`${this.baseUrl}/Master/GetAllParentCategory`);
   }
 
-getAllBrands() {
-  return this.http.get(`${this.baseUrl}/Master/GetAllBrand`);
-}
+  getAllBrands() {
+    return this.http.get(`${this.baseUrl}/Master/GetAllBrand`);
+  }
 
   getAllColors() {
     return this.http.get(`${this.baseUrl}/Master/GetAllColor`);
@@ -39,6 +39,24 @@ getAllBrands() {
   getBrandBySubCategoryId(subCategoryId: number) {
     return this.http.get(
       `${this.baseUrl}/Master/GetBrandBySubCategoryId?subCategoryId=${subCategoryId}`
+    );
+  }
+
+  removeParentCategory(parentCategoryId: number) {
+    return this.http.delete(
+      `${this.baseUrl}/Master/RemoveParentCategoryId?parentCategoryId=${parentCategoryId}`
+    );
+  }
+
+  removeCategory(categoryId: number) {
+    return this.http.delete(
+      `${this.baseUrl}/Master/RemoveCategoryId?categoryId=${categoryId}`
+    );
+  }
+
+  removeSubCategory(subCategoryId: number) {
+    return this.http.delete(
+      `${this.baseUrl}/Master/RemoveSubCategoryById?subCategoryId=${subCategoryId}`
     );
   }
 
