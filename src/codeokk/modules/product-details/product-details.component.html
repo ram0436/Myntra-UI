@@ -1,5 +1,5 @@
 <div class="product-details-container">
-  <div class="image-container">
+  <div class="image-container display-lg">
     <ng-container
       *ngFor="let image of productDetails?.productImageList; let i = index"
     >
@@ -9,13 +9,47 @@
           alt="Product Image {{ i + 1 }}"
         />
       </div>
+      <span class="material-icons-outlined prev-img-icon img-nav-icon">
+        navigate_before
+      </span>
+      <span class="material-icons-outlined next-img-icon img-nav-icon">
+        navigate_next
+      </span>
+
       <div
-        class="img-grid"
+        class="img-grid display-lg"
         *ngIf="productDetails?.productImageList.length === 1"
       >
         <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
       </div>
     </ng-container>
+  </div>
+  <div class="image-container display-md">
+    <div class="img-grid">
+      <img
+        [src]="currentImage.imageURL || 'assets/no-img.png'"
+        alt="Product Image {{ currentIndex + 1 }}"
+      />
+      <span class="img-count">
+        <span class="material-icons-outlined"> photo_camera </span>
+        <span class="count"
+          >{{ currentIndex + 1 }} of
+          {{ productDetails?.productImageList.length }}</span
+        >
+      </span>
+    </div>
+    <span
+      class="material-icons-outlined prev-img-icon img-nav-icon"
+      (click)="showPrevImage()"
+    >
+      navigate_before
+    </span>
+    <span
+      class="material-icons-outlined next-img-icon img-nav-icon"
+      (click)="showNextImage()"
+    >
+      navigate_next
+    </span>
   </div>
   <div
     class="image-container"
@@ -24,7 +58,7 @@
     <div class="img-grid">
       <img [src]="'assets/no-img.png'" alt="Product Image" />
     </div>
-    <div class="img-grid">
+    <div class="img-grid display-lg">
       <img [src]="'assets/no-img.png'" alt="Product Image" />
     </div>
   </div>
@@ -161,81 +195,6 @@
               100% Cotton<br />Machine Wash
             </p>
           </div>
-          <!-- <div class="index-sizeFitDesc">
-            <h4 class="index-sizeFitDescTitle index-product-description-title">
-              Specifications
-            </h4>
-            <div class="index-tableContainer">
-              <div class="index-row">
-                <div class="index-rowKey">Fabric</div>
-                <div class="index-rowValue">Cotton</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Fit</div>
-                <div class="index-rowValue">Oversized</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Length</div>
-                <div class="index-rowValue">Regular</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Main Trend</div>
-                <div class="index-rowValue">Graphic Print Others</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Multipack Set</div>
-                <div class="index-rowValue">Single</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Neck</div>
-                <div class="index-rowValue">Round Neck</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Number of Items</div>
-                <div class="index-rowValue">1</div>
-              </div>
-              <div class="index-row">
-                <div class="index-rowKey">Occasion</div>
-                <div class="index-rowValue">Casual</div>
-              </div>
-            </div>
-            <div>
-              <div class="index-tableContainer">
-                <div class="index-row">
-                  <div class="index-rowKey">Pattern</div>
-                  <div class="index-rowValue">Printed</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Pattern Coverage</div>
-                  <div class="index-rowValue">Placement</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Print or Pattern Type</div>
-                  <div class="index-rowValue">Graphic</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sleeve Length</div>
-                  <div class="index-rowValue">Short Sleeves</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sleeve Styling</div>
-                  <div class="index-rowValue">Drop-Shoulder Sleeves</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Sustainable</div>
-                  <div class="index-rowValue">Regular</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Wash Care</div>
-                  <div class="index-rowValue">Machine Wash</div>
-                </div>
-                <div class="index-row">
-                  <div class="index-rowKey">Weave Type</div>
-                  <div class="index-rowValue">Knitted</div>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
       <div>
@@ -323,15 +282,17 @@
                 <li>
                   <h4>Manufacturer Details</h4>
                   <p>
-                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
-                    Nagar, 1st Street,Tirupur - 641604.
+                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi
+                    <br class="display-sm" />Sathyamurthy Nagar, 1st
+                    Street,Tirupur - 641604.
                   </p>
                 </li>
                 <li>
                   <h4>Packer Details</h4>
                   <p>
-                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi Sathyamurthy
-                    Nagar, 1st Street,Tirupur - 641604.
+                    DSK Hospital,No-17/39,Kangayam Road,Amarjothi
+                    <br class="display-sm" />Sathyamurthy Nagar, 1st
+                    Street,Tirupur - 641604.
                   </p>
                 </li>
                 <li>
@@ -493,24 +454,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="mrp-verbiage">
-          <div>
-            <b>Price Details</b>
-          </div>
-          <div>
-            Maximum Retail Price
-            <span class="mrp-verbiage-amt">Rs. 999</span>
-          </div>
-          <div>(Incl. of all taxes)</div>
-          <hr />
-          <div>
-            Discount
-            <span class="mrp-verbiage-amt">45% OFF</span>
-          </div>
-          <div>
-            <b>Selling Price</b>
-            <span class="mrp-verbiage-amt">Rs. 549</span>
-          </div>
-          <div style="margin: 0px">(Incl. of all taxes)</div>
-        </div> -->

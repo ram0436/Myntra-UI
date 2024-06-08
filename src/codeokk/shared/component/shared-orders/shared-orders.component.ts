@@ -35,6 +35,13 @@ export class SharedOrdersComponent {
     }
   }
 
+  truncateText(text: string, maxLength: number): string {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '...';
+  }
+
   getAllOrders() {
     this.userService.getAllOrders().subscribe((data: any) => {
       this.orders = data.reverse();
