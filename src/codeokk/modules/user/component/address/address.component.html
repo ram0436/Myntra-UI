@@ -54,8 +54,12 @@
                 </div>
               </div>
               <div class="address-btns">
-                <button class="address-remove">Remove</button>
-                <button class="address-edit">Edit</button>
+                <button
+                  class="address-remove"
+                  (click)="removeAddressById(address.id)"
+                >
+                  Remove
+                </button>
               </div>
             </div>
           </div>
