@@ -95,6 +95,13 @@ export class AddressComponent {
       });
   }
 
+  removeAddressById(addressId: any) {
+    this.userService.removeAddressById(addressId).subscribe((data: any) => {
+      this.showNotification("Address Removed Successfully");
+      this.getAddressByUserId();
+    });
+  }
+
   allowOnlyNumbers(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const inputValue = inputElement.value;

@@ -215,6 +215,12 @@ export class UserService {
     );
   }
 
+  removeAddressById(id: any) {
+    return this.httpClient.delete(
+      `${this.baseUrl}User/RemoveAddressById?addressId=${id}`
+    );
+  }
+
   getCartItemByUserId(userId: any) {
     return this.httpClient.get(
       `${this.baseUrl}User/GetCartItemByUserId?userId=${userId}`
