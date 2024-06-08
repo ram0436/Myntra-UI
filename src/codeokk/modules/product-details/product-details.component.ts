@@ -21,6 +21,8 @@ export class ProductDetailsComponent {
   dialogRef: MatDialogRef<any> | null = null;
   isUserLogedIn: boolean = false;
 
+  currentIndex = 0;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -36,6 +38,22 @@ export class ProductDetailsComponent {
     });
     if (productCode != null) {
       this.getPostDetails(productCode);
+    }
+  }
+
+  get currentImage() {
+    return this.productDetails.productImageList[this.currentIndex];
+  }
+
+  showNextImage() {
+    if (this.currentIndex < this.productDetails.productImageList.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
+  showPrevImage() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
     }
   }
 

@@ -63,7 +63,10 @@
                   >
                     {{ product.name }}
                   </div>
-                  <span class="product-desc">{{ product.description }}</span>
+                  <span class="product-desc">{{
+                    truncateText(product.description, 30)
+                  }}</span>
+
                   <div class="return-status">
                     Return window will close after 3 days of delivery
                   </div>

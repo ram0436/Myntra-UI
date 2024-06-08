@@ -267,3 +267,44 @@ mat-form-field {
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 1180px) {
+  .d-flex {
+    width: 75%;
+  }
+}
+
+@media (max-width: 920px) {
+  .d-flex {
+    width: 95%;
+  }
+
+  .sections {
+    width: 25%;
+  }
+}
+
+@media (max-width: 620px) {
+  .adds-container {
+    padding-left: 0px;
+  }
+}
+
+@media (max-width: 520px) {
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .sections {
+    width: 95%;
+    height: 210px;
+  }
+
+  .section-content {
+    width: 100%;
+  }
+
+  .form {
+    width: 100%;
+  }
+}

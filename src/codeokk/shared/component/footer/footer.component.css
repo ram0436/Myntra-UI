@@ -35,13 +35,11 @@ ul li {
 }
 
 .link-list .list .list-item {
-  width: auto;
-  flex: 1;
+  width: 19%;
 }
 
 .link-list .list .last-list-item {
-  width: auto;
-  flex: 1.5;
+  width: 35%;
   margin-top: -11px;
 }
 
@@ -207,7 +205,9 @@ ul li {
 }
 
 .follow-us-section {
-  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .follow-us-section .follow-text {
@@ -226,6 +226,12 @@ ul li {
 @media (max-width: 1272px) {
   .link-list .list {
     justify-content: start;
+  }
+}
+
+@media (max-width: 1020px) {
+  .footer {
+    padding: 80px 40px 60px 40px;
   }
 }
 
