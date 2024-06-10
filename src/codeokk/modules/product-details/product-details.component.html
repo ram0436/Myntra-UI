@@ -5,16 +5,10 @@
     >
       <div class="img-grid">
         <img
-          [src]="image.imageURL || 'assets/no-img.png'"
+          [src]="image?.imageURL || 'assets/no-img.png'"
           alt="Product Image {{ i + 1 }}"
         />
       </div>
-      <span class="material-icons-outlined prev-img-icon img-nav-icon">
-        navigate_before
-      </span>
-      <span class="material-icons-outlined next-img-icon img-nav-icon">
-        navigate_next
-      </span>
 
       <div
         class="img-grid display-lg"
@@ -27,7 +21,7 @@
   <div class="image-container display-md">
     <div class="img-grid">
       <img
-        [src]="currentImage.imageURL || 'assets/no-img.png'"
+        [src]="currentImage?.imageURL || 'assets/no-img.png'"
         alt="Product Image {{ currentIndex + 1 }}"
       />
       <span class="img-count">
@@ -68,17 +62,6 @@
       <h1 class="desc-name">
         {{ productDetails?.name }}
       </h1>
-      <!-- <mat-form-field>
-        <mat-label>Message</mat-label>
-        <textarea
-          matInput
-          placeholder="Message"
-          type="text"
-          name="message"
-          rows="3"
-        ></textarea>
-        <mat-icon matSuffix>receipt</mat-icon>
-      </mat-form-field> -->
       <div>
         <div class="overall-rating-container">
           <div class="overall-rating">
@@ -197,6 +180,98 @@
           </div>
         </div>
       </div>
+      <div class="ratings-section">
+        <div class="detailed-rating-container">
+          <div class="rating-header">
+            <div class="title">Reviews & Ratings</div>
+            <span class="material-icons-outlined top-rating-icon">
+              hotel_class
+            </span>
+          </div>
+          <div class="detailed-rating">
+            <div class="flex-column">
+              <div class="average-rating">
+                <span>{{ parseAverageRating() }}</span>
+                <span class="material-icons-outlined star-icon"> star </span>
+              </div>
+              <div class="count-desc">{{ totalRatings }} Verified Buyers</div>
+            </div>
+            <div class="index-separator"></div>
+            <div style="width: 40%">
+              <div
+                class="rating-bar-container"
+                *ngFor="let rating of ratingDistribution; let i = index"
+              >
+                <div class="rating">
+                  <span class="rating-level">{{ 5 - i }}</span>
+                  <span class="material-icons-outlined star-icon"> star </span>
+                </div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="rating.percentage"
+                ></mat-progress-bar>
+                <div class="index-count">{{ rating.count }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="details-review-headline">
+          Customer Reviews ({{ reviewsData.length }})
+        </div>
+        <div class="user-reviews-container">
+          <div *ngFor="let review of reviewsData; let i = index">
+            <div class="user-review-wrapper" *ngIf="i < 2 || showAllReviews">
+              <div class="user-review-show-rating user-review-main">
+                <div class="star-wrapper">
+                  <div class="review-five-stars">{{ review.rating }}</div>
+                  <span class="material-icons-outlined star-icon"> star </span>
+                </div>
+                <div class="text-wrapper">{{ review.review }}</div>
+              </div>
+              <div class="user-review-footer user-review-show-rating">
+                <div class="user-review-left">
+                  <span>User</span>
+                  <span>{{ formatDate(review.createdOn) }}</span>
+                </div>
+                <div>
+                  <div class="user-review-votes">
+                    <div class="user-review-thumb">
+                      <div class="action">
+                        <span class="material-icons-outlined thumb-icon">
+                          thumb_up
+                        </span>
+                        <span>14</span>
+                      </div>
+                    </div>
+                    <div class="user-review-thumb">
+                      <div class="action">
+                        <span class="material-icons-outlined thumb-icon">
+                          thumb_down
+                        </span>
+                        <span>4</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="view-all-reviews"
+          *ngIf="reviewsData.length > 2 && !showAllReviews"
+        >
+          <a class="detailed-reviews-allReviews" (click)="toggleReviews()">
+            See All Reviews
+          </a>
+        </div>
+        <div class="view-all-reviews" *ngIf="showAllReviews">
+          <a class="detailed-reviews-allReviews" (click)="toggleReviews()">
+            Showw Less Reviews
+          </a>
+        </div>
+      </div>
+
       <div>
         <div class="pincode-checkServiceAbilityhalfCard">
           <div class="pincode-deliveryContainer">

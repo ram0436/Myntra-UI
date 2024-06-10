@@ -25,18 +25,80 @@
               <div class="owner-details flex-col">
                 <span class="title">Shipped To</span>
                 <span class="name title-desc">
-                  <div>{{ order.address.userName }}</div>
+                  <div>{{ order.address?.userName }}</div>
                   <span class="material-icons-outlined">expand_more</span>
                 </span>
                 <div class="address-details">
                   <div class="arrow-up"></div>
-                  <div class="owner-name">{{ order.address.userName }}</div>
-                  <div class="local-area">{{ order.address.localArea }}</div>
-                  <div class="town">{{ order.address.town }}</div>
-                  <div class="city">{{ order.address.city }}</div>
-                  <div class="state">{{ order.address.state }}</div>
-                  <div class="pincode">{{ order.address.pincode }}</div>
-                  <div class="pincode">{{ order.address.mobileNo }}</div>
+                  <div class="owner-name">{{ order.address?.userName }}</div>
+                  <div class="local-area">{{ order.address?.localArea }}</div>
+                  <div class="town">{{ order.address?.town }}</div>
+                  <div class="city">{{ order.address?.city }}</div>
+                  <div class="state">{{ order.address?.state }}</div>
+                  <div class="pincode">{{ order.address?.pincode }}</div>
+                  <div class="pincode">{{ order.address?.mobileNo }}</div>
+                </div>
+              </div>
+              <div class="add-ratings flex-col">
+                <span
+                  class="title-desc ratings-txt"
+                  (click)="toggleModal($event, order.productOrderMapping)"
+                  >Give Ratings</span
+                >
+                <div *ngIf="showModal" class="Modal-modalContent d-block">
+                  <div class="Modal-modalDialog">
+                    <div class="details-details">
+                      <span
+                        class="material-icons-outlined myntraweb-sprite Address-close-button close-icon sprites-remove"
+                        (click)="toggleModal($event)"
+                        >clear</span
+                      >
+                      <div class="feedback-top">
+                        <h3>Give Ratings</h3>
+                        <p class="feedback-top-text">
+                          Your opinion is important to improve product services
+                          & user experience.
+                        </p>
+                      </div>
+                      <mat-card-content>
+                        <form class="message-form">
+                          <div class="ratings-stars">
+                            <app-star-rating
+                              (ratingSelected)="handleRatingSelected($event)"
+                            ></app-star-rating>
+                          </div>
+                          <mat-form-field>
+                            <mat-label>Message</mat-label>
+                            <textarea
+                              matInput
+                              placeholder="Write your review"
+                              type="text"
+                              name="message"
+                              [(ngModel)]="message"
+                              rows="3"
+                            ></textarea>
+                            <!-- <mat-icon matSuffix>receipt</mat-icon> -->
+                          </mat-form-field>
+                          <p class="failure-message" *ngIf="validRatingMessage">
+                            <span class="material-icons-outlined">
+                              report
+                            </span>
+                            Message is required*
+                          </p>
+                          <button
+                            width="100%"
+                            letterspacing="1px"
+                            font-weight="bold"
+                            role="button"
+                            class="css-cilza6"
+                            (click)="onSubmit()"
+                          >
+                            Submit
+                          </button>
+                        </form>
+                      </mat-card-content>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

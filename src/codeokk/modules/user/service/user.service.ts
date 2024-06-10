@@ -227,6 +227,16 @@ export class UserService {
     );
   }
 
+  GetRatingReviewByProductId(userId: any) {
+    return this.httpClient.get(
+      `${this.baseUrl}User/GetRatingReviewByProductId?productId=${userId}`
+    );
+  }
+
+  addUserReview(payload: any) {
+    return this.httpClient.post(`${this.baseUrl}User/AddRatingReview`, payload);
+  }
+
   sendLoginOTP(
     mobileNumber: string,
     ipAddress: string,

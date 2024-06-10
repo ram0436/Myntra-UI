@@ -1,0 +1,23 @@
+.rating-star {
+  font-size: 27px;
+  color: #ff3f6c;
+  margin-right: 0px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.star {
+  margin-top: 5.5px;
+  color: rgb(146, 146, 146);
+  cursor: pointer;
+  color: gray;
+  font-size: 21px;
+}
+
+.checked {
+  color: #ff3f6c;
+}
+
+mat-icon {
+  cursor: pointer;
+}

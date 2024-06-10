@@ -6,6 +6,8 @@ import {
   Input,
   Output,
   Renderer2,
+  OnChanges,
+  SimpleChanges,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "../../service/product.service";
@@ -20,6 +22,8 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
   styleUrls: ["./post-cards.component.css"],
 })
 export class PostCardsComponent {
+  ratingsMap: Map<string, { averageRating: number; totalRatings: number }> =
+    new Map();
   isScreenSmall: boolean = false;
   @Input() products: any;
   @Output() itemRemovedFromWishlist = new EventEmitter<void>();
@@ -67,6 +71,12 @@ export class PostCardsComponent {
 
   ngOnInit() {
     this.checkScreenWidth();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["products"] && changes["products"].currentValue) {
+      this.fetchReviewsData();
+    }
   }
 
   @HostListener("window:resize", ["$event"])
@@ -200,6 +210,35 @@ export class PostCardsComponent {
     if (this.currentPage < totalPages) {
       this.currentPage++;
     }
+  }
+
+  fetchReviewsData() {
+    for (const product of this.products) {
+      this.userService.GetRatingReviewByProductId(product.id).subscribe(
+        (data: any) => {
+          product.reviewsData = data;
+          this.calculateAverageRating(product);
+        },
+        (error) => {
+          console.error("Error fetching reviews data:", error);
+        }
+      );
+    }
+  }
+
+  calculateAverageRating(product: any) {
+    const totalReviews = product.reviewsData.length;
+    let totalRating = 0;
+
+    for (const review of product.reviewsData) {
+      totalRating += review.rating;
+    }
+
+    const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+    this.ratingsMap.set(product.id, {
+      averageRating: averageRating,
+      totalRatings: totalReviews,
+    });
   }
 
   toggleModal(event: Event, product?: any) {
