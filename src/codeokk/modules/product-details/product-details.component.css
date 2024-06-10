@@ -49,7 +49,7 @@
   margin-top: 0;
   margin-bottom: 0;
   color: #535665;
-  padding: 5px 20px 14px 0;
+  padding: 5px 20px 4px 0;
   font-size: 20px;
   opacity: 0.8;
   font-weight: 400;
@@ -1011,6 +1011,18 @@ div.details-details {
   font-size: 12px;
   color: #282c3f;
   margin-left: 9px;
+}
+
+.rating-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+.rating-wrapper .star-rating-count {
+  color: #666;
+  margin-top: 3px;
 }
 
 .details-review-headline {

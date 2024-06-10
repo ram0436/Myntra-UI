@@ -63,13 +63,15 @@
         {{ productDetails?.name }}
       </h1>
       <div>
-        <div class="overall-rating-container">
-          <div class="overall-rating">
-            <div>4.3</div>
-            <span class="material-icons-outlined star-icon"> star </span>
-            <div class="separator">|</div>
-            <div class="ratings-count">1.3k Ratings</div>
+        <div class="rating-wrapper">
+          <div class="star-ratings">
+            <app-star-rating
+              [readOnly]="true"
+              [readOnly]="true"
+              [selectedStar]="parseAverageRating() || 0"
+            ></app-star-rating>
           </div>
+          <span class="star-rating-count">({{ totalRatings || 0 }})</span>
         </div>
         <p class="discount-container">
           <span class="price">
@@ -267,7 +269,7 @@
         </div>
         <div class="view-all-reviews" *ngIf="showAllReviews">
           <a class="detailed-reviews-allReviews" (click)="toggleReviews()">
-            Showw Less Reviews
+            Show Less Reviews
           </a>
         </div>
       </div>
