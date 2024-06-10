@@ -23,6 +23,13 @@ export class ProductDetailsComponent {
 
   currentIndex = 0;
 
+  reviewsData: any[] = [];
+  averageRating: number = 0;
+  totalRatings: number = 0;
+  ratingDistribution: { level: number; count: number; percentage: number }[] =
+    [];
+  showAllReviews: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -41,8 +48,65 @@ export class ProductDetailsComponent {
     }
   }
 
+  getRatingData(productId: any) {
+    this.userService.GetRatingReviewByProductId(productId).subscribe(
+      (data: any) => {
+        this.reviewsData = data;
+        this.calculateAverageAndTotalRatings();
+        this.calculateRatingDistribution();
+      },
+      (error: any) => {}
+    );
+  }
+
+  calculateAverageAndTotalRatings() {
+    if (this.reviewsData.length > 0) {
+      this.totalRatings = this.reviewsData.length;
+
+      const sumOfRatings = this.reviewsData.reduce(
+        (total, review) => total + review.rating,
+        0
+      );
+      this.averageRating = sumOfRatings / this.totalRatings;
+    }
+  }
+
+  calculateRatingDistribution() {
+    const ratingCounts = [0, 0, 0, 0, 0];
+
+    this.reviewsData.forEach((review) => {
+      if (review.rating >= 1 && review.rating <= 5) {
+        ratingCounts[review.rating - 1]++;
+      }
+    });
+
+    this.ratingDistribution = ratingCounts.map((count, index) => {
+      const percentage = (count / this.totalRatings) * 100;
+      return { level: 5 - index, count, percentage };
+    });
+
+    this.ratingDistribution.reverse();
+  }
+
+  toggleReviews() {
+    this.showAllReviews = !this.showAllReviews;
+  }
+
+  parseAverageRating(): number {
+    return parseFloat(this.averageRating.toFixed(1));
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
   get currentImage() {
-    return this.productDetails.productImageList[this.currentIndex];
+    return this.productDetails?.productImageList[this.currentIndex];
   }
 
   showNextImage() {
@@ -111,6 +175,7 @@ export class ProductDetailsComponent {
         res.description = res.description.replace(/\n/g, "<br/>");
       }
       this.productDetails = res;
+      this.getRatingData(this.productDetails.id);
       // this.isLoading = false;
     });
   }

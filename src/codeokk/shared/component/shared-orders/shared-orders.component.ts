@@ -18,12 +18,23 @@ export class SharedOrdersComponent {
   orderedProducts: any[] = [];
   orders: any[] = [];
   adminRoute: boolean = false;
+  showModal: boolean = false;
+
+  title: string = "";
+  message: string = "";
+
+  validTitleMessage: boolean = false;
+  validRatingMessage: boolean = false;
+  selectedRating: number = 0;
+
+  currentOrderMapping: any[] = [];
 
   constructor(
     private userService: UserService,
     private productService: ProductService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -33,6 +44,52 @@ export class SharedOrdersComponent {
       this.adminRoute = true;
       this.getAllOrders();
     }
+  }
+
+  handleRatingSelected(rating: any) {
+    this.selectedRating = rating;
+  }
+
+  onSubmit() {
+    if (this.message.length === 0) {
+      this.validRatingMessage = true;
+      return;
+    }
+    this.validRatingMessage = false;
+
+    const reviewPromises = this.currentOrderMapping.map((mapping: any) => {
+      const requestBody = {
+        id: 0,
+        review: this.message,
+        createdBy: Number(localStorage.getItem("id")),
+        rating: this.selectedRating,
+        createdOn: new Date().toISOString(),
+        productId: mapping.productId,
+      };
+
+      return this.userService.addUserReview(requestBody).toPromise();
+    });
+
+    Promise.all(reviewPromises)
+      .then((responses) => {
+        this.showNotification("Your rating has been added successfully");
+      })
+      .catch((error) => {
+        this.showNotification("Failed to add rating");
+      })
+      .finally(() => {
+        this.message = "";
+        this.selectedRating = 0;
+        this.showModal = false;
+      });
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, "Close", {
+      duration: 5000,
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
   }
 
   truncateText(text: string, maxLength: number): string {
@@ -73,13 +130,21 @@ export class SharedOrdersComponent {
                   .subscribe((imageData: any) => {
                     product[0].imageURL = imageData.imageURL;
                     orderedProds.push(product);
-                    console.log(orderedProds);
                   });
               });
           });
           this.orderedProducts.push(orderedProds);
         });
     });
+  }
+
+  toggleModal(event: Event, productOrderMapping?: any[]) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.showModal = !this.showModal;
+    if (productOrderMapping) {
+      this.currentOrderMapping = productOrderMapping;
+    }
   }
 
   calculateDeliveryDate(createdOn: string): string {

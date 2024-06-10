@@ -34,7 +34,7 @@
   font-size: 24px;
   color: #000;
   position: absolute;
-  top: -67px;
+  top: -89px;
   right: 0px;
   cursor: pointer;
 }
@@ -163,12 +163,29 @@
   display: block;
 }
 
+.rating-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+.rating-wrapper .star-rating-count {
+  color: #666;
+  margin-top: 3px;
+}
+
+.sales {
+  color: #999;
+  font-size: 13px;
+}
+
 .product-info {
   position: relative;
   z-index: 4;
   padding: 0 8px;
   height: 100%;
-  margin-top: 12px;
+  margin-top: 4px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
@@ -677,7 +694,7 @@ h4 {
   }
 
   .product-options {
-    top: -62px;
+    top: -84px;
   }
 
   /* .products {
