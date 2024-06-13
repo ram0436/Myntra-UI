@@ -30,6 +30,10 @@ export class ProductDetailsComponent {
     [];
   showAllReviews: boolean = false;
 
+  isFullscreen: boolean = false;
+  currentImageUrl: string = "";
+  currentImageIndex: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -48,6 +52,43 @@ export class ProductDetailsComponent {
     }
   }
 
+  openFullscreen(index: number): void {
+    this.currentImageIndex = index;
+    this.currentImageUrl = this.productDetails.productImageList[index].imageURL;
+    this.isFullscreen = true;
+  }
+
+  changeImage(direction: number): void {
+    this.currentImageIndex += direction;
+    if (this.currentImageIndex >= this.productDetails.productImageList.length) {
+      this.currentImageIndex = 0; // Loop to first image
+    }
+    if (this.currentImageIndex < 0) {
+      this.currentImageIndex = this.productDetails.productImageList.length - 1; // Loop to last image
+    }
+    this.currentImageUrl =
+      this.productDetails.productImageList[this.currentImageIndex].imageURL;
+  }
+
+  closeFullscreen(): void {
+    this.isFullscreen = false;
+  }
+
+  showNextImage(): void {
+    if (this.currentIndex < this.productDetails.productImageList.length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0; // Loop to the first image
+    }
+  }
+
+  showPrevImage(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.productDetails.productImageList.length - 1; // Loop to the last image
+    }
+  }
   getRatingData(productId: any) {
     this.userService.GetRatingReviewByProductId(productId).subscribe(
       (data: any) => {
@@ -107,18 +148,6 @@ export class ProductDetailsComponent {
 
   get currentImage() {
     return this.productDetails?.productImageList[this.currentIndex];
-  }
-
-  showNextImage() {
-    if (this.currentIndex < this.productDetails.productImageList.length - 1) {
-      this.currentIndex++;
-    }
-  }
-
-  showPrevImage() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-    }
   }
 
   selectSize(sizeId: number) {

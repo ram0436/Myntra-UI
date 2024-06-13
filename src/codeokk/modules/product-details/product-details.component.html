@@ -3,18 +3,12 @@
     <ng-container
       *ngFor="let image of productDetails?.productImageList; let i = index"
     >
-      <div class="img-grid">
+      <div class="img-grid zoomable">
         <img
           [src]="image?.imageURL || 'assets/no-img.png'"
           alt="Product Image {{ i + 1 }}"
+          (click)="openFullscreen(i)"
         />
-      </div>
-
-      <div
-        class="img-grid display-lg"
-        *ngIf="productDetails?.productImageList.length === 1"
-      >
-        <img [src]="'assets/no-img.png'" alt="Product Image {{ i + 1 }}" />
       </div>
     </ng-container>
   </div>
@@ -23,6 +17,7 @@
       <img
         [src]="currentImage?.imageURL || 'assets/no-img.png'"
         alt="Product Image {{ currentIndex + 1 }}"
+        (click)="openFullscreen(currentIndex)"
       />
       <span class="img-count">
         <span class="material-icons-outlined"> photo_camera </span>
@@ -45,7 +40,21 @@
       navigate_next
     </span>
   </div>
-  <div
+  <div id="fullscreen-viewer" class="fullscreen-viewer" *ngIf="isFullscreen">
+    <div class="viewer-content">
+      <img
+        [src]="currentImageUrl"
+        class="fullscreen-image"
+        alt="Full Screen Image"
+      />
+      <div class="controls">
+        <span class="prev" (click)="changeImage(-1)">&#10094;</span>
+        <span class="next" (click)="changeImage(1)">&#10095;</span>
+      </div>
+      <span class="close" (click)="closeFullscreen()">&times;</span>
+    </div>
+  </div>
+  <!-- <div
     class="image-container"
     *ngIf="productDetails?.productImageList.length === 0"
   >
@@ -55,7 +64,7 @@
     <div class="img-grid display-lg">
       <img [src]="'assets/no-img.png'" alt="Product Image" />
     </div>
-  </div>
+  </div> -->
   <div class="desc-container">
     <div class="price-info">
       <h1 class="desc-title">{{ productDetails?.brand[0].name }}</h1>
