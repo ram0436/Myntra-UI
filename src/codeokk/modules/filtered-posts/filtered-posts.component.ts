@@ -295,6 +295,11 @@ export class FilteredPostsComponent {
       );
     }
 
+    filteredProducts = filteredProducts.filter(
+      (product) =>
+        product.price >= filters.minPrice && product.price <= filters.maxPrice
+    );
+
     this.products = filteredProducts;
 
     // this.productService.getAllProducts().subscribe((res) => {
