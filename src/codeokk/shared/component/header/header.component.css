@@ -126,7 +126,12 @@
   text-transform: uppercase;
 }
 
-.main:hover {
+.main:hover,
+.user-icons:hover {
+  border-bottom: 3px solid #ee5f73;
+}
+
+.hovered {
   border-bottom: 3px solid #ee5f73;
 }
 
@@ -427,10 +432,19 @@ a.submit {
   padding-bottom: 25px;
 }
 
+.user-icons:hover {
+  padding-bottom: 17px;
+}
+
+.user-hovered {
+  border-bottom: 3px solid #ee5f73;
+  padding-bottom: 17px;
+}
+
 .user-actions {
   display: none;
   position: absolute;
-  top: 59px;
+  top: 54px;
   left: -95px;
   background-color: #fff;
   width: 235px;
