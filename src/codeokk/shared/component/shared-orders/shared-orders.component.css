@@ -78,7 +78,7 @@
 
 .address-details {
   position: absolute;
-  bottom: -204px;
+  top: 50px;
   left: -5px;
   background-color: #fff;
   border: 1px solid #d7d7d7;
@@ -100,7 +100,7 @@
 }
 
 .add-ratings {
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 .ratings-txt {
@@ -110,6 +110,10 @@
 
 .address-details .owner-name {
   font-weight: bold;
+}
+
+.order-id {
+  font-size: 13px;
 }
 
 .arrow-up {
@@ -325,6 +329,25 @@ textarea {
   color: red;
 }
 
+@media (max-width: 1358px) {
+  .top .left {
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1254px) {
+  .top .left {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1176px) {
+  .flex-col {
+    width: 30%;
+  }
+}
+
 @media (max-width: 920px) {
   .orders-container {
     width: 70%;
@@ -354,6 +377,10 @@ textarea {
   .top .left {
     gap: 20px;
   }
+
+  .flex-col {
+    width: 28%;
+  }
 }
 
 @media (max-width: 491px) {
@@ -364,6 +391,16 @@ textarea {
   .orders {
     padding-left: 0px;
     padding-right: 0px;
+  }
+}
+
+@media (max-width: 468px) {
+  .top .left {
+    gap: 20px;
+  }
+
+  .flex-col {
+    width: 47%;
   }
 }
 

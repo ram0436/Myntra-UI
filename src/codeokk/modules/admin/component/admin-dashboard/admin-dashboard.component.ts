@@ -132,9 +132,12 @@ export class AdminDashboardComponent {
     });
     this.route.queryParams.subscribe((params) => {
       this.code = params["code"];
-      if (this.code != undefined) {
+      if (this.code !== undefined) {
         this.editRoute = true;
+        this.productPayload.inStock = false;
         this.getProductDetails(this.code);
+      } else {
+        this.productPayload.inStock = true;
       }
     });
   }
@@ -151,6 +154,11 @@ export class AdminDashboardComponent {
     this.productService
       .getProductByProductCode(productCode)
       .subscribe((data: any) => {
+        if (data.brand && data.brand.length > 0) {
+          this.productPayload.productBrandId = data.brand[0].id;
+
+          this.brandCtrl.setValue(data.brand[0]);
+        }
         this.product = data;
         data.productImageList.forEach((image: any, index: any) => {
           this.cardsCount[index] = image.imageURL;
@@ -171,6 +179,7 @@ export class AdminDashboardComponent {
         this.productPayload.productCode = data.productCode;
         this.productPayload.productPrice = data.price;
         this.productPayload.tags = data.tagList || [];
+        this.productPayload.inStock = data.inStock;
         this.productPayload.productImageList = data.productImageList.map(
           (img: any) => ({
             id: img.id,
@@ -240,6 +249,7 @@ export class AdminDashboardComponent {
       discountId: discountId,
       tagList: this.productPayload.tags,
       id: this.product.id || 0,
+      inStock: this.productPayload.inStock,
     };
   }
 
@@ -530,9 +540,9 @@ export class AdminDashboardComponent {
   }
 
   remove(fruit: string): void {
-    const index = this.tags.indexOf(fruit);
+    const index = this.productPayload.tags.indexOf(fruit);
     if (index >= 0) {
-      this.tags.splice(index, 1);
+      this.productPayload.tags.splice(index, 1);
     }
   }
 

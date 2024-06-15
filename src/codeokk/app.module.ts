@@ -31,6 +31,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AdminModule } from "./modules/admin/admin.module";
 import { MatDialogModule } from "@angular/material/dialog";
+import { JwtInterceptor } from "./modules/auth/interceptor/JwtInterceptor";
 
 @NgModule({
   declarations: [
@@ -69,6 +70,10 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatTabsModule,
     MatSnackBarModule,
     MatProgressBarModule,
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

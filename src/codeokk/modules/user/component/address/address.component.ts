@@ -59,11 +59,15 @@ export class AddressComponent {
   }
 
   continuePayment() {
-    this.userService.selectedCount = this.selectedCount;
-    this.userService.totalMRP = this.totalMRP;
-    this.userService.totalDiscount = this.totalDiscount;
-    this.userService.totalAmount = this.totalAmount;
-    this.router.navigate(["/user/payment"]);
+    if (this.userAddress.length > 0) {
+      this.userService.selectedCount = this.selectedCount;
+      this.userService.totalMRP = this.totalMRP;
+      this.userService.totalDiscount = this.totalDiscount;
+      this.userService.totalAmount = this.totalAmount;
+      this.router.navigate(["/user/payment"]);
+    } else {
+      this.showNotification("Please add addresss first");
+    }
   }
 
   selectAddress(addressId: number) {

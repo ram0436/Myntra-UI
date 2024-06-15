@@ -44,6 +44,7 @@ export class PostCardsComponent {
   selectedProduct: any;
 
   hoveredProduct: string | null = null;
+  isAdmin: boolean = false;
 
   constructor(
     private router: Router,
@@ -71,6 +72,9 @@ export class PostCardsComponent {
 
   ngOnInit() {
     this.checkScreenWidth();
+    var role = localStorage.getItem("role");
+    if (role != null && role == "Admin") this.isAdmin = true;
+    else this.isAdmin = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
