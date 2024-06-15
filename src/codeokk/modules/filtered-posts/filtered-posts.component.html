@@ -1,5 +1,13 @@
 <div class="breadcrumb">
-  <p class="breadcrumb-text">{{ breadcrumb }}</p>
+  <p class="breadcrumb-text">
+    <ng-container *ngFor="let part of breadcrumb.split(' / '); let last = last">
+      <ng-container *ngIf="!last">{{ part }} / </ng-container>
+      <ng-container *ngIf="last">
+        <span class="bold-text">{{ part }}</span>
+      </ng-container>
+    </ng-container>
+  </p>
+
   <div class="filter-head">
     <div class="left">
       <span class="head-title">FILTERS</span>

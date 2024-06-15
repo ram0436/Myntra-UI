@@ -38,6 +38,16 @@
                   </ng-container>
                 </swiper-container>
               </ng-template>
+              <span
+                class="ribbon-featured"
+                *ngIf="!product.inStock"
+                (mouseenter)="initImageSlider(product.productCode)"
+              >
+                <strong [class.ribbon]="true" class="stock-status">
+                  <span class="hide-visually">This ad is</span>
+                  Out of Stock
+                </strong>
+              </span>
             </div>
             <span
               class="close-icon material-icons"

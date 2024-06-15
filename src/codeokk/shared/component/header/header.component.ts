@@ -41,6 +41,8 @@ export class HeaderComponent implements OnInit {
 
   isAdmin: boolean = false;
 
+  hovered: boolean = false;
+
   constructor(
     private masterService: MasterService,
     private router: Router,

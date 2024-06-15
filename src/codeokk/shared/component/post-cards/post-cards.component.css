@@ -106,6 +106,55 @@
   z-index: 3;
 }
 
+.ribbon-featured {
+  position: absolute;
+  top: 0px;
+  left: -2px;
+  overflow: hidden;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+}
+
+.ribbon-featured .ribbon {
+  /* background-color: #007bff;
+    color: #fff; */
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  top: 16px;
+  left: -27px;
+  font-weight: 700;
+  width: 112px;
+  height: 21px;
+  padding: 2px 0;
+  position: relative;
+  font-size: 8.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-45deg);
+  font-family: "Arial Narrow", sans-serif;
+  letter-spacing: 0.4px;
+}
+
+.stock-status {
+  background-color: #ff3f6c;
+  color: #fff;
+}
+
+.hide-visually {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 .img-w {
   /* width: 100px; */
   height: 215px !important;
