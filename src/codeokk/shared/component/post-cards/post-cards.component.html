@@ -110,19 +110,43 @@
                   }}
                 </span>
                 <div class="product-options" *ngIf="isAdmin">
-                  <div class="option">
-                    <span
+                  <span
+                    class="material-icons-outlined edit-product-icon"
+                    (click)="toggleAdminOptions($event, product.productCode)"
+                    >{{
+                      adminOptionsVisibleFor === product.productCode
+                        ? "close"
+                        : "more_vert"
+                    }}</span
+                  >
+                  <div
+                    class="option"
+                    *ngIf="adminOptionsVisibleFor === product.productCode"
+                  >
+                    <div
+                      class="edit-text admin-option"
+                      (click)="editProduct($event, product)"
+                    >
+                      Edit
+                    </div>
+                    <div
+                      class="delete-text admin-option"
+                      (click)="deleteProduct($event, product.id)"
+                    >
+                      Delete
+                    </div>
+                    <!-- <span
                       class="material-icons-outlined edit-icon"
                       (click)="editProduct($event, product)"
                     >
                       edit
-                    </span>
-                    <span
+                    </span> -->
+                    <!-- <span
                       class="material-icons-outlined edit-icon delete-icon"
                       (click)="deleteProduct($event, product.id)"
                     >
                       delete
-                    </span>
+                    </span> -->
                   </div>
                 </div>
               </h4>

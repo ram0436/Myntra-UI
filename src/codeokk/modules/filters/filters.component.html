@@ -18,6 +18,7 @@
       </li>
     </ul>
   </div>
+
   <div class="filter-brands">
     <span class="filter-title">Brand</span>
     <div
@@ -69,6 +70,53 @@
     <ul *ngIf="filteredBrands.length === 0 && brandSearchText.length > 0">
       <li>No brands found</li>
     </ul>
+  </div>
+  <div class="slider-container">
+    <span class="filter-title price-title">Set Price</span>
+    <mat-slider
+      [min]="sliderMin"
+      [max]="sliderMaxValue"
+      [(ngModel)]="sliderValue"
+      (input)="onSliderChange($event)"
+    >
+      <input matSliderStartThumb [(ngModel)]="minValue" />
+      <input matSliderEndThumb [(ngModel)]="maxValue"
+    /></mat-slider>
+
+    <div class="price-fields">
+      <mat-form-field>
+        <mat-label for="minValue">Min Value: </mat-label>
+        <input
+          matInput
+          type="number"
+          id="minValue"
+          [(ngModel)]="minValue"
+          (change)="updateSlider()"
+          min="0"
+          max="maxValue"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label for="maxValue">Max Value: </mat-label>
+        <input
+          matInput
+          type="number"
+          id="maxValue"
+          [(ngModel)]="maxValue"
+          (change)="updateSlider()"
+          min="minValue"
+        />
+      </mat-form-field>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="set-price-btn"
+      (click)="applyFilters()"
+    >
+      Apply Price Filters
+    </button>
   </div>
   <div class="filter-colors">
     <span class="filter-title">Color</span>

@@ -144,6 +144,46 @@ input[type="checkbox"] {
   border-radius: 15px;
 }
 
+.slider-container {
+  width: 230px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  border-bottom: 1px solid #e9e9ed;
+  position: relative;
+}
+
+.price-fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-fields mat-form-field {
+  width: 44%;
+}
+
+.price-title {
+  margin-bottom: 0px !important;
+}
+
+mat-slider {
+  width: 88%;
+}
+
+::ng-deep .mat-mdc-slider.mat-primary {
+  --mdc-slider-handle-color: #ff3f6c;
+  --mdc-slider-focus-handle-color: #ff3f6c;
+  --mdc-slider-hover-handle-color: #ff3f6c;
+  --mdc-slider-active-track-color: #ff3f6c;
+  --mdc-slider-inactive-track-color: #ff3f6c;
+  --mdc-slider-with-tick-marks-active-container-color: #ff3f6c;
+  --mdc-slider-with-tick-marks-inactive-container-color: #ff3f6c;
+  --mat-mdc-slider-ripple-color: #ff3f6c;
+  --mat-mdc-slider-hover-ripple-color: rgba(63, 81, 181, 0.05);
+  --mat-mdc-slider-focus-ripple-color: rgba(63, 81, 181, 0.2);
+}
+
 .search-inputBox {
   background-color: transparent;
   outline: none;
@@ -180,6 +220,12 @@ input[type="checkbox"] {
   padding-left: 25px;
   border-bottom: 1px solid #e9e9ed;
   position: relative;
+}
+
+.set-price-btn {
+  width: 93.5%;
+  background-color: #ff3f6c !important;
+  color: #fff !important;
 }
 
 .filter-discount {
@@ -222,4 +268,22 @@ input[type="checkbox"] {
   color: #94969f;
   font-size: 11px;
   margin-left: 4px;
+}
+
+@media (max-width: 569px) {
+  .slider-container {
+    width: 95%;
+  }
+
+  .price-fields mat-form-field {
+    width: 46.5%;
+  }
+
+  mat-slider {
+    width: 92%;
+  }
+
+  .set-price-btn {
+    width: 95.5%;
+  }
 }

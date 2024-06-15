@@ -46,6 +46,9 @@ export class PostCardsComponent {
   hoveredProduct: string | null = null;
   isAdmin: boolean = false;
 
+  showAdminOptions: boolean = false;
+  adminOptionsVisibleFor: string | null = null;
+
   constructor(
     private router: Router,
     private productService: ProductService,
@@ -110,6 +113,16 @@ export class PostCardsComponent {
     this.router.navigateByUrl(
       `admin/dashboard?editProduct=true&code=${product.productCode}`
     );
+  }
+
+  toggleAdminOptions(event: Event, productCode: string) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (this.adminOptionsVisibleFor === productCode) {
+      this.adminOptionsVisibleFor = null;
+    } else {
+      this.adminOptionsVisibleFor = productCode;
+    }
   }
 
   initImageSlider(productCode: string) {

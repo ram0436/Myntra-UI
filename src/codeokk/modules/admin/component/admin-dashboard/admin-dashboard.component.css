@@ -12,6 +12,24 @@
   width: 60%;
 }
 
+::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__text-label {
+  color: #fff !important;
+}
+
+::ng-deep .custom-chip {
+  background-color: #ff3f6c !important;
+  color: #fff !important;
+}
+
+::ng-deep
+  .mat-mdc-chip.mdc-evolution-chip--with-trailing-action
+  .mat-mdc-chip-action-label {
+  position: relative;
+  color: #000 !important;
+}
+
 .sections {
   height: 600px;
   margin: 10px auto;

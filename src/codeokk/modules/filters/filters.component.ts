@@ -53,6 +53,33 @@ export class FiltersComponent {
 
   private categorySubcategoriesLoaded: { [key: number]: boolean } = {};
 
+  sliderMin: number = 0;
+  sliderMax: number = 80000;
+  sliderValue: number = 0;
+  sliderMaxValue: number = 80000;
+  minValue: number = this.sliderValue;
+  maxValue: number = this.sliderMaxValue;
+  fromPrice = 0;
+  toPrice = 80000;
+
+  updateSlider() {
+    if (this.minValue < this.sliderMin) this.minValue = this.sliderMin;
+    if (this.maxValue > this.sliderMax) this.maxValue = this.sliderMax;
+    if (this.minValue > this.maxValue) this.minValue = this.maxValue;
+    if (this.maxValue < this.minValue) this.maxValue = this.minValue;
+    this.sliderValue = this.minValue;
+    this.sliderMaxValue = this.maxValue;
+  }
+
+  onSliderChange(event: any) {
+    const newValue = event.value;
+    if (newValue < this.minValue) {
+      this.minValue = newValue;
+    } else if (newValue > this.maxValue) {
+      this.maxValue = newValue;
+    }
+  }
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -230,6 +257,8 @@ export class FiltersComponent {
       categories: this.selectedCategories,
       colors: this.selectedColors,
       brands: this.selectedBrands,
+      minPrice: this.minValue,
+      maxPrice: this.maxValue,
       discount: this.selectedDiscount,
     });
   }
