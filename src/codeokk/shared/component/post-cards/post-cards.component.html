@@ -99,7 +99,7 @@
                       : "favorite_border"
                   }}
                 </span>
-                <div class="product-options">
+                <div class="product-options" *ngIf="isAdmin">
                   <div class="option">
                     <span
                       class="material-icons-outlined edit-icon"
@@ -117,7 +117,7 @@
                 </div>
               </h4>
             </div>
-            <div class="bag-actions" *ngIf="this.wishlistRoute">
+            <!-- <div class="bag-actions" *ngIf="this.wishlistRoute">
               <span
                 class="product-bagFlex product-actionsButton product-bag"
                 style="width: 100%; text-align: center"
@@ -125,14 +125,14 @@
               >
                 Add To Cart
               </span>
-            </div>
+            </div> -->
 
             <div
               class="product-actions"
-              *ngIf="!this.wishlistRoute"
               (mouseenter)="initImageSlider(product.productCode)"
             >
               <span
+                *ngIf="!this.wishlistRoute"
                 class="product-wishlistFlex product-actionsButton product-wishlist"
                 style="width: 100%; text-align: center"
                 (click)="toggleFavorite($event, product?.productCode)"
@@ -153,6 +153,15 @@
                   }}
                 </span>
                 wishlist
+              </span>
+              <span
+                *ngIf="this.wishlistRoute"
+                class="product-wishlistFlex product-actionsButton product-wishlist product-bagFlex product-actionsButton product-bag"
+                style="width: 100%; text-align: center"
+                style="width: 100%; text-align: center"
+                (click)="toggleModal($event, product)"
+              >
+                Add To Cart
               </span>
             </div>
           </a>

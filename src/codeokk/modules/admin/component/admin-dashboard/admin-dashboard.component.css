@@ -284,6 +284,10 @@ mat-form-field {
   font-size: 16px;
 }
 
+.stock-type {
+  margin-bottom: 20px;
+}
+
 .expanded {
   color: #ff3e6c;
 }

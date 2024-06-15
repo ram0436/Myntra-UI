@@ -491,6 +491,17 @@
                 [(ngModel)]="productPayload.productCode"
               />
             </mat-form-field>
+            <div class="stock-type">
+              <mat-label>Stock Status</mat-label>
+              <mat-chip-listbox
+                [(ngModel)]="productPayload.inStock"
+                name="inStock"
+              >
+                <mat-chip-option [value]="true">In Stock</mat-chip-option>
+                <mat-chip-option [value]="false">Out of Stock</mat-chip-option>
+              </mat-chip-listbox>
+            </div>
+
             <div class="uplod-sectin h-550">
               <h3>Upload Project Images/Screenshots</h3>
               <div class="progs" *ngIf="imageProgress">

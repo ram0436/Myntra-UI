@@ -39,6 +39,8 @@ export class HeaderComponent implements OnInit {
   activeParentCategoryId: number | null = null;
   activeCategoryId: number | null = null;
 
+  isAdmin: boolean = false;
+
   constructor(
     private masterService: MasterService,
     private router: Router,
@@ -54,6 +56,9 @@ export class HeaderComponent implements OnInit {
       this.isUserLogedIn = true;
       this.getUserData();
     }
+    var role = localStorage.getItem("role");
+    if (role != null && role == "Admin") this.isAdmin = true;
+    else this.isAdmin = false;
     this.getAllParentCategories();
 
     if (localStorage.getItem("id") != null) {

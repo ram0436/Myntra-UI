@@ -128,7 +128,11 @@
                   >
                 </div>
                 <div class="get-in-links">
-                  <div class="info" (click)="navigateToDashboard()">
+                  <div
+                    class="info"
+                    (click)="navigateToDashboard()"
+                    *ngIf="isAdmin"
+                  >
                     <div class="info-section">Admin Dashboard</div>
                   </div>
                   <div class="info">

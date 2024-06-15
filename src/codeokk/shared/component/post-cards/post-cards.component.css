@@ -265,8 +265,9 @@
 }
 
 .product-bag {
-  letter-spacing: 0.3px;
-  color: #f16565;
+  letter-spacing: 0.3px !important;
+  color: #f16565 !important;
+  padding: 12px 0 !important;
 }
 
 .product-wishlist {

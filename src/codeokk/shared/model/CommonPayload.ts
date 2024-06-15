@@ -10,6 +10,7 @@ export class Common {
   productCode: string = "";
   productPrice: number = 0;
   tags: any[] = [];
+  inStock: boolean = true;
   productImageList: { id: number; imageURL: any }[] = [];
   selectedDiscountId: number | null = 0;
 }
