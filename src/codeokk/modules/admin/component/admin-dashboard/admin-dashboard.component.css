@@ -12,16 +12,23 @@
   width: 60%;
 }
 
-::ng-deep
-  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
-  .mdc-evolution-chip__text-label {
-  color: #fff !important;
-}
-
-::ng-deep .custom-chip {
+::ng-deep .custom-chip.selected {
   background-color: #ff3f6c !important;
   color: #fff !important;
 }
+
+.mat-mdc-standard-chip.mat-mdc-chip-selected.mat-primary {
+  --mdc-chip-disabled-label-text-color: white;
+  --mdc-chip-elevated-container-color: #ff3f6c;
+  --mdc-chip-elevated-disabled-container-color: #ff3f6c;
+  --mdc-chip-focus-state-layer-color: #ff3f6c;
+}
+
+/* ::ng-deep
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+  .mdc-evolution-chip__text-label {
+  background-color: #e0e0e0 !important;
+} */
 
 ::ng-deep
   .mat-mdc-chip.mdc-evolution-chip--with-trailing-action

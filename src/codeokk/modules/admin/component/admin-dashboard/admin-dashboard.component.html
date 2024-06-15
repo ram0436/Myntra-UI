@@ -497,10 +497,20 @@
                 [(ngModel)]="productPayload.inStock"
                 name="inStock"
               >
-                <mat-chip-option class="custom-chip" [value]="true"
+                <mat-chip-option
+                  class="custom-chip"
+                  [value]="true"
+                  [ngClass]="{
+                    selected: productPayload.inStock
+                  }"
                   >In Stock</mat-chip-option
                 >
-                <mat-chip-option class="custom-chip" [value]="false"
+                <mat-chip-option
+                  class="custom-chip"
+                  [value]="false"
+                  [ngClass]="{
+                    selected: !productPayload.inStock
+                  }"
                   >Out of Stock</mat-chip-option
                 >
               </mat-chip-listbox>
