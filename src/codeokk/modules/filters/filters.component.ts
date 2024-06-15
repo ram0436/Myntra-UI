@@ -54,13 +54,13 @@ export class FiltersComponent {
   private categorySubcategoriesLoaded: { [key: number]: boolean } = {};
 
   sliderMin: number = 0;
-  sliderMax: number = 80000;
+  sliderMax: number = 5000;
   sliderValue: number = 0;
-  sliderMaxValue: number = 80000;
+  sliderMaxValue: number = 5000;
   minValue: number = this.sliderValue;
   maxValue: number = this.sliderMaxValue;
   fromPrice = 0;
-  toPrice = 80000;
+  toPrice = 5000;
 
   updateSlider() {
     if (this.minValue < this.sliderMin) this.minValue = this.sliderMin;
