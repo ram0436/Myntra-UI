@@ -193,3 +193,13 @@ body {
   justify-content: center;
   display: flex;
 }
+
+.spinner__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #ff3f6c;
+}

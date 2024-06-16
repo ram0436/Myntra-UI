@@ -33,6 +33,8 @@ export class CartComponent {
   qtyOptions: number[] = Array.from({ length: 10 }, (_, i) => i + 1);
   selectedProducts: any[] = [];
 
+  isLoading: Boolean = true;
+
   constructor(
     private productService: ProductService,
     private userService: UserService,
@@ -121,6 +123,7 @@ export class CartComponent {
       .getCartItemByUserId(Number(localStorage.getItem("id")))
       .subscribe(
         (response: any) => {
+          this.isLoading = false;
           this.cartItems = response;
           response.forEach((item: any) => {
             this.handleDashboardData(item);

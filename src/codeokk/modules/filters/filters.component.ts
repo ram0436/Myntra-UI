@@ -62,24 +62,6 @@ export class FiltersComponent {
   fromPrice = 0;
   toPrice = 5000;
 
-  updateSlider() {
-    if (this.minValue < this.sliderMin) this.minValue = this.sliderMin;
-    if (this.maxValue > this.sliderMax) this.maxValue = this.sliderMax;
-    if (this.minValue > this.maxValue) this.minValue = this.maxValue;
-    if (this.maxValue < this.minValue) this.maxValue = this.minValue;
-    this.sliderValue = this.minValue;
-    this.sliderMaxValue = this.maxValue;
-  }
-
-  onSliderChange(event: any) {
-    const newValue = event.value;
-    if (newValue < this.minValue) {
-      this.minValue = newValue;
-    } else if (newValue > this.maxValue) {
-      this.maxValue = newValue;
-    }
-  }
-
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -111,6 +93,24 @@ export class FiltersComponent {
         this.getDiscountBySubCategoryId(this.subCategoryId);
       }
     });
+  }
+
+  updateSlider() {
+    if (this.minValue < this.sliderMin) this.minValue = this.sliderMin;
+    if (this.maxValue > this.sliderMax) this.maxValue = this.sliderMax;
+    if (this.minValue > this.maxValue) this.minValue = this.maxValue;
+    if (this.maxValue < this.minValue) this.maxValue = this.minValue;
+    this.sliderValue = this.minValue;
+    this.sliderMaxValue = this.maxValue;
+  }
+
+  onSliderChange(event: any) {
+    const newValue = event.value;
+    if (newValue < this.minValue) {
+      this.minValue = newValue;
+    } else if (newValue > this.maxValue) {
+      this.maxValue = newValue;
+    }
   }
 
   get filteredBrands() {

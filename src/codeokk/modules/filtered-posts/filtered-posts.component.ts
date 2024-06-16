@@ -38,6 +38,8 @@ export class FilteredPostsComponent {
 
   isScreenSmall: boolean = false;
 
+  isLoading: Boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -302,6 +304,8 @@ export class FilteredPostsComponent {
 
     this.products = filteredProducts;
 
+    this.isLoading = false;
+
     // this.productService.getAllProducts().subscribe((res) => {
     //   this.products = res.filter((product) => {
     //     const categoryId = Number(this.categoryId);
@@ -370,6 +374,7 @@ export class FilteredPostsComponent {
       this.masterService.setBrandsData({
         brands: uniqueBrands,
       });
+      this.isLoading = false;
     });
   }
 }
