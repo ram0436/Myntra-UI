@@ -24,6 +24,11 @@
   --mdc-chip-focus-state-layer-color: #ff3f6c;
 }
 
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: #ff3f6c;
+  --mdc-linear-progress-track-color: rgba(63, 81, 181, 0.25);
+}
+
 /* ::ng-deep
   .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
   .mdc-evolution-chip__text-label {

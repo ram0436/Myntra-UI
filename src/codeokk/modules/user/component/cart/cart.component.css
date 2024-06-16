@@ -16,6 +16,11 @@
   gap: 10px;
 }
 
+mat-spinner {
+  width: 60px !important;
+  height: 60px !important;
+}
+
 .avail-items {
   padding-top: 50px;
   padding-bottom: 20px;

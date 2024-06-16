@@ -8,6 +8,7 @@ import { ProductService } from "./../../shared/service/product.service";
 })
 export class HomeComponent {
   products: any[] = [];
+  isLoading: Boolean = true;
 
   constructor(private productService: ProductService) {}
 
@@ -26,6 +27,7 @@ export class HomeComponent {
   getProducts() {
     this.productService.getAllProducts().subscribe((res) => {
       this.products = res;
+      this.isLoading = false;
     });
   }
 }

@@ -4,3 +4,13 @@
   padding-right: 25px;
   margin-bottom: 30px;
 }
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #ff3f6c;
+}
+
+.spinner__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

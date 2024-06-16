@@ -23,6 +23,7 @@ import {
   MatAutocomplete,
   MatAutocompleteModule,
 } from "@angular/material/autocomplete";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     HeaderComponent,

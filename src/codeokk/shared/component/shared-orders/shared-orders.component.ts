@@ -29,6 +29,8 @@ export class SharedOrdersComponent {
 
   currentOrderMapping: any[] = [];
 
+  isLoading: boolean = true;
+
   constructor(
     private userService: UserService,
     private productService: ProductService,
@@ -102,6 +104,7 @@ export class SharedOrdersComponent {
   getAllOrders() {
     this.userService.getAllOrders().subscribe((data: any) => {
       this.orders = data.reverse();
+      this.isLoading = false;
       this.populateOrderedProducts();
     });
   }
@@ -109,6 +112,7 @@ export class SharedOrdersComponent {
   getOrdersByUserId(userId: number) {
     this.userService.getOrderByUserId(userId).subscribe((data: any) => {
       this.orders = data.reverse();
+      this.isLoading = false;
       this.populateOrderedProducts();
     });
   }

@@ -14,6 +14,7 @@ export class WishlistComponent {
   wishlistCount: number = 0;
   savedItems: any[] = [];
   selectedSize: number | null = null;
+  isLoading: boolean = true;
 
   constructor(
     private productService: ProductService,
@@ -66,6 +67,7 @@ export class WishlistComponent {
       .getWishListByUserId(Number(localStorage.getItem("id")))
       .subscribe(
         (response: any) => {
+          this.isLoading = false;
           this.wishlistCount = response.length;
           this.savedItems = response;
           response.forEach((item: any) => {

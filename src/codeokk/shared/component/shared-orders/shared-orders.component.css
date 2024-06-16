@@ -257,7 +257,7 @@ h2 {
 
 .admin-orders {
   padding: 0px;
-  width: 115%;
+  width: 150%;
 }
 
 .admin-orders-container {
@@ -327,6 +327,11 @@ textarea {
   font-weight: 500;
   font-size: 13px;
   color: red;
+}
+
+mat-spinner {
+  margin-top: 25px !important;
+  margin-bottom: 20px !important;
 }
 
 @media (max-width: 1358px) {
