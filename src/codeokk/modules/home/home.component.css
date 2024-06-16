@@ -14,3 +14,10 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 520px) {
+  .home {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}

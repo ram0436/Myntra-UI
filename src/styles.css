@@ -203,3 +203,10 @@ body {
 .mat-mdc-progress-spinner {
   --mdc-circular-progress-active-indicator-color: #ff3f6c;
 }
+
+@media (max-width: 480px) {
+  mat-spinner {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}

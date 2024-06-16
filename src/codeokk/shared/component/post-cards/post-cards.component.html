@@ -250,16 +250,21 @@
         <span class="btn-text">Previous</span>
       </div>
       <div class="page-nos">
-        <button
-          class="page-no"
-          *ngFor="let page of pageNumbers"
-          [class.active-page]="page === currentPage"
-          (click)="goToPage(page)"
-        >
-          {{ page }}
-        </button>
+        <ng-container *ngFor="let page of pageNumbers">
+          <ng-container *ngIf="isNumber(page); else ellipsis">
+            <button
+              class="page-no"
+              [ngClass]="{ 'active-page': page === currentPage }"
+              (click)="goToPage(page)"
+            >
+              {{ page }}
+            </button>
+          </ng-container>
+          <ng-template #ellipsis>
+            <button class="page-no disabled">...</button>
+          </ng-template>
+        </ng-container>
       </div>
-
       <div
         class="next-btn pgn-btn"
         (click)="nextPage()"

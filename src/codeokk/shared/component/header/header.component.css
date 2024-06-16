@@ -701,6 +701,11 @@ a.submit {
   transform: rotate(180deg);
 }
 
+.hover-none:hover {
+  border: none !important;
+  padding-bottom: 25px !important;
+}
+
 @media (min-width: 1500px) {
   .pane-content {
     left: 9%;
@@ -802,18 +807,29 @@ a.submit {
 
 @media (max-width: 490px) {
   .action {
-    width: 50%;
+    width: 55%;
   }
 
   .query-absolute {
     min-width: 72%;
     max-width: 72%;
   }
+
+  .menu-mobile-overlay {
+    width: 50vw;
+  }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 450px) {
+  .query-absolute {
+    min-width: 60%;
+    max-width: 60%;
+  }
+}
+
+@media (max-width: 410px) {
   .action {
-    width: 55%;
+    width: 63%;
   }
 }
 

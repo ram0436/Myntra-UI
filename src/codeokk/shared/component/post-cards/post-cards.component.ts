@@ -204,8 +204,45 @@ export class PostCardsComponent {
     }
   }
 
-  get pageNumbers(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  // get pageNumbers(): number[] {
+  //   return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  // }
+
+  get pageNumbers(): (number | string)[] {
+    const totalPages = this.totalPages;
+    const currentPage = this.currentPage;
+
+    if (totalPages <= 5) {
+      // Show all pages if there are 5 or fewer
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    let pages: (number | string)[] = [];
+
+    if (currentPage <= 2) {
+      // If on one of the first three pages, show 1, 2, 3, 4, ..., totalPages
+      pages = [1, 2, 3, "...", totalPages];
+    } else if (currentPage >= 3 && currentPage < totalPages - 2) {
+      // If in the middle somewhere, show 1, ..., currentPage-1, currentPage, currentPage+1, ..., totalPages
+      pages = [
+        1,
+        "...",
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        "...",
+        totalPages,
+      ];
+    } else {
+      // If near the end, show 1, ..., totalPages-3, totalPages-2, totalPages-1, totalPages
+      pages = [1, "...", totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return pages;
+  }
+
+  isNumber(value: any): value is number {
+    return typeof value === "number";
   }
 
   get totalPages(): number {
