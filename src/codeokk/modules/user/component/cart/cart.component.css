@@ -662,7 +662,7 @@ div.details-details {
   }
 
   .avail-items .cart-items-container .cart-item .cart-item-image img {
-    width: 100px !important;
+    width: 125px !important;
   }
 }
 
@@ -674,7 +674,12 @@ div.details-details {
 
 @media (max-width: 690px) {
   .cart-flex {
-    flex-direction: column-reverse;
+    flex-direction: column;
+  }
+
+  .cart {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .avail-items,
@@ -683,6 +688,15 @@ div.details-details {
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .price-details {
+    padding-top: 0px;
+    padding-bottom: 50px;
+  }
+
+  .cart-item-details {
+    width: 67% !important;
   }
 
   .price-details {

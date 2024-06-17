@@ -586,7 +586,7 @@ a.submit {
 .menu-closer {
   z-index: 9999;
   background-color: transparent;
-  width: 50vw;
+  width: 65vw;
   display: block;
   position: fixed;
   top: 0%;
@@ -824,6 +824,12 @@ a.submit {
   }
 }
 
+@media (max-width: 470px) {
+  .menu-closer {
+    width: 40vw;
+  }
+}
+
 @media (max-width: 450px) {
   .query-absolute {
     min-width: 60%;
@@ -847,5 +853,9 @@ a.submit {
 @media (max-width: 350px) {
   .action {
     width: 67%;
+  }
+
+  .menu-closer {
+    width: 45vw;
   }
 }
