@@ -76,7 +76,7 @@
         (click)="toggleFilters()"
         *ngIf="isScreenSmall"
       >
-        <span>Show More</span
+        <span>{{ filtersToggled ? "Show Less" : "Show More" }}</span
         ><span class="material-icons-outlined more-icon">
           {{ filtersToggled ? "expand_more" : "chevron_right" }}</span
         >
