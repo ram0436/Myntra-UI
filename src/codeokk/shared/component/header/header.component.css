@@ -816,7 +816,11 @@ a.submit {
   }
 
   .menu-mobile-overlay {
-    width: 50vw;
+    width: 65vw;
+  }
+
+  .menu-closer {
+    width: 35vw;
   }
 }
 
@@ -837,5 +841,11 @@ a.submit {
   .query-absolute {
     min-width: 68%;
     max-width: 68%;
+  }
+}
+
+@media (max-width: 350px) {
+  .action {
+    width: 67%;
   }
 }

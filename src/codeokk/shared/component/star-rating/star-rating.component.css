@@ -21,3 +21,9 @@
 mat-icon {
   cursor: pointer;
 }
+
+@media (max-width: 400px) {
+  .star {
+    font-size: 18px;
+  }
+}

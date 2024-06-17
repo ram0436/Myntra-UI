@@ -287,3 +287,21 @@ mat-slider {
     width: 95.5%;
   }
 }
+
+@media (max-width: 429px) {
+  .slider-container {
+    width: 90%;
+  }
+
+  .price-fields mat-form-field {
+    width: 43.5%;
+  }
+
+  mat-slider {
+    width: 89%;
+  }
+
+  .set-price-btn {
+    width: 90.5%;
+  }
+}
