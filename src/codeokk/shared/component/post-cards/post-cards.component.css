@@ -52,7 +52,7 @@
 
 .admin-option:hover {
   background-color: #f6f6f6;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 .option {
@@ -163,7 +163,7 @@
 }
 
 .stock-status {
-  background-color: #ff3f6c;
+  background-color: var(--dynamic-app-color);
   color: #fff;
 }
 
@@ -270,7 +270,7 @@
 }
 
 .favorite-added-bg {
-  color: #f16565;
+  color: var(--dynamic-app-color);
 }
 
 .bag-actions {
@@ -338,7 +338,7 @@
 
 .product-bag {
   letter-spacing: 0.3px !important;
-  color: #f16565 !important;
+  color: var(--dynamic-app-color) !important;
   padding: 12px 0 !important;
 }
 
@@ -680,8 +680,8 @@ h4 {
 
 .Modal-modalDialog .dialogs-base-selected {
   font-weight: 700;
-  color: #ff3f6c;
-  border-color: #ff3f6c !important;
+  color: var(--dynamic-app-color);
+  border-color: var(--dynamic-app-color) !important;
 }
 
 .Modal-modalDialog .css-cilza6 {
@@ -694,7 +694,7 @@ h4 {
   font-weight: 700;
   border-radius: 2px;
   border-width: 0px;
-  background-color: rgb(255, 63, 108);
+  background-color: var(--dynamic-app-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
 }

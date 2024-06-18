@@ -262,15 +262,15 @@ s {
 }
 
 .size-buttons-size-button:hover {
-  border: 1px solid #ff3f6c !important;
+  border: 1px solid var(--dynamic-app-color) !important;
   background-color: #fff;
-  color: #ff3f6c !important;
+  color: var(--dynamic-app-color) !important;
 }
 
 .selected-size-btn {
-  border: 1px solid #ff3f6c !important;
+  border: 1px solid var(--dynamic-app-color) !important;
   background-color: #fff;
-  color: #ff3f6c !important;
+  color: var(--dynamic-app-color) !important;
 }
 
 .size-buttons-size-button:hover + .size-buttons-sizeTip {
@@ -278,9 +278,9 @@ s {
 }
 
 .size-buttons-size-button-selected {
-  border: 1px solid #ff3f6c;
+  border: 1px solid var(--dynamic-app-color);
   background-color: #fff;
-  color: #ff3f6c !important;
+  color: var(--dynamic-app-color) !important;
 }
 
 .added-to-wishlist {
@@ -289,7 +289,7 @@ s {
 }
 
 .added-to-wishlist .fv-icon {
-  color: #f16565;
+  color: var(--dynamic-app-color);
 }
 
 .size-buttons-size-chart {
@@ -303,7 +303,7 @@ s {
   letter-spacing: 0.5px;
   text-align: right;
   padding: 0 0 5px;
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -425,8 +425,8 @@ s {
   min-width: 108px;
   font-weight: 700;
   cursor: pointer;
-  background-color: #ff3e6c;
-  border: 1px solid #ff3e6c;
+  background-color: var(--dynamic-app-color);
+  border: 1px solid var(--dynamic-app-color);
   color: #fff;
   flex: 3;
   text-align: center;
@@ -522,7 +522,7 @@ strong {
 
 .SelectedSizeSellerInfo-sellerButton {
   cursor: pointer;
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
   font-weight: 700;
 }
 
@@ -566,7 +566,7 @@ strong {
   font-size: 14px;
   font-weight: 700;
   border: 0;
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
   text-transform: capitalize;
 }
 
@@ -678,7 +678,7 @@ div.pdp-offers-bullet {
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   margin-top: 4px;
   cursor: pointer;
 }
@@ -1006,7 +1006,7 @@ div.details-details {
 
 .average-rating .star-icon {
   font-size: 24px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 .count-desc {
@@ -1064,7 +1064,7 @@ div.details-details {
 }
 
 ::ng-deep .mdc-linear-progress__bar-inner {
-  border-color: #ff3f66 !important;
+  border-color: var(--dynamic-app-color) !important;
 }
 
 .index-count {
@@ -1135,7 +1135,7 @@ div.details-details {
   border-radius: 1px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #ff3f6c;
+  background-color: var(--dynamic-app-color);
 }
 
 .star-wrapper .star-icon {
@@ -1198,7 +1198,7 @@ div.details-details {
 .detailed-reviews-allReviews {
   font-size: 14px;
   font-weight: 600;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   cursor: pointer;
 }
 

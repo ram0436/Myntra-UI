@@ -50,7 +50,7 @@
 }
 
 .close-menu span:hover {
-  color: #f16565;
+  color: var(--dynamic-app-color);
   cursor: pointer;
 }
 
@@ -81,7 +81,7 @@
 .category-head {
   font-weight: 700;
   margin-bottom: 10px;
-  color: #ee5f73;
+  color: var(--dynamic-app-color);
   margin-top: 10px;
 }
 
@@ -128,15 +128,15 @@
 
 .main:hover,
 .user-icons:hover {
-  border-bottom: 3px solid #ee5f73;
+  border-bottom: 3px solid var(--dynamic-app-color);
 }
 
 .hovered {
-  border-bottom: 3px solid #ee5f73;
+  border-bottom: 3px solid var(--dynamic-app-color);
 }
 
 .pane-content:hover ~ .main {
-  border-bottom: 3px solid #ee5f73;
+  border-bottom: 3px solid var(--dynamic-app-color);
 }
 
 .main:hover + .pane-content,
@@ -437,7 +437,7 @@ a.submit {
 }
 
 .user-hovered {
-  border-bottom: 3px solid #ee5f73;
+  border-bottom: 3px solid var(--dynamic-app-color);
   padding-bottom: 17px;
 }
 
@@ -511,13 +511,13 @@ a.submit {
   text-align: center;
   text-transform: uppercase;
   font-size: 14px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 700;
   cursor: pointer;
 }
 
 .link-btn:hover {
-  border: 1px solid #ff3f6c;
+  border: 1px solid var(--dynamic-app-color);
 }
 
 .info {
@@ -548,7 +548,7 @@ a.submit {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f16565;
+  background-color: var(--dynamic-app-color);
   font-size: 12px;
   color: #fff;
 }
@@ -557,7 +557,7 @@ a.submit {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ff3f6c;
+  background-color: var(--dynamic-app-color);
   padding: 5px 0;
 }
 
@@ -685,7 +685,7 @@ a.submit {
 
 .mobile-nav-link .top-name.active .mobile-main,
 .mobile-nav-link .top-name.active .mobile-category-name {
-  color: #f16565;
+  color: var(--dynamic-app-color);
 }
 
 .mobile-nav-link .top-name .mobile-main,

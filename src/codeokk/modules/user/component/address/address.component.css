@@ -64,7 +64,7 @@
 
 .price-details .coupons .coupons-body .apply-coupons .coupons-icon {
   margin-top: 2px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 .price-details .coupons .coupons-body .apply-coupons .apply-text {
@@ -79,8 +79,8 @@
   font-weight: 700;
   border-radius: 2px;
   background-color: rgb(255, 255, 255);
-  color: rgb(255, 63, 108);
-  border-color: rgb(255, 63, 108);
+  color: var(--dynamic-app-color);
+  border-color: var(--dynamic-app-color);
   border-width: 1px;
   border-style: solid;
   cursor: pointer;
@@ -116,13 +116,13 @@
 
 .priceDetail-base-action {
   font-size: 14px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   cursor: pointer;
 }
 
 .priceDetail-base-knowMore {
   margin-left: 8px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 700;
 }
 
@@ -137,7 +137,7 @@
   border-radius: 2px;
   border-width: 0px;
   background-color: transparent;
-  color: rgb(255, 63, 108);
+  color: var(--dynamic-app-color);
   padding: 0px;
   cursor: pointer;
 }
@@ -181,7 +181,7 @@
   font-weight: 700;
   border-radius: 2px;
   border-width: 0px;
-  background-color: rgb(255, 63, 108);
+  background-color: var(--dynamic-app-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
@@ -259,7 +259,7 @@
   font-weight: 700;
   border-radius: 2px;
   border-width: 0px;
-  background-color: rgb(255, 63, 108);
+  background-color: var(--dynamic-app-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
@@ -303,7 +303,7 @@
 }
 
 .address-radioIcon {
-  fill: #ff3f6c;
+  fill: var(--dynamic-app-color);
   position: absolute;
   left: 20px;
   top: 20px;
@@ -428,14 +428,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 .add-new .left {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 600;
   cursor: pointer;
 }
@@ -447,7 +447,7 @@
 .add-new .right span {
   margin-bottom: -5px;
 }
-
+/* 
 @media (max-width: 1206px) {
   .cart-container {
     width: 85%;
@@ -517,4 +517,4 @@
   .price-details {
     width: 100%;
   }
-}
+} */

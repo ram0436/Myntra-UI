@@ -73,7 +73,7 @@
 }
 
 input[type="checkbox"] {
-  accent-color: #ff3f6c;
+  accent-color: var(--dynamic-app-color);
 }
 
 .categories-num {
@@ -101,7 +101,7 @@ input[type="checkbox"] {
 
 .custom-checkbox input:checked ~ .checkbox-indicator {
   border: none;
-  background: #ff3f6c;
+  background: var(--dynamic-app-color);
 }
 
 .checkbox-indicator::after {
@@ -172,14 +172,16 @@ mat-slider {
 }
 
 ::ng-deep .mat-mdc-slider.mat-primary {
-  --mdc-slider-handle-color: #ff3f6c;
-  --mdc-slider-focus-handle-color: #ff3f6c;
-  --mdc-slider-hover-handle-color: #ff3f6c;
-  --mdc-slider-active-track-color: #ff3f6c;
-  --mdc-slider-inactive-track-color: #ff3f6c;
-  --mdc-slider-with-tick-marks-active-container-color: #ff3f6c;
-  --mdc-slider-with-tick-marks-inactive-container-color: #ff3f6c;
-  --mat-mdc-slider-ripple-color: #ff3f6c;
+  --mdc-slider-handle-color: var(--dynamic-app-color);
+  --mdc-slider-focus-handle-color: var(--dynamic-app-color);
+  --mdc-slider-hover-handle-color: var(--dynamic-app-color);
+  --mdc-slider-active-track-color: var(--dynamic-app-color);
+  --mdc-slider-inactive-track-color: var(--dynamic-app-color);
+  --mdc-slider-with-tick-marks-active-container-color: var(--dynamic-app-color);
+  --mdc-slider-with-tick-marks-inactive-container-color: var(
+    --dynamic-app-color
+  );
+  --mat-mdc-slider-ripple-color: var(--dynamic-app-color);
   --mat-mdc-slider-hover-ripple-color: rgba(63, 81, 181, 0.05);
   --mat-mdc-slider-focus-ripple-color: rgba(63, 81, 181, 0.2);
 }
@@ -224,7 +226,7 @@ mat-slider {
 
 .set-price-btn {
   width: 93.5%;
-  background-color: #ff3f6c !important;
+  background-color: var(--dynamic-app-color) !important;
   color: #fff !important;
 }
 
@@ -249,7 +251,7 @@ mat-slider {
   background-color: transparent;
   margin-top: 5px;
   outline: none;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 500;
   font-size: 15px;
   cursor: pointer;

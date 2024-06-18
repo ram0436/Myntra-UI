@@ -18,7 +18,7 @@
 }
 
 .filter-head .left .clear-filters {
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
@@ -169,7 +169,7 @@
 }
 
 input[type="checkbox"] {
-  accent-color: #ff3f6c;
+  accent-color: var(--dynamic-app-color);
 }
 
 input[type="checkbox"],
@@ -221,7 +221,7 @@ input[type="radio"] {
 
 .toggle-filters {
   margin-top: 10px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   display: flex;
   align-items: center;
   gap: 5px;
