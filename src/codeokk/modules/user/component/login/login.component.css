@@ -33,7 +33,7 @@ mat-card-content {
   margin: 20px auto;
   margin-top: 40px;
   color: #fff !important;
-  background-color: #ff3f6c !important;
+  background-color: var(--dynamic-app-color) !important;
 }
 
 ::ng-deep .cdk-overlay-pane {

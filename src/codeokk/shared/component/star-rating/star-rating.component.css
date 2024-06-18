@@ -15,7 +15,7 @@
 }
 
 .checked {
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 mat-icon {

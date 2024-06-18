@@ -47,11 +47,11 @@ mat-spinner {
 .pincode-btn {
   font-size: 12px;
   padding: 8px 16px;
-  border: 1px solid #ff3f6c;
+  border: 1px solid var(--dynamic-app-color);
   border-radius: 4px;
   margin-right: 0;
   font-weight: 700;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   background-color: transparent;
   cursor: pointer;
 }
@@ -94,7 +94,7 @@ mat-spinner {
   display: flex;
   align-items: center;
   gap: 0px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   margin-bottom: 0px;
   cursor: pointer;
 }
@@ -156,7 +156,7 @@ mat-spinner {
 }
 
 .bulk-activeIcon {
-  fill: #ff3f6c;
+  fill: var(--dynamic-app-color);
   background: #fff;
   border-radius: 2px;
   border: 1px solid #696b79;
@@ -289,7 +289,7 @@ mat-spinner {
 }
 
 .item-price .discount {
-  color: #f16565;
+  color: var(--dynamic-app-color);
 }
 
 .final-price {
@@ -306,7 +306,7 @@ mat-spinner {
 
 .item-return .return-icon {
   font-size: 18px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   margin-top: -1px;
 }
 
@@ -354,7 +354,7 @@ mat-spinner {
 
 .price-details .coupons .coupons-body .apply-coupons .coupons-icon {
   margin-top: 2px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
 }
 
 .price-details .coupons .coupons-body .apply-coupons .apply-text {
@@ -369,8 +369,8 @@ mat-spinner {
   font-weight: 700;
   border-radius: 2px;
   background-color: rgb(255, 255, 255);
-  color: rgb(255, 63, 108);
-  border-color: rgb(255, 63, 108);
+  color: var(--dynamic-app-color);
+  border-color: var(--dynamic-app-color);
   border-width: 1px;
   border-style: solid;
   cursor: pointer;
@@ -406,13 +406,13 @@ mat-spinner {
 
 .priceDetail-base-action {
   font-size: 14px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   cursor: pointer;
 }
 
 .priceDetail-base-knowMore {
   margin-left: 8px;
-  color: #ff3f6c;
+  color: var(--dynamic-app-color);
   font-weight: 700;
 }
 
@@ -427,7 +427,7 @@ mat-spinner {
   border-radius: 2px;
   border-width: 0px;
   background-color: transparent;
-  color: rgb(255, 63, 108);
+  color: var(--dynamic-app-color);
   padding: 0px;
   cursor: pointer;
 }
@@ -471,7 +471,7 @@ mat-spinner {
   font-weight: 700;
   border-radius: 2px;
   border-width: 0px;
-  background-color: rgb(255, 63, 108);
+  background-color: var(--dynamic-app-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
@@ -609,8 +609,8 @@ div.details-details {
 
 .dialogs-base-selected {
   font-weight: 700;
-  color: #ff3f6c;
-  border-color: #ff3f6c !important;
+  color: var(--dynamic-app-color);
+  border-color: var(--dynamic-app-color) !important;
 }
 
 .css-cilza6 {
@@ -623,7 +623,7 @@ div.details-details {
   font-weight: 700;
   border-radius: 2px;
   border-width: 0px;
-  background-color: rgb(255, 63, 108);
+  background-color: var(--dynamic-app-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
@@ -643,7 +643,7 @@ div.details-details {
   right: 10px;
   cursor: pointer;
 }
-
+/* 
 @media (max-width: 1206px) {
   .cart-container {
     width: 85%;
@@ -721,4 +721,4 @@ div.details-details {
   .price-details {
     width: 100%;
   }
-}
+} */

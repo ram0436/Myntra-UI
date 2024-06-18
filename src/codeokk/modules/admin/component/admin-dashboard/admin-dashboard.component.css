@@ -13,19 +13,19 @@
 }
 
 ::ng-deep .custom-chip.selected {
-  background-color: #ff3f6c !important;
+  background-color: var(--dynamic-app-color) !important;
   color: #fff !important;
 }
 
 .mat-mdc-standard-chip.mat-mdc-chip-selected.mat-primary {
   --mdc-chip-disabled-label-text-color: white;
-  --mdc-chip-elevated-container-color: #ff3f6c;
-  --mdc-chip-elevated-disabled-container-color: #ff3f6c;
-  --mdc-chip-focus-state-layer-color: #ff3f6c;
+  --mdc-chip-elevated-container-color: var(--dynamic-app-color);
+  --mdc-chip-elevated-disabled-container-color: var(--dynamic-app-color);
+  --mdc-chip-focus-state-layer-color: var(--dynamic-app-color);
 }
 
 .mat-mdc-progress-bar {
-  --mdc-linear-progress-active-indicator-color: #ff3f6c;
+  --mdc-linear-progress-active-indicator-color: var(--dynamic-app-color);
   --mdc-linear-progress-track-color: rgba(63, 81, 181, 0.25);
 }
 
@@ -77,11 +77,11 @@
 }
 
 .option-heading:hover {
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
 }
 
 .section:hover {
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
   cursor: pointer;
 }
 
@@ -100,7 +100,7 @@
 }
 
 .option-heading.active {
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
 }
 
 .section {
@@ -108,7 +108,7 @@
 }
 
 .section.active {
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
 }
 
 .section-content {
@@ -163,7 +163,7 @@ mat-form-field {
 }
 
 .send-feedback {
-  background-color: #ff3e6c !important;
+  background-color: var(--dynamic-app-color) !important;
   color: #fff !important;
 }
 
@@ -287,7 +287,7 @@ mat-form-field {
   position: absolute;
   top: 78px;
   width: 89%;
-  background-color: #ff3e6c;
+  background-color: var(--dynamic-app-color);
   color: white;
   font-size: 12px;
   font-weight: 500;
@@ -319,7 +319,7 @@ mat-form-field {
 }
 
 .expanded {
-  color: #ff3e6c;
+  color: var(--dynamic-app-color);
 }
 
 .toggle-section {

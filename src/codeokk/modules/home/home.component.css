@@ -6,7 +6,7 @@
 }
 
 .mat-mdc-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: #ff3f6c;
+  --mdc-circular-progress-active-indicator-color: var(--dynamic-app-color);
 }
 
 .spinner__loading {
