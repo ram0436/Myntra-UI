@@ -173,7 +173,7 @@
                         >clear</span
                       >
                       <div class="dialog-base-header">Select Size</div>
-                      <div class="dialogs-base-qtyList">
+                      <!-- <div class="dialogs-base-qtyList">
                         <div
                           *ngFor="let size of getProductSizes(selectedProduct)"
                           (click)="selectSize(size)"
@@ -184,6 +184,24 @@
                           class="dialogs-base-item"
                         >
                           <div class="dialogs-base-display">{{ size }}</div>
+                        </div>
+                      </div> -->
+                      <div class="dialogs-base-qtyList">
+                        <div
+                          *ngFor="
+                            let sizeDetail of selectedProduct?.productSizeDetails
+                          "
+                          (click)="selectSize(sizeDetail)"
+                          [ngClass]="{
+                            'dialogs-base-selected':
+                              sizeDetail.id === selectedSize
+                          }"
+                          class="dialogs-base-item"
+                        >
+                          <div class="dialogs-base-display">
+                            {{ sizeDetail.size }}
+                            <!-- <span *ngIf="sizeDetail.price"> - {{ sizeDetail.price | currency }}</span> -->
+                          </div>
                         </div>
                       </div>
                       <button

@@ -13,4 +13,5 @@ export class Common {
   inStock: boolean = true;
   productImageList: { id: number; imageURL: any }[] = [];
   selectedDiscountId: number | null = 0;
+  productSizeMappingsList: any[] = [];
 }

@@ -5,6 +5,9 @@ import { UserService } from "src/codeokk/modules/user/service/user.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { LoginComponent } from "../user/component/login/login.component";
+import { forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
+import { MasterService } from "../service/master.service";
 
 @Component({
   selector: "app-product-details",
@@ -34,12 +37,16 @@ export class ProductDetailsComponent {
   currentImageUrl: string = "";
   currentImageIndex: number = 0;
 
+  sizesMap: Map<number, string> = new Map();
+  sizes: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private masterService: MasterService
   ) {}
 
   ngOnInit() {
@@ -198,16 +205,114 @@ export class ProductDetailsComponent {
     });
   }
 
+  getAllProductSizes() {
+    this.masterService.getAllProductSize().subscribe((res: any) => {
+      this.sizes = res;
+      this.sizesMap = this.createSizeMap(res);
+    });
+  }
+
+  createSizeMap(sizes: any[]) {
+    const map = new Map();
+    sizes.forEach((size: any) => {
+      map.set(size.id, size.size);
+    });
+    return map;
+  }
+
+  // Function to get product details and size information
   getPostDetails(code: any) {
     this.productService.getProductByProductCode(code).subscribe((res: any) => {
       if (res && res.description) {
         res.description = res.description.replace(/\n/g, "<br/>");
       }
       this.productDetails = res;
+
+      // Ensure all sizes are fetched before proceeding
+      this.getAllProductSizes();
+      this.fetchSizeDetails(this.productDetails.productSizeMappingList);
+
       this.getRatingData(this.productDetails.id);
-      // this.isLoading = false;
     });
   }
+
+  // Function to fetch size details and update product details
+  fetchSizeDetails(sizeMappingList: any[]) {
+    const sizeDetailRequests = sizeMappingList.map((mapping) =>
+      this.productService.getProductSizebyProductId(mapping.productId)
+    );
+
+    forkJoin(sizeDetailRequests).subscribe((responses: any[]) => {
+      this.productDetails.productSize = [];
+
+      responses.forEach((sizeDetailsArray, index) => {
+        const productId = sizeMappingList[index].productId;
+        const productSizeId = sizeMappingList[index].productSizeId;
+
+        const sizes = sizeDetailsArray.map((sizeDetail: any) => {
+          const sizeId = this.findSizeIdBySize(sizeDetail.size);
+          return {
+            size: sizeDetail.size,
+            price: sizeDetail.price,
+            id: sizeId || null,
+          };
+        });
+
+        this.productDetails.productSize = [
+          ...this.productDetails.productSize,
+          ...sizes,
+        ];
+      });
+
+      this.productDetails.productSize = this.removeDuplicateSizes(
+        this.productDetails.productSize
+      );
+    });
+  }
+
+  // Utility function to find size ID by size description
+  findSizeIdBySize(size: string) {
+    for (let [id, sizeDescription] of this.sizesMap.entries()) {
+      if (sizeDescription === size) {
+        return id;
+      }
+    }
+    return null;
+  }
+
+  // Utility function to remove duplicate sizes
+  removeDuplicateSizes(sizes: any[]) {
+    const uniqueSizes = sizes.reduce((acc, current) => {
+      const x = acc.find((item: any) => item.size === current.size);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    return uniqueSizes;
+  }
+
+  // fetchSizeDetails(sizeMappingList: any[]) {
+  //   const sizeDetailRequests = sizeMappingList.map((mapping) =>
+  //     this.productService.getProductSizebyProductId(mapping.productId)
+  //   );
+
+  //   forkJoin(sizeDetailRequests).subscribe((responses) => {
+  //     this.productDetails.productSize = sizeMappingList.map(
+  //       (mapping, index) => {
+  //         const sizeDetailsArray = responses[index];
+  //         const sizeDetail = sizeDetailsArray.find(
+  //           (detail: any) => detail.size === mapping.productSizeId
+  //         );
+  //         return {
+  //           ...sizeDetail,
+  //           id: mapping.productSizeId,
+  //         };
+  //       }
+  //     );
+  //   });
+  // }
 
   toggleModal() {
     this.showModal = !this.showModal;

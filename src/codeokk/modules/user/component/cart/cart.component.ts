@@ -3,6 +3,9 @@ import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "../../service/user.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { Observable, forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
+import { MasterService } from "src/codeokk/modules/service/master.service";
 
 @Component({
   selector: "app-cart",
@@ -35,20 +38,63 @@ export class CartComponent {
 
   isLoading: Boolean = true;
 
+  sizesMap: Map<number, string> = new Map();
+  sizes: any[] = [];
+  productSizeDetails: any[] = [];
+
   constructor(
     private productService: ProductService,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private masterService: MasterService
   ) {}
 
   ngOnInit() {
+    this, this.getAllProductSizes();
     this.getUserCartData();
     this.userService.placeOrder$.subscribe(() => {
       localStorage.removeItem("cart");
       localStorage.removeItem("orderDetails");
       this.removeSelectedProducts(this.selectedProducts);
     });
+  }
+
+  getAllProductSizes() {
+    this.masterService.getAllProductSize().subscribe((res: any) => {
+      this.sizes = res;
+      this.sizesMap = this.createSizeMap(res);
+    });
+  }
+
+  createSizeMap(sizes: any[]) {
+    const map = new Map();
+    sizes.forEach((size: any) => {
+      map.set(size.id, size.size);
+    });
+    return map;
+  }
+
+  findSizeIdBySize(size: string) {
+    for (let [id, sizeDescription] of this.sizesMap.entries()) {
+      if (sizeDescription === size) {
+        return id;
+      }
+    }
+    return null;
+  }
+
+  // Utility function to remove duplicate sizes
+  removeDuplicateSizes(sizes: any[]) {
+    const uniqueSizes = sizes.reduce((acc, current) => {
+      const x = acc.find((item: any) => item.size === current.size);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    return uniqueSizes;
   }
 
   removeProducts() {
@@ -99,9 +145,10 @@ export class CartComponent {
     this.showQtyModal = !this.showQtyModal;
   }
 
-  selectSize(size: string) {
+  selectSize(sizeDetail: any) {
     if (this.selectedProduct) {
-      this.selectedProduct.size = size;
+      this.selectedProduct.size = sizeDetail.size;
+      this.selectedSize = sizeDetail.id;
     }
   }
 
@@ -202,15 +249,54 @@ export class CartComponent {
           const productDetails = Array.isArray(dashboardResponse)
             ? dashboardResponse[0]
             : dashboardResponse;
-          this.cartProducts.push({
-            ...productDetails,
-            cartId: cartItem.id,
-            quantity: 1,
-          });
+          // this.cartProducts.push({
+          //   ...productDetails,
+          //   cartId: cartItem.id,
+          //   quantity: 1,
+          // });
+          this.fetchSizeDetails(productDetails, cartItem.id);
         }
       },
       (dashboardError: any) => {}
     );
+  }
+  fetchSizeDetails(productDetails: any, cartItemId: number) {
+    const sizeDetailRequests: Observable<any[]>[] =
+      productDetails.productSizeMappingList.map((mapping: any) =>
+        this.productService.getProductSizebyProductId(mapping.productId)
+      );
+
+    forkJoin(sizeDetailRequests).subscribe((responses: any[]) => {
+      let productSizeDetails: any[] = [];
+
+      responses.forEach((sizeDetailsArray, index) => {
+        const mapping = productDetails.productSizeMappingList[index];
+        sizeDetailsArray.forEach((sizeDetail: any) => {
+          const sizeId = this.findSizeIdBySize(sizeDetail.size);
+
+          const existingSize = productSizeDetails.find(
+            (item) => item.size === sizeDetail.size
+          );
+
+          if (!existingSize) {
+            productSizeDetails.push({
+              id: sizeId,
+              size: sizeDetail.size,
+              price: sizeDetail.price,
+            });
+            productSizeDetails = this.removeDuplicateSizes(productSizeDetails);
+          }
+        });
+      });
+
+      this.cartProducts.push({
+        ...productDetails,
+        cartId: cartItemId,
+        productSizeDetails,
+        quantity: 1,
+      });
+      console.log(this.cartProducts);
+    });
   }
 
   getImageUrl(product: any): string {

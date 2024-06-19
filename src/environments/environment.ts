@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: "https://mintra.azurewebsites.net/api/",
+  baseUrl: "https://clothwear2-api.azurewebsites.net/api/",
 };

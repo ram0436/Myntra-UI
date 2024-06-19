@@ -425,7 +425,8 @@
             <mat-form-field>
               <mat-label>Select Product Size</mat-label>
               <mat-select
-                [(ngModel)]="productPayload.productSizeId"
+                [(ngModel)]="productPayload.productSizeMappingsList"
+                multiple
                 name="productSizeId"
               >
                 <mat-option *ngFor="let size of sizes" [value]="size.id">
