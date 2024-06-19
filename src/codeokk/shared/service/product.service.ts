@@ -70,4 +70,10 @@ export class ProductService {
   getAppColor() {
     return this.http.get<any[]>(`${this.BaseURL}Master/GetAllColor`);
   }
+
+  getProductSizebyProductId(productId: number) {
+    return this.http.get<any[]>(
+      `${this.BaseURL}Product/GetProductSizeByProductId?productId=${productId}`
+    );
+  }
 }

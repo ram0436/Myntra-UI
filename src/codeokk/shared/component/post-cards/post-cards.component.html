@@ -80,11 +80,16 @@
               <h4 class="product-sizes">
                 Sizes:
                 <span
-                  *ngFor="let size of product.productSize; let i = index"
+                  *ngFor="
+                    let sizeDetail of product.productSizeDetails;
+                    let i = index
+                  "
                   class="size"
                 >
-                  {{ size.size
-                  }}<span *ngIf="i < product.productSize.length - 1">, </span>
+                  {{ sizeDetail.size
+                  }}<span *ngIf="i < product.productSizeDetails.length - 1"
+                    >,
+                  </span>
                 </span>
               </h4>
               <h4 class="product-price">
@@ -217,14 +222,19 @@
           <div class="dialog-base-header">Select Size</div>
           <div class="dialogs-base-qtyList">
             <div
-              *ngFor="let size of selectedProduct?.productSize"
-              (click)="selectSize($event, size.id)"
+              *ngFor="let sizeDetail of selectedProduct?.productSizeDetails"
+              (click)="selectSize($event, sizeDetail.id)"
               [ngClass]="{
-                'dialogs-base-selected': size.id === selectedSize
+                'dialogs-base-selected': sizeDetail.id === selectedSize
               }"
               class="dialogs-base-item"
             >
-              <div class="dialogs-base-display">{{ size.size }}</div>
+              <div class="dialogs-base-display">
+                {{ sizeDetail.size }}
+                <!-- <span *ngIf="sizeDetail.price">
+                  - {{ sizeDetail.price | currency }}</span
+                > -->
+              </div>
             </div>
           </div>
           <button

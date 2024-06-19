@@ -7,10 +7,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MasterService } from "src/codeokk/modules/service/master.service";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
-import { Observable, forkJoin, map, startWith } from "rxjs";
+import { Observable, forkJoin, startWith } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
 import { Common } from "src/codeokk/shared/model/CommonPayload";
+import { map } from "rxjs/operators";
 
 interface Brand {
   id: number;
@@ -99,6 +100,8 @@ export class AdminDashboardComponent {
 
   expandedCategories: { [key: number]: boolean } = {};
 
+  selectedProductSizeIds: number[] = [];
+
   constructor(
     private masterService: MasterService,
     private snackBar: MatSnackBar,
@@ -175,7 +178,7 @@ export class AdminDashboardComponent {
         this.productPayload.productSubCategoryId = data.subCategory[0]?.id || 0;
         this.productPayload.productBrandId = data.brand[0]?.id || 0;
         this.productPayload.productColorId = data.color[0]?.id || 0;
-        this.productPayload.productSizeId = data.productSize[0]?.id || 0;
+        // this.productPayload.productSizeId = data.productSize[0]?.id || 0;
         this.productPayload.productCode = data.productCode;
         this.productPayload.productPrice = data.price;
         this.productPayload.tags = data.tagList || [];
@@ -187,6 +190,11 @@ export class AdminDashboardComponent {
           })
         );
         this.productPayload.selectedDiscountId = data.discount[0]?.id || null;
+        this.productPayload.productSizeMappingsList =
+          data.productSizeMappingList.map(
+            (mapping: any) => mapping.productSizeId
+          );
+        console.log(this.productPayload.productSizeMappingsList);
       });
   }
 
@@ -226,10 +234,17 @@ export class AdminDashboardComponent {
   loadInitialPayload() {
     let discountId: number | null = this.productPayload.selectedDiscountId;
 
-    // If no discount is selected, set it to 0 or handle as needed
     if (discountId === null) {
-      discountId = 0; // or any other default value
+      discountId = 0;
     }
+
+    const productSizeMappingsList =
+      this.productPayload.productSizeMappingsList.map((sizeId: number) => ({
+        id: 0,
+        productId: this.product.id || 0,
+        productSizeId: sizeId,
+        price: this.productPayload.productPrice,
+      }));
 
     this.payload = {
       createdBy: Number(localStorage.getItem("id")),
@@ -245,7 +260,7 @@ export class AdminDashboardComponent {
       brandId: this.productPayload.productBrandId,
       price: this.productPayload.productPrice,
       colorId: this.productPayload.productColorId,
-      productSizeId: this.productPayload.productSizeId,
+      productSizeMappingsList: productSizeMappingsList,
       discountId: discountId,
       tagList: this.productPayload.tags,
       id: this.product.id || 0,
@@ -292,7 +307,7 @@ export class AdminDashboardComponent {
       this.showNotification("Price is required");
     } else if (!payload.colorId) {
       this.showNotification("Color ID is required");
-    } else if (!payload.productSizeId) {
+    } else if (payload.productSizeMappingsList <= 0) {
       this.showNotification("Product size ID is required");
     } else if (payload.tagList.length <= 0) {
       this.showNotification("At least 1 tag is required");
