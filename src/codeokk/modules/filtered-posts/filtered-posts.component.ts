@@ -2,7 +2,8 @@ import { Component, HostListener } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { MasterService } from "../service/master.service";
-import { filter } from "rxjs";
+import { Observable, filter, forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-filtered-posts",
@@ -39,6 +40,8 @@ export class FilteredPostsComponent {
   isScreenSmall: boolean = false;
 
   isLoading: Boolean = true;
+
+  sizesMap: Map<number, string> = new Map();
 
   constructor(
     private route: ActivatedRoute,
@@ -111,6 +114,7 @@ export class FilteredPostsComponent {
   getAllProductSizes() {
     this.masterService.getAllProductSize().subscribe((res: any) => {
       this.sizes = res;
+      this.sizesMap = this.createSizeMap(res);
     });
   }
 
@@ -374,7 +378,77 @@ export class FilteredPostsComponent {
       this.masterService.setBrandsData({
         brands: uniqueBrands,
       });
+
+      this.products.forEach((product) => {
+        this.fetchSizeDetails(product);
+      });
+
       this.isLoading = false;
     });
+  }
+
+  createSizeMap(sizes: any[]) {
+    const map = new Map();
+    sizes.forEach((size: any) => {
+      map.set(size.id, size.size);
+    });
+    return map;
+  }
+
+  fetchSizeDetails(productDetails: any) {
+    const sizeDetailRequests: Observable<any[]>[] =
+      productDetails.productSizeMappingList.map((mapping: any) =>
+        this.productService.getProductSizebyProductId(mapping.productId)
+      );
+
+    forkJoin(sizeDetailRequests).subscribe((responses: any[]) => {
+      let productSizeDetails: any[] = [];
+
+      responses.forEach((sizeDetailsArray, index) => {
+        const mapping = productDetails.productSizeMappingList[index];
+        sizeDetailsArray.forEach((sizeDetail: any) => {
+          const sizeId = this.findSizeIdBySize(sizeDetail.size);
+
+          const existingSize = productSizeDetails.find(
+            (item) => item.size === sizeDetail.size
+          );
+
+          if (!existingSize) {
+            productSizeDetails.push({
+              id: sizeId,
+              size: sizeDetail.size,
+              price: sizeDetail.price,
+            });
+            productSizeDetails = this.removeDuplicateSizes(productSizeDetails);
+          }
+        });
+      });
+
+      productDetails.productSizeDetails = productSizeDetails;
+
+      this.isLoading = false;
+    });
+  }
+
+  findSizeIdBySize(size: string) {
+    for (let [id, sizeDescription] of this.sizesMap.entries()) {
+      if (sizeDescription === size) {
+        return id;
+      }
+    }
+    return null;
+  }
+
+  // Utility function to remove duplicate sizes
+  removeDuplicateSizes(sizes: any[]) {
+    const uniqueSizes = sizes.reduce((acc, current) => {
+      const x = acc.find((item: any) => item.size === current.size);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    return uniqueSizes;
   }
 }
