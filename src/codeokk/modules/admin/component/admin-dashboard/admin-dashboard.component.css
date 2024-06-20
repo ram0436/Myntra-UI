@@ -17,6 +17,22 @@
   color: #fff !important;
 }
 
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full {
+  background: var(--dynamic-app-color) !important;
+}
+
+::ng-deep
+  .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled)
+  .mdc-list-item__primary-text {
+  color: var(--dynamic-app-color) !important;
+}
+
+::ng-deep
+  .mat-primary
+  .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+  color: var(--dynamic-app-color) !important;
+}
+
 .mat-mdc-standard-chip.mat-mdc-chip-selected.mat-primary {
   --mdc-chip-disabled-label-text-color: white;
   --mdc-chip-elevated-container-color: var(--dynamic-app-color);
