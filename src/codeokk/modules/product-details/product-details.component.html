@@ -1,17 +1,31 @@
 <div class="product-details-container">
+  <!-- product-details.component.html -->
   <div class="image-container display-lg">
     <ng-container
       *ngFor="let image of productDetails?.productImageList; let i = index"
     >
-      <div class="img-grid zoomable">
+      <div
+        class="img-grid zoomable"
+        (mouseenter)="onMouseEnter($event, i)"
+        (mousemove)="onMouseMove($event, i)"
+        (mouseleave)="onMouseLeave($event, i)"
+      >
         <img
           [src]="image?.imageURL || 'assets/no-img.png'"
           alt="Product Image {{ i + 1 }}"
-          (click)="openFullscreen(i)"
+          #imageElement
         />
+        <!-- <button
+          class="try-btn"
+          (click)="tryAtHome(image.imageURL)"
+          *ngIf="i == 0"
+        >
+          Try at Home
+        </button> -->
       </div>
     </ng-container>
   </div>
+
   <div class="image-container display-md">
     <div class="img-grid">
       <img

@@ -1,5 +1,14 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  QueryList,
+  Renderer2,
+  ViewChild,
+  ViewChildren,
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ProductService } from "src/codeokk/shared/service/product.service";
 import { UserService } from "src/codeokk/modules/user/service/user.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -40,13 +49,18 @@ export class ProductDetailsComponent {
   sizesMap: Map<number, string> = new Map();
   sizes: any[] = [];
 
+  @ViewChildren("imageElement") imageElements!: QueryList<ElementRef>;
+  currentRects: DOMRect[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private userService: UserService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private masterService: MasterService
+    private masterService: MasterService,
+    private router: Router,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -57,6 +71,38 @@ export class ProductDetailsComponent {
     if (productCode != null) {
       this.getPostDetails(productCode);
     }
+  }
+
+  onMouseEnter(event: MouseEvent, index: number) {
+    const img = this.imageElements.toArray()[index].nativeElement;
+    img.style.setProperty("--zoom", "2.5");
+  }
+
+  onMouseMove(event: MouseEvent, index: number) {
+    const img = this.imageElements.toArray()[index].nativeElement;
+    const rect = img.getBoundingClientRect();
+
+    if (rect) {
+      const x = rect.left;
+      const y = rect.top;
+      const width = rect.width;
+      const height = rect.height;
+
+      const horizontal = ((event.clientX - x) / width) * 100;
+      const vertical = ((event.clientY - y) / height) * 100;
+
+      img.style.setProperty("--x", `${horizontal}%`);
+      img.style.setProperty("--y", `${vertical}%`);
+    }
+  }
+
+  onMouseLeave(event: MouseEvent, index: number) {
+    const img = this.imageElements.toArray()[index].nativeElement;
+    img.style.setProperty("--zoom", "1");
+  }
+
+  tryAtHome(imageUrl: string) {
+    this.router.navigate(["/try-at-home"], { queryParams: { imageUrl } });
   }
 
   openFullscreen(index: number): void {
