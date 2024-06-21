@@ -32,6 +32,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AdminModule } from "./modules/admin/admin.module";
 import { MatDialogModule } from "@angular/material/dialog";
 import { JwtInterceptor } from "./modules/auth/interceptor/JwtInterceptor";
+import { TryAtHomeComponent } from './modules/try-at-home/try-at-home.component';
+import { ArViewComponent } from './modules/ar-view/ar-view.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { JwtInterceptor } from "./modules/auth/interceptor/JwtInterceptor";
     HomeComponent,
     FilteredPostsComponent,
     ProductDetailsComponent,
+    TryAtHomeComponent,
+    ArViewComponent,
   ],
   imports: [
     BrowserModule,

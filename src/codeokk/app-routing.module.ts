@@ -4,11 +4,15 @@ import { HomeComponent } from "./modules/home/home.component";
 import { FilteredPostsComponent } from "./modules/filtered-posts/filtered-posts.component";
 import { ProductDetailsComponent } from "./modules/product-details/product-details.component";
 import { AuthGuard } from "./modules/auth/authguard/authguard";
+import { TryAtHomeComponent } from "./modules/try-at-home/try-at-home.component";
+import { ArViewComponent } from "./modules/ar-view/ar-view.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "filtered-posts", component: FilteredPostsComponent },
   { path: "product-details/:id", component: ProductDetailsComponent },
+  { path: "try-at-home", component: TryAtHomeComponent },
+  { path: "ar-view", component: ArViewComponent },
   {
     path: "admin",
     loadChildren: () =>
