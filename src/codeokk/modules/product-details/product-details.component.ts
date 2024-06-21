@@ -75,7 +75,7 @@ export class ProductDetailsComponent {
 
   onMouseEnter(event: MouseEvent, index: number) {
     const img = this.imageElements.toArray()[index].nativeElement;
-    img.style.setProperty("--zoom", "2.5");
+    img.style.setProperty("--zoom", "4.5");
   }
 
   onMouseMove(event: MouseEvent, index: number) {
